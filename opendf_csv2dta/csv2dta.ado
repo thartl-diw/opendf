@@ -18,7 +18,7 @@
 *! csv2dta.ado: loads data from csvs including meta data to build a stata dataset
 *! version 0.1 February, 14 2024 - first draft
 program define csv2dta
-	*version 0.1
+	version 0.1
 	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR]
 	local replaceit 0
 		if (`"`replace'"' != "") local replaceit 1

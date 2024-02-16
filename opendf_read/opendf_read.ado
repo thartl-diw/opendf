@@ -19,7 +19,7 @@
 *! version 0.1 February, 14 2024 - first draft
 
 program define opendf_read
-	*version 0.1
+	version 0.1
 	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR]
 
     local languages "all"
