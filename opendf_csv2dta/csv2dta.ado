@@ -20,7 +20,6 @@
 program define csv2dta
 	*version 0.1
 	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR]
-
 	local replaceit 0
 		if (`"`replace'"' != "") local replaceit 1
 		
@@ -147,9 +146,15 @@ program define csv2dta
 			*save value of value label as local
 			local _var`n_variable_to_label'_value`nvalues' = value in `i'
 			*save english and German label of value as local
-
-			local _var`n_variable_to_label'_label_de`nvalues' = label_de in `i'
-			local _var`n_variable_to_label'_label_en`nvalues' = label_en in `i'
+			foreach x of varlist _all{
+				if strpos("`x'", "label")>0{
+					local _label_language = subinstr("`x'", "label_", "", .)
+					local _label_language = strupper("`_label_language'")
+					local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+				}
+			}
+			
+			
 		}
 		if(`i'>1){
 			local j = `i'-1
@@ -158,8 +163,13 @@ program define csv2dta
 			if ("`actual_var'" == "`last_var'"){
 				local nvalues=`nvalues'+1
 				local _var`n_variable_to_label'_value`nvalues' = value in `i'
-				local _var`n_variable_to_label'_label_de`nvalues' = label_de in `i'
-				local _var`n_variable_to_label'_label_en`nvalues' = label_en in `i'			
+				foreach x of varlist _all{
+					if strpos("`x'", "label")>0{
+						local _label_language = subinstr("`x'", "label_", "", .)
+						local _label_language = strupper("`_label_language'")
+						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+					}
+				}		
 			}
 			if ("`actual_var'" != "`last_var'"){
 				local _var`n_variable_to_label'_nvals = `nvalues'
@@ -167,8 +177,13 @@ program define csv2dta
 				local n_variable_to_label=`n_variable_to_label'+1
 				local _varname`n_variable_to_label' = "`actual_var'"
 				local _var`n_variable_to_label'_value`nvalues' = value in `i'
-				local _var`n_variable_to_label'_label_de`nvalues' = label_de in `i'
-				local _var`n_variable_to_label'_label_en`nvalues' = label_en in `i'
+				foreach x of varlist _all{
+					if strpos("`x'", "label")>0{
+						local _label_language = subinstr("`x'", "label_", "", .)
+						local _label_language = strupper("`_label_language'")
+						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+					}
+				}
 			}
 		}
 		if (`i'==`nvalue_labels'){
@@ -176,20 +191,29 @@ program define csv2dta
 		}
 	}
 
-
-
+	
 	*Import Data
 	quietly: import delimited "`csv_loc'\data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear
-	quietly: label language EN, rename
-	quietly: label language DE, new
+	local default_renamed=0
+	local language_counter=0
 
 	*assign dataset labels and characteristics
-	forvalues i=1(1)`dataset_nchar' {
+	forvalues i=1/`dataset_nchar' {
 			if (strpos("`dataset_char`i'_name'", "label")>0){
 				local label_language = subinstr("`dataset_char`i'_name'", "label_", "", .)
 				local label_language = strupper("`label_language'")
-				label language `label_language'
-				label data "`dataset_char`i'_label'"
+				if `default_renamed'==1 {
+					quietly: label language `label_language', new
+					local language_counter=`language_counter'+1
+					local _language`language_counter'="`label_language'"
+				}
+				if `default_renamed'==0 {
+					quietly: label language `label_language', rename
+					local default_renamed=1
+					local language_counter=`language_counter'+1
+					local _language`language_counter'="`label_language'"
+				}
+				quietly: label data "`dataset_char`i'_label'"
 			}
 		if (strpos("`dataset_char`i'_name'", "label")==0){
 			char _dta[`dataset_char`i'_name'] "`dataset_char`i'_label'"
@@ -226,17 +250,19 @@ program define csv2dta
 	}
 		
 		
-
 	*Build value labels from locals
 	forvalues i=1/`n_variable_to_label'{
 		forvalues j=1/`_var`i'_nvals'{
 			if (`j'==1){
-				label define _var`i'_labels_de `_var`i'_value`j'' "`_var`i'_label_de`j''"
-				label define _var`i'_labels_en `_var`i'_value`j'' "`_var`i'_label_en`j''"
+				forvalues l = 1/`language_counter'{
+					label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''" 
+					
+				}
 			}
 			if `j'>1 {
-				label define _var`i'_labels_de `_var`i'_value`j'' "`_var`i'_label_de`j''", add
-				label define _var`i'_labels_en `_var`i'_value`j'' "`_var`i'_label_en`j''", add
+				forvalues lan = 1/`language_counter'{
+					label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''", add
+				}
 			}
 		}
 	}
@@ -248,10 +274,10 @@ program define csv2dta
 			di "Warning: Variable `_varname`i'' not labelled because it is a string variable."
 		}
 		if strpos("`_variable_type'", "str") != 1 {
-		quietly: label language DE
-		quietly: label values `_varname`i'' _var`i'_labels_de
-		quietly: label language EN
-		quietly: label values `_varname`i'' _var`i'_labels_en
+			forvalues l = 1/`language_counter'{
+				quietly label language `language`l''
+				quietly: label values `_varname`i'' _var`i'_labels_`language`l''
+			}
 		}
 		
 	}
