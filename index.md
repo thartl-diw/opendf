@@ -7,7 +7,7 @@ opendf: Stata ados from DIW Berlin / GSOEP
 # Stata
 
 ## Install
-net install opendf, from(https://github.com/thartl-diw/opendf/)
+net install opendf, from(https://thartl-diw.github.io/opendf/)
 
 ## Update
 adoupdate opendf, update
