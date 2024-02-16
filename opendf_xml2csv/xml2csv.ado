@@ -21,6 +21,24 @@
 program define xml2csv
     syntax, input_zip(string) languages(string)
 	local input_zip = subinstr("`input_zip'", "\", "/", .)
+    *import python file from package to stata
+    *get location of ado files
+    local plus_path c(sysdir_plus)
+    *create folder for py scripts in ado-folder
+    capture mkdir "``plus_path''py"
+    *create a string with the location of the folder for the py scripts and a string with the location including the name for the downloaded python script
+    local _loc_py "``plus_path''py"
+    local _loc_py "subinstr("`_loc_py'", "/", "\", .)"
+    local _path_as_string: di `_loc_py'
+    local _path_to_new_py_file "`_path_as_string'\xml2csv.py"
+    local _path_to_py_ado "subinstr("`_path_as_string'", "\", "/", .)"
+    local _path_as_string: di `_path_to_py_ado'
+    local _path_to_py_ado `_path_as_string'
+    di "`_path_to_py_ado'"
+    di "`_path_to_new_py_file'"
+    local linkToPy https://thartl-diw.github.io/opendf/xml2csv.py
+    copy `linkToPy' `_path_to_new_py_file'
+    
     python: import os
     python: from sfi import Macro
     python: Macro.setGlobal('output_dir', os.environ["TEMP"])
@@ -31,8 +49,8 @@ end
 python:
 
 import sys
-
-sys.path.append('C:/Users/thartl/ado/plus/py')
+from sfi import Macro
+sys.path.append(Macro.getLocal('_path_to_py_ado'))
 
 import xml2csv
 def exec_xml2csv(input_zip, languages):
