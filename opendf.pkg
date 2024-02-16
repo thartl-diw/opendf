@@ -1,3 +1,4 @@
+v 0.1
 d opendf
 d
 d The opendf package helps to work with data in the opendf format, an open source data format that enables to store plenty of meta data. 
