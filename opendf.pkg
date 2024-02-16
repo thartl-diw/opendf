@@ -1,0 +1,29 @@
+d opendf
+d
+d The opendf package helps to work with data in the opendf format, an open source data format that enables to store plenty of meta data. 
+d The data is stored in a zip-folder containing a csv-file with the data and a xml-file with the meta data.
+d The package provides three main functions
+d opendf_read loads a dataset in the opendf-format into stata.
+d (see https://github.com/THartl1/opendf/) 
+d
+d Requires: Stata version 15
+d Requires: Python (Versions depends on Stata version, for Stata version 16 or 17, Python version 3.9 or lower is needed, for Stata 18, newer Python versions work as well)
+d
+d Distribution-Date: 20240301
+d
+d Author: Tom Hartl
+d Support: thartl@diw.de
+
+
+* version 0.1 01 March 2024 - pre release
+
+f opendf_read/opendf_read.ado
+f opendf_read/opendf_read.sthlp
+f opendf_csv2dta/csv2dta.ado
+f opendf_csv2dta/csv2dta.sthlp
+*f opendf_write
+*f opendf_write
+f opendf_xml2csv/xml2csv.ado
+f opendf_xml2csv/xml2csv.ado
+*f opendf_docu
+*f opendf_docu

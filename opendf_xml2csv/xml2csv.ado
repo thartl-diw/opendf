@@ -1,0 +1,45 @@
+/*----------------------------------------------------------------------------------
+  xml2csv.ado: builds csv files containing data and meta data from a zip-folder containing a data-csv and a meta data xml using python scripts
+    Copyright (C) 2024  Tom Hartl (thartl@diw.de)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
+
+-----------------------------------------------------------------------------------*/
+*! xml2csv.ado: loads data from csvs including meta data to build a stata dataset
+*! version 1.0 March, 1st 2024 - initial release
+
+program define xml2csv
+    syntax, input_zip(string) languages(string)
+	local input_zip = subinstr("`input_zip'", "\", "/", .)
+    python: import os
+    python: from sfi import Macro
+    python: Macro.setGlobal('output_dir', os.environ["TEMP"])
+    python: exec_xml2csv(input_zip="`input_zip'", languages="`languages'")
+
+end
+
+python:
+
+import sys
+
+sys.path.append('C:/Users/thartl/ado/plus/py')
+
+import xml2csv
+def exec_xml2csv(input_zip, languages):
+    from sfi import Macro
+    import os
+    temp_dir = os.environ["TEMP"]
+    input_zip = Macro.getLocal('input_zip')
+    languages = Macro.getLocal('languages')
+    xml2csv.make_csvs(input_zip, temp_dir, Macro.getLocal('languages'))
+end
