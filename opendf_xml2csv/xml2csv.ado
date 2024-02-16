@@ -19,7 +19,6 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define xml2csv
-    version 0.1
     syntax, input_zip(string) languages(string)
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     *import python file from package to stata
