@@ -37,7 +37,7 @@ program define xml2csv
     di "`_path_to_py_ado'"
     di "`_path_to_new_py_file'"
     local linkToPy https://thartl-diw.github.io/opendf/xml2csv.py
-    copy `linkToPy' `_path_to_new_py_file'
+    copy `linkToPy' `_path_to_new_py_file', replace
     
     python: import os
     python: from sfi import Macro
