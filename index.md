@@ -1,5 +1,5 @@
 ---
-title: Stata ados from DIW Berlin / GSOEP
+opendf: Stata ados from DIW Berlin / GSOEP
 ---
 
 # Attention: beta-status!
@@ -7,7 +7,7 @@ title: Stata ados from DIW Berlin / GSOEP
 # Stata
 
 ## Install
-net install opendf, from(https://github.com/THartl1/opendf/)
+net install opendf, from(https://github.com/thartl-diw/opendf/)
 
 ## Update
 adoupdate opendf, update
