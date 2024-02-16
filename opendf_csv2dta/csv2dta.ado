@@ -271,7 +271,7 @@ program define csv2dta
 	forvalues i=1/`n_variable_to_label'{
 		local _variable_type : type `_varname`i''
 		if strpos("`_variable_type'", "str") == 1 {
-			di "Warning: Variable `_varname`i'' not labelled because it is a string variable."
+			di "Warning: The variable `_varname`i'' not labelled because it is a string variable."
 		}
 		if strpos("`_variable_type'", "str") != 1 {
 			forvalues l = 1/`language_counter'{
