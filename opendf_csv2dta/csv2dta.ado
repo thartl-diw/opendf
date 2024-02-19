@@ -148,7 +148,6 @@ program define csv2dta
 			foreach x of varlist _all{
 				if strpos("`x'", "label")>0{
 					local _label_language = subinstr("`x'", "label_", "", .)
-					local _label_language = strlower("`_label_language'")
 					local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
 				}
 			}
@@ -165,7 +164,6 @@ program define csv2dta
 				foreach x of varlist _all{
 					if strpos("`x'", "label")>0{
 						local _label_language = subinstr("`x'", "label_", "", .)
-						local _label_language = strlower("`_label_language'")
 						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
 					}
 				}		
@@ -179,7 +177,6 @@ program define csv2dta
 				foreach x of varlist _all{
 					if strpos("`x'", "label")>0{
 						local _label_language = subinstr("`x'", "label_", "", .)
-						local _label_language = strlower("`_label_language'")
 						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
 					}
 				}
@@ -200,7 +197,6 @@ program define csv2dta
 	forvalues i=1/`dataset_nchar' {
 			if (strpos("`dataset_char`i'_name'", "label")>0){
 				local _label_language = subinstr("`dataset_char`i'_name'", "label_", "", .)
-				local _label_language = strlower("`_label_language'")
 				if `default_renamed'==1 {
 					quietly: label language `_label_language', new
 					local language_counter=`language_counter'+1
@@ -228,7 +224,6 @@ program define csv2dta
 				}
 			if strpos("`_var`i'_char_name`j''", "label")>0{
 					local _label_language = subinstr("`_var`i'_char_name`j''", "label_", "", .)
-					local _label_language = strlower("`_label_language'")
 					capture label language `_label_language'
 					if _rc == 111{
 						quietly: label language `_label_language', new
