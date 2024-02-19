@@ -136,7 +136,7 @@ program define csv2dta
 	*loop over each value label (each row of dataset)
 	forvalues i=1/`nvalue_labels'{
 		if (`i'==1){
-			*coutnter for number of variables to label
+			*counter for number of variables to label
 			local n_variable_to_label=1
 			*counter for number of value label for this variable
 			local nvalues=1
@@ -144,11 +144,17 @@ program define csv2dta
 			local _varname`n_variable_to_label' = variable in `i'
 			*save value of value label as local
 			local _var`n_variable_to_label'_value`nvalues' = value in `i'
-			*save english and German label of value as local
+			*save language label of value as local
 			foreach x of varlist _all{
 				if strpos("`x'", "label")>0{
-					local _label_language = subinstr("`x'", "label_", "", .)
-					local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+					if ("`x'" == "label"){
+						local _var`n_variable_to_label'_label`nvalues' = `x'[`i']
+					} 
+					else {
+						local _label_language = subinstr("`x'", "label_", "", .)
+						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+					}
+					
 				}
 			}
 			
@@ -163,8 +169,13 @@ program define csv2dta
 				local _var`n_variable_to_label'_value`nvalues' = value in `i'
 				foreach x of varlist _all{
 					if strpos("`x'", "label")>0{
-						local _label_language = subinstr("`x'", "label_", "", .)
-						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+						if ("`x'" == "label"){
+							local _var`n_variable_to_label'_label`nvalues' = `x'[`i']
+						} 
+						else {
+							local _label_language = subinstr("`x'", "label_", "", .)
+							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+						}
 					}
 				}		
 			}
@@ -176,8 +187,13 @@ program define csv2dta
 				local _var`n_variable_to_label'_value`nvalues' = value in `i'
 				foreach x of varlist _all{
 					if strpos("`x'", "label")>0{
-						local _label_language = subinstr("`x'", "label_", "", .)
-						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+						if ("`x'" == "label"){
+							local _var`n_variable_to_label'_label`nvalues' = `x'[`i']
+						} 
+						else {
+							local _label_language = subinstr("`x'", "label_", "", .)
+							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+						}
 					}
 				}
 			}
@@ -196,25 +212,30 @@ program define csv2dta
 	*assign dataset labels and characteristics
 	forvalues i=1/`dataset_nchar' {
 			if (strpos("`dataset_char`i'_name'", "label")>0){
-				local _label_language = subinstr("`dataset_char`i'_name'", "label_", "", .)
-				if `default_renamed'==1 {
-					quietly: label language `_label_language', new
-					local language_counter=`language_counter'+1
-					local _language`language_counter'="`_label_language'"
+				if ("`dataset_char`i'_name'"=="label"){
+					label data "`dataset_char`i'_label'"
 				}
-				if `default_renamed'==0 {
-					quietly: label language `_label_language', rename
-					local default_renamed=1
-					local language_counter=`language_counter'+1
-					local _language`language_counter'="`_label_language'"
+				else {
+					local _label_language = subinstr("`dataset_char`i'_name'", "label_", "", .)
+					if `default_renamed'==1 {
+						quietly: label language `_label_language', new
+						local language_counter=`language_counter'+1
+						local _language`language_counter'="`_label_language'"
+					}
+					if `default_renamed'==0 {
+						quietly: label language `_label_language', rename
+						local default_renamed=1
+						local language_counter=`language_counter'+1
+						local _language`language_counter'="`_label_language'"
+					}
+					quietly: label data "`dataset_char`i'_label'"
 				}
-				quietly: label data "`dataset_char`i'_label'"
+				
 			}
 		if (strpos("`dataset_char`i'_name'", "label")==0){
 			char _dta[`dataset_char`i'_name'] "`dataset_char`i'_label'"
 		}
-	}	
-
+	}
 
 	*assign variable labels and characteristics
 	forvalues i=1(1)`_nvar' {
@@ -223,15 +244,21 @@ program define csv2dta
 				local _varcode="`_var`i'_char_label`j''"
 				}
 			if strpos("`_var`i'_char_name`j''", "label")>0{
-					local _label_language = subinstr("`_var`i'_char_name`j''", "label_", "", .)
-					capture label language `_label_language'
-					if _rc == 111{
-						quietly: label language `_label_language', new
-						local language_counter=`language_counter'+1
-						local _language`language_counter'="`_label_language'"
-						di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
+					if ("`_var`i'_char_name`j''"=="label"){
+						label var `_varcode' "`_var`i'_char_label`j''"
 					}
-					quietly: label var `_varcode' "`_var`i'_char_label`j''"
+					if ("`_var`i'_char_name`j''"!="label"){
+						local _label_language = subinstr("`_var`i'_char_name`j''", "label_", "", .)
+						capture label language `_label_language'
+						if _rc == 111{
+							quietly: label language `_label_language', new
+							local language_counter=`language_counter'+1
+							local _language`language_counter'="`_label_language'"
+							di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
+						}
+						quietly: label var `_varcode' "`_var`i'_char_label`j''"
+					}
+					
 					
 				}
 			if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
@@ -253,18 +280,30 @@ program define csv2dta
 	forvalues i=1/`n_variable_to_label'{
 		forvalues j=1/`_var`i'_nvals'{
 			if (`j'==1){
-				forvalues l = 1/`language_counter'{
-					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''" 
+				if `language_counter'>0{
+					forvalues l = 1/`language_counter'{
+						if "`_var`i'_label`j'_lan`_language`l'''" != ""{
+							label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''" 
+						}
 					}
 				}
+				else {
+					label define _var`i'_labels `_var`i'_value`j'' "`_var`i'_label`j''"
+				}
+				
 			}
 			if `j'>1 {
-				forvalues l = 1/`language_counter'{
-					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''", add
+				if `language_counter'>0{
+					forvalues l = 1/`language_counter'{
+						if "`_var`i'_label`j'_lan`_language`l'''" != ""{
+							label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''", add
+						}
 					}
 				}
+				else {
+					label define _var`i'_labels `_var`i'_value`j'' "`_var`i'_label`j''", add
+				}
+				
 			}
 		}
 	}
@@ -276,20 +315,25 @@ program define csv2dta
 			di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
 		}
 		if strpos("`_variable_type'", "str") != 1 {
-			forvalues l = 1/`language_counter'{
-				label language `_language`l''
-				capture label list _var`i'_labels_`_language`l''
-				if (_rc == 111) {
-					di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
-				}
-				if (_rc == 0) {
-					label values `_varname`i'' _var`i'_labels_`_language`l''
+			if `language_counter'>0{
+				forvalues l = 1/`language_counter'{
+					label language `_language`l''
+					capture label list _var`i'_labels_`_language`l''
+					if (_rc == 111) {
+						di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
+					}
+					if (_rc == 0) {
+						label values `_varname`i'' _var`i'_labels_`_language`l''
+					}
 				}
 			}
+			else {
+				label values `_varname`i'' _var`i'_labels
+			}
+			
 		}
 		
 	}
-
 	if `saveit'==1 {
 		quietly: save `"`save'"', `replace'
 	}
