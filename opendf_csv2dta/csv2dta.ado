@@ -233,16 +233,7 @@ program define csv2dta
 					quietly: label var `_varcode' "`_var`i'_char_label`j''"
 					
 				}
-			if strpos("`_var`i'_char_name`j''", "url")>0{
-				if strpos("`_var`i'_char_label`j''", "www.")>0{
-					char `_varcode'[`_var`i'_char_name`j''] "{browse `_var`i'_char_label`j''}"
-					
-				}
-				if strpos("`_var`i'_char_label`j''", "www.")==0 {
-					char `_varcode'[`_var`i'_char_name`j''] "`_var`i'_char_label`j''"
-				}
-			}
-			if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")>0 & strpos("`_var`i'_char_name`j''", "url")==0 {
+			if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")>0 {
 				char `_varcode'[`_var`i'_char_name`j''] "`_var`i'_char_label`j''"
 			}
 		}
@@ -270,7 +261,7 @@ program define csv2dta
 	forvalues i=1/`n_variable_to_label'{
 		local _variable_type : type `_varname`i''
 		if strpos("`_variable_type'", "str") == 1 {
-			di "Warning: The variable `_varname`i'' not labelled because it is a string variable."
+			di "Warning: The variable `_varname`i'' was not labelled because it is a string variable."
 		}
 		if strpos("`_variable_type'", "str") != 1 {
 			forvalues l = 1/`language_counter'{
