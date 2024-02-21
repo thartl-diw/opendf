@@ -60,13 +60,6 @@ program define csv2dta
 	*local csv_loc $csv_loc
 	*Directory where to save csvs
 	quietly: import delimited "`csv_loc'\dataset.csv", varnames(1) case(preserve) encoding(UTF-8) `clear'
-	*remove all quotation marks (") from labels
-	foreach v of varlist _all{
-		if strpos("`_variable_type'", "str") == 1 {
-			replace `v' = subinstr(`v', char(34), "", .)
-		}
-	}
-
 
 	gen char_name="char_label"
 	order char_name
@@ -87,12 +80,6 @@ program define csv2dta
 
 
 	quietly: import delimited "`csv_loc'\variables.csv", varnames(1) case(preserve) encoding(UTF-8) clear
-	*remove all quotation marks (") from labels
-	foreach v of varlist _all{
-		if strpos("`_variable_type'", "str") == 1 {
-			replace `v' = subinstr(`v', char(34), "", .)
-		}
-	}
 
 	local _nvar = _N
 	quietly: tempfile variables_orig_tempfile
@@ -122,12 +109,7 @@ program define csv2dta
 	 	
 	 *Import variable value labels
 	quietly: import delimited "`csv_loc'\categories.csv", varnames(1) case(preserve) encoding(UTF-8) clear
-	foreach v of varlist _all{
-		local _variable_type : type `v'
-		if strpos("`_variable_type'", "str") == 1 {
-			quietly: replace `v' = subinstr(`v', char(34), "", .)
-		}
-	}
+
 	*save row numbers (number of value labels)
 	local nvalue_labels=`r(N)'
 
