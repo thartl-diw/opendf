@@ -74,4 +74,19 @@ program define opendf_docu
     display "URL: "
     display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
     if "`_output'"=="variable" display "Variable Type: {p 20 20}`_type'{p_end}"
+    if "`_output'"=="variable"{
+		capture local _lblname: value label `input'
+		if "`_lblname'"!= "" {
+			display "Value Labels:"
+			quietly label list `_lblname'
+			forvalues _val=`r(min)'/`r(max)'{
+				quietly local _lbl: label `_lblname' `_val'
+				if ("`_lbl'" != "`_val'") {
+					display `"{p 20 20}`_val' :  `_lbl'{p_end}"'
+				}
+			}
+		}
+	}
+
 end
+
