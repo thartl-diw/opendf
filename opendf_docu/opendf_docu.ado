@@ -72,7 +72,10 @@ program define opendf_docu
     display "Label: {p 20 20}`_label'{p_end}"
     display "Description: {p 20 20}`_descr'{p_end}"
     display "URL: "
-    display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
+    if "`url'" != "" {
+        display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
+    }
+    else di ""
     if "`_output'"=="variable" display "Variable Type: {p 20 20}`_type'{p_end}"
     if "`_output'"=="variable"{
 		capture local _lblname: value label `input'
