@@ -19,7 +19,7 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define dta2csv
-    syntax, [input(string)]
+    syntax, languages(string) [input(string)]
 		if (`"`input'"' != "") {
 			capture quietly use "`input'"
 			di as error "Error: `input' is not a valid dataset. Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
@@ -32,8 +32,12 @@ program define dta2csv
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
 
-
-	local _languages: char _dta[_lang_list]
+	if ("`languages'" == "all") {
+		local _languages: char _dta[_lang_list]
+	}
+	else {
+		local _languages: `languages`
+	}
 	local dataset : char _dta[dataset]
 	local url : char _dta[url]
 	local description : char _dta[description]
@@ -248,7 +252,7 @@ program define dta2csv
 			quietly: if `=r(N)' == `_nvar' drop `var' 
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
-	quietly: export delimited "`c(tmpdir)'categories_new", replace
+	quietly: export delimited "`c(tmpdir)'categories", replace
 	quietly: use `datatempfile', clear
 end
 
