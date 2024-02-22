@@ -19,11 +19,10 @@ d Support: thartl@diw.de
 
 f opendf_read/opendf_read.ado
 f opendf_read/opendf_read.sthlp
+f opendf_write/opendf_write.ado
+f opendf_docu/opendf_docu.ado
+f opendf_xml2csv/xml2csv.ado
 f opendf_csv2dta/csv2dta.ado
 f opendf_csv2dta/csv2dta.sthlp
-*f opendf_write
-*f opendf_write
-f opendf_xml2csv/xml2csv.ado
-f opendf_xml2csv/xml2csv.ado
-*f opendf_docu
-*f opendf_docu
+f opendf_dta2csv/dta2csv.ado
+f opendf_csv2xml/csv2xml.ado
