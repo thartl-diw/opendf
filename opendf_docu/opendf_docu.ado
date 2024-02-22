@@ -72,7 +72,7 @@ program define opendf_docu
     display "Label: {p 20 20}`_label'{p_end}"
     display "Description: {p 20 20}`_descr'{p_end}"
     display "URL: "
-    if "`url'" != "" {
+    if "`_url'" != "" {
         display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
     }
     else di ""
