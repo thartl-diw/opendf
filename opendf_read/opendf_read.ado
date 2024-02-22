@@ -22,7 +22,6 @@ program define opendf_read
 	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR]
     *If the data.zip is a web path, the data is downloaded to the temp-folder
     if strpos("`input'", "http")>0 | strpos("`input'", "www.")>0{
-        di "test"
 		local _tempdir "`c(tmpdir)'"
 	    local _path_to_data `"`_tempdir'data.zip"'
 	    quietly: copy `input' `_path_to_data', replace
