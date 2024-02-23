@@ -21,7 +21,6 @@ program define csv2xml
     syntax, output(string) input(string) variables_arg(string) export_data(string)
     local output_dir = subinstr("`output'", "\", "/", .)
     local input_dir = subinstr("`input'", "\", "/", .)
-    getpythonscripts
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
     
