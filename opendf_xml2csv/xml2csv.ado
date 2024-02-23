@@ -22,7 +22,6 @@ program define xml2csv
     syntax, input_zip(string) languages(string)
     local input_zip = subinstr("`input_zip'", "\", "/", .)
 
-    getpythonscripts
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
     python: import os
