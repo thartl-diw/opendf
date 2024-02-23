@@ -21,41 +21,18 @@
 program define xml2csv
     syntax, input_zip(string) languages(string)
     local input_zip = subinstr("`input_zip'", "\", "/", .)
-    *import python file from package to stata
-    *get location of ado files
-    local plus_path c(sysdir_plus)
-    *create folder for py scripts in ado-folder
-    capture mkdir "``plus_path''py"
-    *create a string with the location of the folder for the py scripts and a string with the location including the name for the downloaded python script
-    local _loc_py "``plus_path''py"
-    local _loc_py "subinstr("`_loc_py'", "/", "\", .)"
-    local _path_as_string: di `_loc_py'
-    local _path_to_new_py_file "`_path_as_string'\xml2csv.py"
-    local _path_to_py_ado "subinstr("`_path_as_string'", "\", "/", .)"
-    local _path_as_string: di `_path_to_py_ado'
-    local _path_to_py_ado `_path_as_string'
-    local linkToPy https://thartl-diw.github.io/opendf/xml2csv.py
-    quietly: copy `linkToPy' `_path_to_new_py_file', replace
-    
+
+    getpythonscripts
+    local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
+    local _path_to_py_ado: di `_path_to_py_ado'
     python: import os
     python: from sfi import Macro
     python: Macro.setGlobal('output_dir', os.environ["TEMP"])
-    python: exec_xml2csv(input_zip="`input_zip'", languages="`languages'")
+    python: input_zip=Macro.setLocal('input_zip')
+    python: languages=Macro.setLocal('languages')
+    python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
+    python: import xml2csv
+    python: import exec_xml2csv
+    python: exec_xml2csv.exec_xml2csv(input_zip=input_zip, languages=languages)
 
-end
-
-python:
-
-import sys
-from sfi import Macro
-sys.path.append(Macro.getLocal('_path_to_py_ado'))
-
-import xml2csv
-def exec_xml2csv(input_zip, languages):
-    from sfi import Macro
-    import os
-    temp_dir = os.environ["TEMP"]
-    input_zip = Macro.getLocal('input_zip')
-    languages = Macro.getLocal('languages')
-    xml2csv.make_csvs(input_zip, temp_dir, Macro.getLocal('languages'))
 end
