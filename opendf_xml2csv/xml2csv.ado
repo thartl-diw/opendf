@@ -28,8 +28,8 @@ program define xml2csv
     python: import os
     python: from sfi import Macro
     python: Macro.setGlobal('output_dir', os.environ["TEMP"])
-    python: input_zip=Macro.setLocal('input_zip')
-    python: languages=Macro.setLocal('languages')
+    python: input_zip=Macro.getLocal('input_zip')
+    python: languages=Macro.getLocal('languages')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import xml2csv
     python: import exec_xml2csv
