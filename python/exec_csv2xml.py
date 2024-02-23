@@ -1,4 +1,4 @@
-def exec_csv2xml(input_dir, output_dir, ):
+def exec_csv2xml(input_dir, output_dir):
     from sfi import Macro
     import os
     import csv2xml
