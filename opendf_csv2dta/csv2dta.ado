@@ -52,60 +52,38 @@ program define csv2dta
 
 
 	*replace backlashes with lashes
-	local csv_loc: subinstr local csv_loc "\" "`c(dirsep)'", all
+	quietly: local csv_loc: subinstr local csv_loc "\" "`c(dirsep)'", all
 
-	*to transpose dataset with string data and keep variable names
-	cap ssc install sxpose2
 
-	*local csv_loc $csv_loc
 	*Directory where to save csvs
 	quietly: import delimited "`csv_loc'\dataset.csv", varnames(1) case(preserve) encoding(UTF-8) `clear'
 
-	gen char_name="char_label"
-	order char_name
-	quietly: sxpose2, clear firstnames varname force
-	rename _varname char_name
-	*global dataset_chars char_name char_label char_number
-
-
-
-	*Create global macros for each characteristic of the dataset
 	*count number of characteristics
-	local dataset_nchar = _N
-	*loop over each characteristic (row)
-	forvalues i=1(1)`dataset_nchar' {
-	local dataset_char`i'_name=char_name in `i'
-	local dataset_char`i'_label=char_label in `i'
+	local dataset_nchar = 0
+	*loop over each characteristic (column)
+	*The name of characteristic 1 is saved in local macro dataset_char1_name
+	*The value of characteristic 1 is saved in local macro dataset_char1_label
+	foreach var of varlist _all {
+		local dataset_nchar = `dataset_nchar'+1
+		local dataset_char`dataset_nchar'_name = "`var'"
+		local dataset_char`dataset_nchar'_label = `var' in 1
 	}
 
 
 	quietly: import delimited "`csv_loc'\variables.csv", varnames(1) case(preserve) encoding(UTF-8) clear
-
+	*number of variables
 	local _nvar = _N
-	quietly: tempfile variables_orig_tempfile
-	quietly: save `variables_orig_tempfile'
-	local i=1
+	*loop over each variable (row)
 	forvalues i=1(1)`_nvar' {
-		quietly: keep in `i'
-
-		gen char_name="char_label"
-		order char_name
-		quietly: sxpose2, clear firstnames varname force
-		rename _varname char_name
-		*Create global macros for each characteristic of the dataset
-		*count number of characteristics
-		local _var`i'nchar = _N
-
-		forvalues j=1(1)`_var`i'nchar' {
-			local _var`i'_char_name`j'=char_name in `j'
-			local _var`i'_char_label`j'=char_label in `j'
+		*counter for number of characteristics
+		local _nchar = 0
+		*loop over each characteristic (column)
+		foreach var of varlist _all {
+			local _nchar = `_nchar'+1
+			local _var`i'_char_name`_nchar'= "`var'"
+			local _var`i'_char_label`_nchar'= `var' in `i'
 		}
-
-		use `variables_orig_tempfile', clear
 	}
-	 
-	 
-	 
 	 	
 	 *Import variable value labels
 	quietly: import delimited "`csv_loc'\categories.csv", varnames(1) case(preserve) encoding(UTF-8) clear
