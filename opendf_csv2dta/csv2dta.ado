@@ -78,6 +78,8 @@ program define csv2dta
 		*counter for number of characteristics
 		local _nchar = 0
 		*loop over each characteristic (column)
+		*The name of characteristic 1 of variable 1 is saved in local macro _var1_char_name1
+		*The value of characteristic 1 of variable 1 is saved in local macro _var1_char_label1
 		foreach var of varlist _all {
 			local _nchar = `_nchar'+1
 			local _var`i'_char_name`_nchar'= "`var'"
