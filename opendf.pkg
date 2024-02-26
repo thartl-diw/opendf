@@ -26,7 +26,6 @@ f opendf_csv2dta/csv2dta.ado
 f opendf_csv2dta/csv2dta.sthlp
 f opendf_dta2csv/dta2csv.ado
 f opendf_csv2xml/csv2xml.ado
-f opendf_getpythonscripts/getpythonscripts.ado
 f python/xml2csv.py
 f python/csv2xml.py
 f python/exec_xml2csv.py
