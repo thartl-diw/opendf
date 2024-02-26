@@ -27,6 +27,7 @@ program define xml2csv
     local _path_to_py_ado: di `_path_to_py_ado'
     python: import os
     python: from sfi import Macro
+    python: import sys
     python: Macro.setGlobal('output_dir', os.environ["TEMP"])
     python: input_zip=Macro.getLocal('input_zip')
     python: languages=Macro.getLocal('languages')
