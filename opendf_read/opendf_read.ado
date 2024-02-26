@@ -19,7 +19,7 @@
 *! version 0.1 February, 14 2024 - first draft
 
 program define opendf_read
-	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR]
+	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]
     *If the data.zip is a web path, the data is downloaded to the temp-folder
     if strpos("`input'", "http")>0 | strpos("`input'", "www.")>0{
 		local _tempdir "`c(tmpdir)'"
@@ -35,5 +35,5 @@ program define opendf_read
     local input_zip="`input'"
     
     xml2csv , input_zip(`input_zip') languages(`languages')
-    csv2dta, csv_loc($output_dir) save(`save') `replace' `clear'
+    csv2dta, csv_loc($output_dir) save(`save') `replace' `clear' `verbose'
 end
