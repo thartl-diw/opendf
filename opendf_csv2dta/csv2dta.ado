@@ -18,7 +18,7 @@
 *! csv2dta.ado: loads data from csvs including meta data to build a stata dataset
 *! version 0.1 February, 14 2024 - first draft
 program define csv2dta
-	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR]
+	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR VERBOSE]
 	local replaceit 0
 		if (`"`replace'"' != "") local replaceit 1
 		
@@ -50,6 +50,10 @@ program define csv2dta
 		local save `save'
 	}
 
+	local verboseit 0
+	if (`"`verbose'"' != "") {
+		local verboseit 1
+	}
 
 	*replace backlashes with lashes
 	quietly: local csv_loc: subinstr local csv_loc "\" "`c(dirsep)'", all
@@ -216,7 +220,7 @@ program define csv2dta
 							quietly: label language `_label_language', new
 							local language_counter=`language_counter'+1
 							local _language`language_counter'="`_label_language'"
-							di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
+							if `verboseit'==1 di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
 						}
 						quietly: label var `_varcode' "`_var`i'_char_label`j''"
 					}
@@ -233,7 +237,7 @@ program define csv2dta
 			quietly: label language `_language`l''
 			local _varlabel : variable label `var'
 			if "`_varlabel'" == ""{
-				di "{red: Warning: No Label defined for Variable{it: `var'} for Language{it: `_language`l''}.}"
+				if `verboseit'==1 di "{red: Warning: No Label defined for Variable{it: `var'} for Language{it: `_language`l''}.}"
 			}
 		}
 	}
@@ -274,7 +278,7 @@ program define csv2dta
 	forvalues i=1/`n_variable_to_label'{
 		local _variable_type : type `_varname`i''
 		if strpos("`_variable_type'", "str") == 1 {
-			di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
+			if `verboseit'==1 di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
 		}
 		if strpos("`_variable_type'", "str") != 1 {
 			if `language_counter'>0{
@@ -282,7 +286,7 @@ program define csv2dta
 					label language `_language`l''
 					capture label list _var`i'_labels_`_language`l''
 					if (_rc == 111) {
-						di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
+						if `verboseit'==1 di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
 					}
 					if (_rc == 0) {
 						label values `_varname`i'' _var`i'_labels_`_language`l''
