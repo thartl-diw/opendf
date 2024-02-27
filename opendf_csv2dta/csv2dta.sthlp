@@ -1,11 +1,12 @@
 {smcl}
-{* *! version 1.0.0  17oct2020}{...}
-{vieweralsosee "xml2csv" "help xml2csv"}{...}
-{vieweralsosee "" "--"}{...}
-{viewerjumpto "Syntax" "sxpose2##syntax"}{...}
-{viewerjumpto "Description" "sxpose2##description"}{...}
-{viewerjumpto "Options" "xpose##options"}{...}
-{viewerjumpto "Examples" "xpose##examples"}{...}
+{* *! version 1.0.0  27feb2024}{...}
+{vieweralsosee "opendf_read" "help opendf_read"}{...}
+{vieweralsosee "opendf_write" "help opendf_write"}{...}
+{vieweralsosee "opendf_docu" "help opendf_docu"}{...}
+{viewerjumpto "Syntax" "csv2dta##syntax"}{...}
+{viewerjumpto "Description" "csv2dta##description"}{...}
+{viewerjumpto "Options" "csv2dta##options"}{...}
+{viewerjumpto "Examples" "csv2dta##examples"}{...}
 help for {cmd:csv2dta}{right:version 1.0 (13 Feb 2024)}
 {hline}
 
@@ -13,7 +14,7 @@ csv2dta
 {title:Title}
 
 {phang}
-{bf:csv2dta} {hline 2} builds a stata dataset (.dta) from csv files containing meta data for survey data {p_end}
+{bf:csv2dta} {hline 2} builds a stata dataset (.dta) from csv files containing meta data for survey data. {p_end}
 
 
 {marker syntax}
@@ -21,14 +22,15 @@ csv2dta
 {p 8 17 2}
 {cmd:csv2dta} 
 {it:csv_loc}
-[{cmd:,} {opt clear} {opt save()} {opt replace}]
+[{cmd:,} {opt clear} {opt save()} {opt replace} {opt clear} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
 {synoptline}
 {synopt :{opt clear}}allows you to clear dataset in memory {p_end}
-{synopt :{opth save(string)}}save data to desired filepath and filename {p_end}
+{synopt :{opth save(string)}}save data to desired filepath and filename. {p_end}
 {synopt :{opt replace}}overwriting former saved file {p_end}
+{synopt :{opt verbose}}More warnings are displayed. {p_end}
 {synoptline}
 
 
@@ -36,18 +38,22 @@ csv2dta
 {title:Description}
 
 {pstd}
-{cmd:csv2dta} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics {p_end}
-
+{cmd:csv2dta} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
 {pstd}
-The dataset is stored in the format of the original dataset. Metadata is saved as labels or in the characteristics. {p_end}
-
+{opt csv_loc} is a path to a folder where 4 csvs have to be included that contain data and metadata. {p_end}
+{pstd}The file containing the data has to be named data.csv {p_end}
+{pstd}The file containing the metadata for the datset has to be named dataset.csv {p_end}
+{pstd}The file containing the metadata for the variables has to be named variables.csv {p_end}
+{pstd}The file containing the metadata for the values has to be named categories.csv {p_end}
+{pstd} Metadata information is saved as labels or characteristics. {p_end}
 {pstd}
 {opt clear} specifies that it is okay to replace the data in memory, even though the current data have not been saved to disk.{p_end}
-
 {pstd}
 {opt replace} overwrite existing reshaped competency dataset.{break}
-If option {opt replace} is specified, a former saved file will be overwritten.
-{p_end}
+If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
+{pstd}
+{opt save} stores data to a desired filepath and filename.{break}
+If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
 
 {pstd}
 {opt save} stores data to a desired filepath and filename.{break}
@@ -64,41 +70,21 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}reshapes competency data from wide to long without saving data {browse "https://doi.org/10.5157/NEPS:SC4:12.0.0":doi:10.5157/NEPS:SC4:12.0.0}:{p_end}
-{phang}{cmd:. comp2long "C:/NEPS/SC4/12-0-0/SC4_xTargetCompetencies_D_12-0-0.dta"}{p_end}
-
-{phang}reshapes competency data from wide to long without saving data and clears existing dataset in memory {browse "https://doi.org/10.5157/NEPS:SC4:12.0.0":doi:10.5157/NEPS:SC4:12.0.0}:{p_end}
-{phang}{cmd:. comp2long "C:/NEPS/SC4/12-0-0/SC4_xTargetCompetencies_D_12-0-0.dta", clear}{p_end}
-
-{phang}reshapes competency data from wide to long, saving and replacing data {browse "https://doi.org/10.5157/NEPS:SC4:12.0.0":doi:10.5157/NEPS:SC4:12.0.0}:{p_end}
-{phang}{cmd:. comp2long "C:/NEPS/SC4/12-0-0/SC4_xTargetCompetencies_D_12-0-0.dta", save("Y:/NEPS_workingdata/SC4/pTargetCompetencies.dta") replace} {p_end}
-
-{phang}reshapes competency data from wide to long, saving and replacing data and harmonizes variable names of scored items {browse "https://doi.org/10.5157/NEPS:SC4:12.0.0":doi:10.5157/NEPS:SC4:12.0.0}:{p_end}
-{phang}{cmd:. comp2long "C:/NEPS/SC4/12-0-0/SC4_xTargetCompetencies_D_12-0-0.dta", save("Y:/NEPS_workingdata/SC4/pTargetCompetencies.dta") replace harmonize} {p_end}
-
-{phang}reshapes competency data from wide to long, saving and replacing data, harmonizes variable names of scored items and keeps only scored harmonized variables {browse "https://doi.org/10.5157/NEPS:SC4:12.0.0":doi:10.5157/NEPS:SC4:12.0.0}:{p_end}
-{phang}{cmd:. comp2long "C:/NEPS/SC4/12-0-0/SC4_xTargetCompetencies_D_12-0-0.dta", save("Y:/NEPS_workingdata/SC4/pTargetCompetencies.dta") replace harmonize onlyharmonized} {p_end}
+{phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
+{phang}{cmd:. csv2dta, output("out")}{p_end}
 
 
-{marker limitations}
-{title:Limitations}
-
-{phang}use {bf:comp2long} {ul:{bf:before}} you use {bf:nepsmiss}, otherwise this tool will {bf:crash}!{p_end}
-{phang}This syntax will crash if the same number of cases with wave_wX==0 occurs in two or more wave_wX-variables (e.g. wave_w1 and wave_w4 have equal numbers of non-participating individuals). This is VERY unlikely but yet possible!{p_end}
-
-{pstd}
-{bf: We cannot guarantee that it is usefull to treat all harmonized variables as longitudinal variables.}{p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Dietmar Angerer ({browse "mailto:dietmar.angerer@lifbi.de":dietmar.angerer@lifbi.de}), Leibniz Institute for Educational Trajectories, Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help NEPStools}, {help merge}, {help append}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}{p_end}
