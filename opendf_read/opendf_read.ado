@@ -20,18 +20,20 @@
 
 program define opendf_read
 	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]
-    *If the data.zip is a web path, the data is downloaded to the temp-folder
-    if strpos("`input'", "http")>0 | strpos("`input'", "www.")>0{
+	*If the data.zip is a web path, the data is downloaded to the temp-folder
+	if strpos("`input'", "http")>0 | strpos("`input'", "www.")>0{
 		local _tempdir "`c(tmpdir)'"
-	    local _path_to_data `"`_tempdir'data.zip"'
-	    quietly: copy `input' `_path_to_data', replace
-        local input `_path_to_data'
-    }
-    local languages "all"
+	    	local _path_to_data `"`_tempdir'data.zip"'
+	    	quietly: copy `input' `_path_to_data', replace
+	        local input `_path_to_data'
+	}
+
 	if (`"`languages'"' != "") {
 		local languages `languages'
 	}
-
+	else {
+        	local languages "all"
+    	}
     local input_zip="`input'"
     
     xml2csv , input_zip(`input_zip') languages(`languages') `verbose'
