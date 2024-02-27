@@ -19,9 +19,12 @@
 *! version 0.1 February, 22 2024 - first draft
 
 program define opendf_write
-	syntax, output(string) [input(string) languages(string) variables(string) export_data(string)]
-
-	if (`"`languages'"' == "") {
+	syntax, output(string) [input(string) languages(string) variables(string) export_data(string) VERBOSE]
+  if (c(N) == 0 & c(k)==0) {
+    di as error "no dataset defined"
+    exit
+  }
+  if (`"`languages'"' == "") {
 		local languages "all"
 	}
     if (`"`variables'"' == "") {
@@ -31,6 +34,10 @@ program define opendf_write
 		local export_data "yes"
 	}
     dta2csv, languages(`languages') input(`input')
-    csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data(`export_data')
+    csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data(`export_data') `verbose'
+    **_file** "out.zip"
+    if _rc == 0 {
+      di "Dataset successfully saved in opendf-format."
+    }
 end
 

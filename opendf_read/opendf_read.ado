@@ -34,6 +34,7 @@ program define opendf_read
 
     local input_zip="`input'"
     
-    xml2csv , input_zip(`input_zip') languages(`languages')
+    xml2csv , input_zip(`input_zip') languages(`languages') `verbose'
     csv2dta, csv_loc($output_dir) save(`save') `replace' `clear' `verbose'
 end
+
