@@ -47,16 +47,16 @@ program define csv2xml
     }
     else {
         di "{red: Warning: No working Python version available}"
-        di "{red: 1. To install python visit:}"
-        di `"{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}"'
-        di "{red: 2. If you have a working python version on your PC but Stata doesn't find it automatically, you can activate it manually by indicating which python.exe to use with following command:}"
-        di "{red: {it:set python_exec  C:\...\python.exe}}"
-        di "{red: and retry to run the opendf-function.}"
-        di "{red: 3. If you are using Windows the opendf package also provides a a function that installs a working python version to a specified path or to the directory of stata packages (ado\plus folder).}"
-        di "{red: If you want to install python through the build-in opendf-function, run: {it:opendf_installpython}}"
-        di `"{red: You can specifiy a version with the argument {it:opendf_installpython, version("3.8")}}"'
-        di `"{red: You can specifiy a location to install python with the argument {it:opendf_installpython, location("C:\Program Files\Python\Python3.8")}}"'
-        di `"{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}"'
+      	di "{red: 1. To install python visit:}"
+      	di `"{p 20 20}{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}{p_end}"'
+      	di "{red: 2. If you have a working python version on your PC but Stata doesn't find it automatically, you can activate it manually by indicating which python.exe to use with following command:}"
+      	di "{p 20 20}{red: {it:set python_exec  C:\...\python.exe}}{p_end}"
+      	di "{p 20 20}{red: and retry to run the opendf-function.}{p_end}"
+      	di "{red: 3. If you are using Windows the opendf package also provides a a function that installs a working python version to a specified path or to the directory of stata packages (ado\plus folder).}"
+      	di "{p 20 20}{red: If you want to install python through the build-in opendf-function, run: {it:opendf_installpython}}{p_end}"
+      	di `"{p 20 20}{red: You can specifiy a version with the argument {it:opendf_installpython, version("3.8")}}{p_end}"'
+      	di `"{p 20 20}{red: You can specifiy a location to install python with the argument {it:opendf_installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
+      	di `"{p 20 20}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
     }
     
     local output_dir = subinstr("`output'", "\", "/", .)
