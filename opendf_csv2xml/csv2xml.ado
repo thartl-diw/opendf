@@ -75,6 +75,6 @@ program define csv2xml
     python: import csv2xml
     python: import exec_csv2xml
     python: exec_csv2xml.exec_csv2xml(input_dir=input_dir, output_dir=output_dir)
-
+    shell rd "`output'" /s /q
 end
 
