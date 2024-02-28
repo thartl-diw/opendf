@@ -21,12 +21,13 @@ csv2dta
 {title:Syntax}
 {p 8 17 2}
 {cmd:csv2dta}, 
-{it:csv_loc}
+{it:csv_loc()}
 [{cmd:} {opt clear} {opt save()} {opt replace} {opt clear} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
 {synoptline}
+{synopt :{opt csv_loc(string)}}Indicates location of csvs. {p_end}
 {synopt :{opt clear}}allows you to clear dataset in memory {p_end}
 {synopt :{opth save(string)}}save data to desired filepath and filename. {p_end}
 {synopt :{opt replace}}overwriting former saved file {p_end}
