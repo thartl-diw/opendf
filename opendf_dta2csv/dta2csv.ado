@@ -35,7 +35,7 @@ program define dta2csv
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
 
-	if (`"`languages'"` == "") {
+	if (`"`languages'"' == "") {
 		local languages="all"
 	}
 
