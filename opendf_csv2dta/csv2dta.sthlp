@@ -20,9 +20,9 @@ csv2dta
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:csv2dta} 
+{cmd:csv2dta}, 
 {it:csv_loc}
-[{cmd:,} {opt clear} {opt save()} {opt replace} {opt clear} {opt verbose}]
+[{cmd:} {opt clear} {opt save()} {opt replace} {opt clear} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
