@@ -19,7 +19,7 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define dta2csv
-    syntax, languages(string) [input(string)]
+    syntax, languages(string) [input(string) output_dir(string)]
 		if (`"`input'"' != "") {
 			capture quietly use "`input'"
 			di as error "Error: `input' is not a valid dataset. Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
@@ -27,10 +27,14 @@ program define dta2csv
 		}
 	*Save dataset as data.csv
 	quietly: export delimited "`c(tmpdir)'data",  nolabel replace
+	if (`"`output_dir'"' != "") {
+		quietly: export delimited "`output_dir'\data", replace
+	}
 
 	*save original data as tempfile
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
+
 
 	if ("`languages'" == "all") {
 		local _languages: char _dta[_lang_list]
@@ -82,7 +86,10 @@ program define dta2csv
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'/dataset", replace
-
+	*if output_dir is specified, the csvs are additionally saved in the specified directory
+	if (`"`output_dir'"' != "") {
+		quietly: export delimited "`output_dir'\dataset", replace
+	}
 
 	*******   export variables meta data to variables.csv**************
 
@@ -158,7 +165,11 @@ program define dta2csv
 	}
 	*save variables metadata as variables.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'variables", replace
-
+	*if output_dir is specified, the csvs are additionally saved in the specified directory
+	if (`"`output_dir'"' != "") {
+		quietly: export delimited "`output_dir'\variables", replace
+	}
+	
 
 
 
@@ -253,7 +264,9 @@ program define dta2csv
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'categories", replace
+	*if output_dir is specified, the csvs are additionally saved in the specified directory
+	if (`"`output_dir'"' != "") {
+		quietly: export delimited "`output_dir'\categories", replace
+	}
 	quietly: use `datatempfile', clear
 end
-
-
