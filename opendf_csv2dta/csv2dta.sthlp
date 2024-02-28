@@ -29,7 +29,7 @@ csv2dta
 {synoptline}
 {synopt :{opt csv_loc(string)}}Indicates location of csvs. {p_end}
 {synopt :{opt clear}}allows you to clear dataset in memory {p_end}
-{synopt :{opth save(string)}}save data to desired filepath and filename. {p_end}
+{synopt :{opt save(string)}}save data to desired filepath and filename. {p_end}
 {synopt :{opt replace}}overwriting former saved file {p_end}
 {synopt :{opt verbose}}More warnings are displayed. {p_end}
 {synoptline}
