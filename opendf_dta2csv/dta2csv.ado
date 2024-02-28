@@ -47,17 +47,23 @@ program define dta2csv
 	}
 	local dataset : char _dta[dataset]
 	local url : char _dta[url]
-	local description : char _dta[description]
 	local label = ""
 	if "`_languages'"=="default"{
 		local label : data label
 	}
 	else {
 		foreach l in `_languages'{
-			quietly: local description_`l' : char _dta[description_`l']
-			quietly: label language `l'
-			quietly: local label_`l' : data label
-
+			if ("`l'"=="default"){
+				di "{red: Warning: Label language default is not compatible to opendf-format. Labels and description without language tag might get lost when converting data to opendf-format.}
+				quietly: local description_`l' : char _dta[description]
+				quietly: label language `l'
+				quietly: local label_`l' : data label
+			}
+			else {
+				quietly: local description_`l' : char _dta[description_`l']
+				quietly: label language `l'
+				quietly: local label_`l' : data label
+			}
 		}
 	}
 
@@ -65,16 +71,19 @@ program define dta2csv
 	quietly {
 		set obs 1
 		gen dataset = "`dataset'"
-		*gen url="`url'"
-
-		if (`"`description'"'!= "") gen description = `"`description'"'
 		if "`_languages'"=="default"{
 			gen label = "`label'"
 			}
 		else {
 			foreach l in `_languages'{
-				if "`label_`l''"!="" gen label_`l' = "`label_`l''"
-				if `"`description_`l''"'!= "" gen description_`l' = `"`description_`l''"'
+				if "`l'"=="default"{
+					if "`label_`l''"!="" gen label = "`label_`l''"
+					if `"`description_`l''"'!= "" gen description = `"`description_`l''"'
+				}
+				else {
+					if "`label_`l''"!="" gen label_`l' = "`label_`l''"
+					if `"`description_`l''"'!= "" gen description_`l' = `"`description_`l''"'
+				}
 			}
 		}
 		gen url="`url'"
@@ -86,6 +95,11 @@ program define dta2csv
 			}
 
 		order dataset label* description* url
+	}
+	*drop empty columns/characteristics (e.g. if description_en is available, but not desription, description is droped(since there is no information stored))
+	foreach var of varlist * {
+		qui count if missing(`var')
+		if `=r(N)' == `c(N)' drop `var' 
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'/dataset", replace
@@ -104,12 +118,16 @@ program define dta2csv
 		*create empty dataframe with variables metadata with variables: variable, label, label_`languages', description, description_`l', url, type
 		set obs `_nvar'
 		gen variable=""
-		gen label=""
 		foreach l in `_languages'{
-			gen label_`l'=""
-			gen description_`l'=""
+			if ("`l'"=="default"){
+				gen label=""
+				gen description=""
+			}
+			else {
+				gen label_`l'=""
+				gen description_`l'=""
+			}
 		}
-		gen description=""
 		gen url=""
 		gen type=""
 		order variable label* type description* url
@@ -133,9 +151,17 @@ program define dta2csv
 			}
 			else {
 				foreach l in `_languages'{
-					local description_`l' : char `var'[description_`l']
-					label language `l'
-					local label_`l' : data label
+					if "`l'"=="default"{
+						local description : char `var'[description]
+						label language `l'
+						local label : data label
+					}
+					else {
+						local description_`l' : char `var'[description_`l']
+						label language `l'
+						local label_`l' : data label
+					}
+					
 
 				}
 			}
@@ -150,9 +176,14 @@ program define dta2csv
 			}
 			else {
 				foreach l in `_languages'{
-					replace description_`l' in `_nvar_counter' = "`description_`l''"
-					replace label_`l' in `_nvar_counter' = "`label_`l''"
-
+					if "`l'"=="default"{
+						replace description in `_nvar_counter' = "`description_`l''"
+						replace label in `_nvar_counter' = "`label_`l''"
+					}
+					else {
+						replace description_`l' in `_nvar_counter' = "`description_`l''"
+						replace label_`l' in `_nvar_counter' = "`label_`l''"
+					}
 				}
 			}
 			save `variablestempfile', replace
@@ -199,10 +230,14 @@ program define dta2csv
 		set obs `_nvaluelabels'
 		gen variable=""
 		gen value=.
-		gen label=""
 		if "`_languages'"!="default"{
 			foreach l in `_languages'{
-				gen label_`l'=""
+				if ("`l'"=="default"){
+					gen label=""
+				}
+				else {
+					gen label_`l'=""
+				}
 			}
 		}
 
@@ -225,15 +260,9 @@ program define dta2csv
 						local _nvaluelabel = `_nvaluelabel' + 1
 						local _val`_nvaluelabel'=`_val'
 						foreach l in `_languages'{
-							if "`l'"=="default"{
-								local _lbl`_nvaluelabel'="`_lbl'"
-							}
-							else {
-								quietly label language `l'
-								local _lbl_`l'`_nvaluelabel'="`_lbl'"
-							}
-						}
-						
+							quietly label language `l'
+							local _lbl_`l'`_nvaluelabel'="`_lbl'"
+						}	
 					}
 				}
 				use `categoriestempfile', clear
@@ -263,7 +292,7 @@ program define dta2csv
 	*drop empty columns
 	foreach var of varlist * {
 			quietly: qui count if missing(`var')
-			quietly: if `=r(N)' == `_nvar' drop `var' 
+			quietly: if `=r(N)' == `c(N)' drop `var' 
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'categories", replace
