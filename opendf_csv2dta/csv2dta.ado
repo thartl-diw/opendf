@@ -300,4 +300,5 @@ program define csv2dta
 		di "{red: Warning: Your dataset contains labels and/or descriptions without a language tag. Labels and descriptions without a language tag are not compatible with opendf-format and might get lost when data is saved in opendf-format.}"
 		di "{red: The labels have been assigned to the language default. Check {it: label language} to list defined languages.}"
 	}
+	qui label language `_language1'
 end
