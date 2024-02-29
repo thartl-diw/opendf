@@ -18,7 +18,14 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define csv2xml
-    syntax, output(string) input(string) variables_arg(string) export_data(string) [VERBOSE]
+    syntax, output(string) input(string) [variables_arg(string) export_data(string) VERBOSE]
+    
+    if (`"`export_data'"' == "") {
+		local export_data "yes"
+    }
+    if (`"`variables_arg'"' == "") {
+      local variables_arg "all"
+    }
     local verboseit 0
 	  if (`"`verbose'"' != "") {
 	    local verboseit 1

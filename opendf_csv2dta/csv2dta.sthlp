@@ -71,8 +71,8 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
-{phang}{cmd:. csv2dta, output("out")}{p_end}
+{phang}Builds a stata dataset containing metadata in the characteristics and the labels from the four csvs located in "C:/Documents/Data". {p_end}
+{phang}{cmd:. csv2xml, input("C:/Documents/Data")}{p_end}
 
 
 
@@ -88,4 +88,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu} {help csv2xml}{p_end}
