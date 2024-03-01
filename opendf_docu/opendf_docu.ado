@@ -19,49 +19,48 @@
 *! version 0.1 February, 20 2024 - first draft
 
 program define opendf_docu
-    *input arguments
-    args input
+    *varname arguments
+    args varname
     *get activated label language
     local _currentlanguage: char _dta[_lang_c]
-    *if input is not empty, we assume that input is a variable
-    if (`"`input'"' != "") {
+    *if varname is not empty, we assume that varname is a variable
+    if (`"`varname'"' != "") {
         local _output = "variable"
-        local _name = "`input'"
-        capture local _label : variable label `input'
+        local _name = "`varname'"
+        capture local _label : variable label `varname'
         if _rc==111 {
-            display as error "variable `input' not found"
+            display as error "variable `varname' not found"
             display as error "Enter a valid variable name or execute the opendf_docu without an argument to display the dataset information."
             exit 111
-        } 
-        local _descr: char `input'[description_`_currentlanguage']
+        }
+        local _descr: char `varname'[description_`_currentlanguage']
         if "`_descr'"=="" {
-            local _descr: char `input'[description]
+            local _descr: char `varname'[description]
         }
         if "`_descr'"=="" {
             local mylanguage=strupper("`_currentlanguage'")
-            local _descr: char `input'[description_`mylanguage']
+            local _descr: char `varname'[description_`mylanguage']
         }
             if "`_descr'"=="" {
             local mylanguage=strlower("`_currentlanguage'")
-            local _descr: char `input'[description_`mylanguage']
+            local _descr: char `varname'[description_`mylanguage']
         }
-        local _url: char `input'[url]
-        local _type: char `input'[type]
+        local _url: char `varname'[url]
+        local _type: char `varname'[type]
     }
     else {
         local _output "dataset"
         local _name: char _dta[dataset]
         local _label : data label
-
         local _descr: char _dta[description_`_currentlanguage']
-        if "`_descr'"=="" {
+        if `"`_descr'"'=="" {
             local _descr: char _dta[description]
         }
-        if "`_descr'"=="" {
+        if `"`_descr'"'=="" {
             local mylanguage=strupper("`_currentlanguage'")
             local _descr: char _dta[description_`mylanguage']
         }
-            if "`_descr'"=="" {
+        if `"`_descr'"'=="" {
             local mylanguage=strlower("`_currentlanguage'")
             local _descr: char _dta[description_`mylanguage']
         }
@@ -69,8 +68,8 @@ program define opendf_docu
     }
     if "`_output'"=="variable" display "Variable: {p 20 20}`_name'{p_end}"
     if "`_output'"=="dataset" display "Dataset: {p 20 20}`_name'{p_end}"
-    display "Label: {p 20 20}`_label'{p_end}"
-    display "Description: {p 20 20}`_descr'{p_end}"
+    display `"Label: {p 20 20}`_label'{p_end}"'
+    display `"Description: {p 20 20}`_descr'{p_end}"'
     display "URL: "
     if "`_url'" != "" {
         display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
@@ -78,7 +77,7 @@ program define opendf_docu
     else di ""
     if "`_output'"=="variable" display "Variable Type: {p 20 20}`_type'{p_end}"
     if "`_output'"=="variable"{
-		capture local _lblname: value label `input'
+		capture local _lblname: value label `varname'
 		if "`_lblname'"!= "" {
 			display "Value Labels:"
 			quietly label list `_lblname'
