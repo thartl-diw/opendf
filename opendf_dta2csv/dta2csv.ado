@@ -28,7 +28,7 @@ program define dta2csv
 	*Save dataset as data.csv
 	quietly: export delimited "`c(tmpdir)'data",  nolabel replace
 	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'\data", replace
+		quietly: export delimited "`output_dir'/data", nolabel replace
 	}
 
 	*save original data as tempfile
@@ -43,47 +43,38 @@ program define dta2csv
 		local _languages: char _dta[_lang_list]
 	}
 	else {
-		local _languages: `languages`
+		local _languages: `languages'
 	}
 	local dataset : char _dta[dataset]
 	local url : char _dta[url]
 	local label = ""
-	if "`_languages'"=="default"{
-		local label : data label
-	}
-	else {
-		foreach l in `_languages'{
-			if ("`l'"=="default"){
-				di "{red: Warning: Label language default is not compatible to opendf-format. Labels and description without language tag might get lost when converting data to opendf-format.}
-				quietly: local description_`l' : char _dta[description]
-				quietly: label language `l'
-				quietly: local label_`l' : data label
-			}
-			else {
-				quietly: local description_`l' : char _dta[description_`l']
-				quietly: label language `l'
-				quietly: local label_`l' : data label
-			}
+	local default_exists=0
+	foreach l in `_languages'{
+		if ("`l'"=="default"){
+			di "{red: Warning: Label language default is not compatible to opendf-format. Labels and description without language tag might get lost when converting data to opendf-format.}
+			quietly: local description_`l' : char _dta[description]
+			quietly: label language `l'
+			quietly: local label_`l' : data label
+			local default_exists=1
+		}
+		else {
+			quietly: local description_`l' : char _dta[description_`l']
+			quietly: label language `l'
+			quietly: local label_`l' : data label
 		}
 	}
-
 	clear
 	quietly {
 		set obs 1
 		gen dataset = "`dataset'"
-		if "`_languages'"=="default"{
-			gen label = "`label'"
+		foreach l in `_languages'{
+			if "`l'"=="default"{
+				if "`label_`l''"!="" gen label = "`label_`l''"
+				if `"`description_`l''"'!= "" gen description = `"`description_`l''"'
 			}
-		else {
-			foreach l in `_languages'{
-				if "`l'"=="default"{
-					if "`label_`l''"!="" gen label = "`label_`l''"
-					if `"`description_`l''"'!= "" gen description = `"`description_`l''"'
-				}
-				else {
-					if "`label_`l''"!="" gen label_`l' = "`label_`l''"
-					if `"`description_`l''"'!= "" gen description_`l' = `"`description_`l''"'
-				}
+			else {
+				if "`label_`l''"!="" gen label_`l' = "`label_`l''"
+				if `"`description_`l''"'!= "" gen description_`l' = `"`description_`l''"'
 			}
 		}
 		gen url="`url'"
@@ -93,8 +84,12 @@ program define dta2csv
 					quietly: replace `v' = subinstr(`v', "'", char(34), .)
 				}
 			}
-
-		order dataset label* description* url
+		if (`default_exists'==1){
+			order dataset label label_* description description_* url
+		} 
+		else {
+			order dataset label* description* url
+		}
 	}
 	*drop empty columns/characteristics (e.g. if description_en is available, but not desription, description is droped(since there is no information stored))
 	foreach var of varlist * {
@@ -102,14 +97,13 @@ program define dta2csv
 		if `=r(N)' == `c(N)' drop `var' 
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
-	quietly: export delimited "`c(tmpdir)'/dataset", replace
+	quietly: export delimited "`c(tmpdir)'dataset", replace
 	*if output_dir is specified, the csvs are additionally saved in the specified directory
 	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'\dataset", replace
+		quietly: export delimited "`output_dir'/dataset", replace
 	}
 
 	*******   export variables meta data to variables.csv**************
-
 
 	quietly {
 		use `datatempfile', clear
@@ -130,12 +124,10 @@ program define dta2csv
 		}
 		gen url=""
 		gen type=""
-		order variable label* type description* url
 
 		*save as temp file
 		tempfile variablestempfile 
 		save `variablestempfile'
-
 		*Now for each variable save the metadata to the variables tempfile
 		use `datatempfile', clear
 		local _nvar_counter = 0
@@ -143,54 +135,44 @@ program define dta2csv
 			local _nvar_counter = `_nvar_counter'+1
 			local variable = "`var'"
 			local url : char `var'[url]
-			local description : char `var'[description]
 			local type : char `var'[type]
 			local label = ""
-			if "`_languages'"=="default"{
-				local label : `var' label
-			}
-			else {
-				foreach l in `_languages'{
-					if "`l'"=="default"{
-						local description : char `var'[description]
-						label language `l'
-						local label : data label
-					}
-					else {
-						local description_`l' : char `var'[description_`l']
-						label language `l'
-						local label_`l' : data label
-					}
-					
-
+			foreach l in `_languages'{
+				if ("`l'"=="default"){
+					local description_`l' : char `var'[description]
+				} 
+				else {
+					local description_`l' : char `var'[description_`l']
 				}
+				label language `l'
+				local label_`l' : var label `var'
 			}
 			use `variablestempfile', clear
 			replace variable in `_nvar_counter' = "`variable'"
 			replace url in `_nvar_counter' = "`url'"
-			replace description in `_nvar_counter' = "`description'"
 			replace type in `_nvar_counter' = "`type'"
 			
-			if "`_languages'"=="default"{
-				replace label in `_nvar_counter' = "`label'"
-			}
-			else {
-				foreach l in `_languages'{
-					if "`l'"=="default"{
-						replace description in `_nvar_counter' = "`description_`l''"
-						replace label in `_nvar_counter' = "`label_`l''"
-					}
-					else {
-						replace description_`l' in `_nvar_counter' = "`description_`l''"
-						replace label_`l' in `_nvar_counter' = "`label_`l''"
-					}
+			foreach l in `_languages'{
+				if "`l'"=="default"{
+					if `"`description_`l''"'!= "" replace description in `_nvar_counter' = "`description_`l''"
+					if `"`label_`l''"'!= "" replace label in `_nvar_counter' = "`label_`l''"
+				}
+				else {
+					if `"`description_`l''"'!= "" replace description_`l' in `_nvar_counter' = "`description_`l''"
+					if `"`label_`l''"'!= "" replace label_`l' in `_nvar_counter' = "`label_`l''"
 				}
 			}
 			save `variablestempfile', replace
 			use `datatempfile', clear
 		}
 		use `variablestempfile', clear
-
+		*order columns
+		if (`default_exists'==1){
+			order variable label label_* type description description_* url
+		} 
+		else {
+			order variable label* type description* url
+		}
 		*drop empty variables (e.g. if description_en is available, but not desription, description is droped(since there is no information stored))
 		foreach var of varlist * {
 			qui count if missing(`var')
@@ -201,7 +183,7 @@ program define dta2csv
 	quietly: export delimited "`c(tmpdir)'variables", replace
 	*if output_dir is specified, the csvs are additionally saved in the specified directory
 	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'\variables", replace
+		quietly: export delimited "`output_dir'/variables", replace
 	}
 	
 
@@ -230,16 +212,15 @@ program define dta2csv
 		set obs `_nvaluelabels'
 		gen variable=""
 		gen value=.
-		if "`_languages'"!="default"{
-			foreach l in `_languages'{
-				if ("`l'"=="default"){
-					gen label=""
-				}
-				else {
-					gen label_`l'=""
-				}
+		foreach l in `_languages'{
+			if ("`l'"=="default"){
+				gen label=""
+			}
+			else {
+				gen label_`l'=""
 			}
 		}
+
 
 				
 		tempfile categoriestempfile 
@@ -282,11 +263,17 @@ program define dta2csv
 				save `categoriestempfile', replace
 				use `datatempfile', clear
 			}
-		}
-		
-			
+		}	
 	}
 	quietly: use `categoriestempfile', clear 
+	*order columns
+	if (`default_exists'==1){
+		order variable value label label_*
+	} 
+	else {
+		order variable value label*
+	}
+	
 	*drop empty rows
 	quietly: drop if variable == ""
 	*drop empty columns
@@ -298,7 +285,7 @@ program define dta2csv
 	quietly: export delimited "`c(tmpdir)'categories", replace
 	*if output_dir is specified, the csvs are additionally saved in the specified directory
 	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'\categories", replace
+		quietly: export delimited "`output_dir'/categories", replace
 	}
 	quietly: use `datatempfile', clear
 end
