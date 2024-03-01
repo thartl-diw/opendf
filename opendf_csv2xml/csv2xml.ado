@@ -19,12 +19,15 @@
 
 program define csv2xml
     syntax, output(string) input(string) [variables_arg(string) export_data(string) VERBOSE]
-    
+    if "`input'"!= "`c(tmpdir)'"{
+      local input = "`input'/"
+    }
+
     if (`"`export_data'"' == "") {
 		local export_data "yes"
     }
     if (`"`variables_arg'"' == "") {
-      local variables_arg "all"
+      local variables_arg "yes"
     }
     local verboseit 0
 	  if (`"`verbose'"' != "") {
@@ -70,14 +73,14 @@ program define csv2xml
     local input_dir = subinstr("`input'", "\", "/", .)
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
-    
+
     python: import sys
     python: import os
     python: from sfi import Macro
     python: input_dir=Macro.getLocal('input_dir')
     python: output_dir=Macro.getLocal('output_dir')
-    *python: csv2xml.export_data=Macro.getLocal('export_data')
-    *python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
+    python: csv2xml.export_data=Macro.getLocal('export_data')
+    python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import csv2xml
     python: import exec_csv2xml

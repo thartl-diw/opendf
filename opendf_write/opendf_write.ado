@@ -20,10 +20,6 @@
 
 program define opendf_write
 	syntax, output(string) [input(string) languages(string) variables(string) VERBOSE]
-  if (c(N) == 0 & c(k)==0) {
-    di as error "no dataset defined"
-    exit
-  }
   if (`"`languages'"' == "") {
 		local languages "all"
 	}
@@ -33,7 +29,7 @@ program define opendf_write
 
     dta2csv, languages(`languages') input(`input')
     csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data("yes") `verbose'
-    **_file** "out.zip"
+    **_file** "`output'.zip"
     if _rc == 0 {
       di "Dataset successfully saved in opendf-format."
     }

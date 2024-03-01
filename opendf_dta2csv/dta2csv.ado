@@ -20,11 +20,17 @@
 
 program define dta2csv
     syntax, [languages(string) input(string) output_dir(string)]
-		if (`"`input'"' != "") {
-			capture quietly use "`input'"
-			di as error "Error: `input' is not a valid dataset. Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
+	if (`"`input'"' != "") {
+		capture quietly use "`input'"
+		if _rc==601{
+			di as error "Error: `input' is not a valid stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
 			exit 601
 		}
+	}
+	if (c(N) == 0 & c(k)==0) {
+    	di as error "Dataset is empty."
+    	exit
+  	}
 	*Save dataset as data.csv
 	quietly: export delimited "`c(tmpdir)'data",  nolabel replace
 	if (`"`output_dir'"' != "") {
@@ -202,10 +208,8 @@ program define dta2csv
 		foreach _lbl in `r(names)' {
 			label list `_lbl'
 			local _nvaluelabels = `_nvaluelabels'+r(k)
-			di r(k)
 		}
 		local _nvaluelabels = "`_nvaluelabels'"
-		di "`_nvaluelabels'"
 		clear
 		
 		*generate empty dataset for the variable labels
@@ -225,25 +229,54 @@ program define dta2csv
 				
 		tempfile categoriestempfile 
 		save `categoriestempfile'
-
 		use `datatempfile', clear
 		local _row_categories_out = 0
 		foreach var of varlist _all{
 			local _nvaluelabel=0
-			capture local _lblname: value label `var'
-			*if a value label exist, execute following code
-			if "`_lblname'"!= "" {
+			*find out if a variable has any label:
+			local _has_label=0
+			local _lblname ""
+			foreach l in `_languages'{
+				capture qui label language `l '
+				capture qui local _lblname: value label `var'
+				if ("`_lblname'"!= ""){
+					local _has_label=1
+				}				
+			}
+			*find lowest and highest value that has a label
+			if (`_has_label'==1){
 				quietly label list `_lblname'
-
-				forvalues _val=`r(min)'/`r(max)'{
-					local _lbl: label `_lblname' `_val'
-					if ("`_lbl'" != "`_val'") {
-						local _nvaluelabel = `_nvaluelabel' + 1
-						local _val`_nvaluelabel'=`_val'
-						foreach l in `_languages'{
-							quietly label language `l'
-							local _lbl_`l'`_nvaluelabel'="`_lbl'"
-						}	
+				local _min_val=`r(min)'
+				local _max_val=`r(max)'
+				foreach l in `_languages'{
+					local _lblname ""
+					capture qui label language `l '
+					capture qui local _lblname: value label `var'
+					if ("`_lblname'"!= ""){
+						quietly label list `_lblname'
+						if (`_min_val'>`r(min)') local _min_val=`r(min)'
+						if (`_max_val'<`r(max)') local _max_val=`r(max)'
+					}
+				}
+				*for each value between the lowest and the highest value, we check whether a value label exists for every language and assign it to _lbl_de1 (first value label in German)
+				forvalues _val=`_min_val'/`_max_val'{
+					local _value_has_any_label=0
+					foreach l in `_languages'{
+						quietly label language `l'
+						local _lblname ""
+						capture qui local _lblname: value label `var'
+						if ("`_lblname'"!= ""){
+							local _lbl: label `_lblname' `_val'
+							if ("`_lbl'" != "`_val'") {
+								if (`_value_has_any_label'==0){
+									local _nvaluelabel = `_nvaluelabel' + 1
+									local _val`_nvaluelabel'=`_val'
+									local _value_has_any_label=1
+								}
+								local _lbl_`l'`_nvaluelabel'="`_lbl'"
+							}
+						}
+						
 					}
 				}
 				use `categoriestempfile', clear
@@ -252,7 +285,7 @@ program define dta2csv
 					replace variable in `_row_categories_out'="`var'"
 					replace value in `_row_categories_out'=`_val`i''
 					foreach l in `_languages'{
-						if "`l'"=="default"{
+						if ("`l'"=="default"){
 							replace label in `_row_categories_out'="`_lbl_`l'`i''"
 						}
 						else {
@@ -262,7 +295,9 @@ program define dta2csv
 				}
 				save `categoriestempfile', replace
 				use `datatempfile', clear
+
 			}
+			
 		}	
 	}
 	quietly: use `categoriestempfile', clear 
