@@ -47,7 +47,7 @@ program define xml2csv
         if (`verboseit'==1) di "Working Python Version available."
     }
     else {
-      di "{red: Warning: Could not find a python installation >= 2.7 on the current machine}"
+      di "{red: Warning: Could not find a python installation >= 2.7 on the current machine.}"
       di "{red: 1. To install python visit:}"
       di `"{p 10 10}{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}{p_end}"'
       di "{red: 2. If you have a working python version on your PC but Stata doesn't find it automatically, you can activate it manually by indicating which python.exe to use with following command:}"
