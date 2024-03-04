@@ -22,7 +22,7 @@ program define opendf_installpython
 	syntax, [VERSION(string) LOCATION(string)]
 	*Returns error of we are not in wondows and exit
 	if (c(os) != "Windows"){
-	  di as error "The command {it:opendf_installpython} is only working for Windows. To install python manually for your operating system go to:"
+	  di as error "The command {it:opendf installpython} is only working for Windows. To install python manually for your operating system go to:"
 		di as error `"{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}"'
 		exit
 	}
