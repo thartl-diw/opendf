@@ -41,7 +41,7 @@ program define dta2csv
 	quietly: tempfile orig_datatempfile 
 	quietly: save `orig_datatempfile'
 	
-	keep in 1
+	qui keep in 1
 	*save empty data as tempfile (with only one row) to accelerate loading the metadata in loops
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
