@@ -215,7 +215,12 @@ program define csv2dta
 			if ("`_var`i'_char_name`j''"=="variable"){
 				local _varcode="`_var`i'_char_label`j''"
 				}
-			if strpos("`_var`i'_char_name`j''", "label")>0{
+			capture confirm variable `_varcode'
+			if (_rc == 0){
+				if strpos("`_var`i'_char_name`j''", "label")>0{
+					if (strpos(`"`_var`i'_char_label`j''"', `"""')>0){
+						local _var`i'_char_label`j'= subinstr(`"`_var`i'_char_name`j''"', `"""', "'", .)
+					}
 					if ("`_var`i'_char_name`j''"=="label"){
 						quietly: label language default
 						label var `_varcode' "`_var`i'_char_label`j''"
@@ -236,12 +241,14 @@ program define csv2dta
 						}
 						quietly: label var `_varcode' "`_var`i'_char_label`j''"
 					}
-					
-					
 				}
-			if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
-				char `_varcode'[`_var`i'_char_name`j''] "`_var`i'_char_label`j''"
+				if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
+					char `_varcode'[`_var`i'_char_name`j''] "`_var`i'_char_label`j''"
+				}
 			}
+			else {
+				if `verboseit'==1 di "{red: Metadata for {it: `_varcode'} not assigned: variable not in the dataset.}"
+			}	
 		}
 	}
 	foreach var of varlist _all{
@@ -276,22 +283,26 @@ program define csv2dta
 
 	*Assign value labels to non-String Variables
 	forvalues i=1/`n_variable_to_label'{
-		local _variable_type : type `_varname`i''
-		if strpos("`_variable_type'", "str") == 1 {
-			if `verboseit'==1 di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
-		}
-		if strpos("`_variable_type'", "str") != 1 {
-			forvalues l = 1/`language_counter'{
-				qui label language `_language`l''
-				capture label list _var`i'_labels_`_language`l''
-				if (_rc == 111 & "`_language`l''" != "default") {
-					if `verboseit'==1 di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
-				}
-				if (_rc == 0) {
-					label values `_varname`i'' _var`i'_labels_`_language`l''
+		capture confirm variable `_varname`i''
+		if (_rc == 0){
+			local _variable_type : type `_varname`i''
+			if strpos("`_variable_type'", "str") == 1 {
+				if `verboseit'==1 di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
+			}
+			if strpos("`_variable_type'", "str") != 1 {
+				forvalues l = 1/`language_counter'{
+					qui label language `_language`l''
+					capture label list _var`i'_labels_`_language`l''
+					if (_rc == 111 & "`_language`l''" != "default") {
+						if `verboseit'==1 di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
+					}
+					if (_rc == 0) {
+						label values `_varname`i'' _var`i'_labels_`_language`l''
+					}
 				}
 			}
 		}
+		
 	}
 	if `saveit'==1 {
 		quietly: save `"`save'"', `replace'

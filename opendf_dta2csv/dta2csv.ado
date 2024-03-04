@@ -36,8 +36,13 @@ program define dta2csv
 	if (`"`output_dir'"' != "") {
 		quietly: export delimited "`output_dir'/data", nolabel replace
 	}
-
+	
 	*save original data as tempfile
+	quietly: tempfile orig_datatempfile 
+	quietly: save `orig_datatempfile'
+	
+	keep in 1
+	*save empty data as tempfile (with only one row) to accelerate loading the metadata in loops
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
 
@@ -322,5 +327,5 @@ program define dta2csv
 	if (`"`output_dir'"' != "") {
 		quietly: export delimited "`output_dir'/categories", replace
 	}
-	quietly: use `datatempfile', clear
+	quietly: use `orig_datatempfile', clear
 end
