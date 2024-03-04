@@ -21,13 +21,11 @@
 program define opendf, rclass 
 	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) REPLACE CLEAR VERBOSE]
 	local _fun = lower("`anything'")
-	di "`_fun'"
+
 	if ("`_fun'"=="read"){
 		opendf_read, input("`input'") `clear' save("`save'") `replace' `verbose'
 	}
-	if ("`_fun'"=="docu"){
-		opendf_docu `varlist'
-	}
+
 	if ("`_fun'"=="write"){
 		opendf_write,  output("`output'") input("`input'") languages("`languages'") variables("`variables'") `verbose'
 	}
@@ -35,6 +33,7 @@ program define opendf, rclass
 	if ("`_fun'"=="install_python"){
 		opendf_installpython, version("`version'") location("`location'")
 	}
+
 	tokenize "`_fun'"
 	if ("`1'"=="docu"){
 		opendf_docu "`2'"
