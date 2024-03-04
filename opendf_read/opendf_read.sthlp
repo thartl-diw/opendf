@@ -1,26 +1,24 @@
 {smcl}
 {* *! version 0.1.0  15feb2024}{...}
-{vieweralsosee "opendf_write" "help opendf_write"}{...}
-{vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{viewerjumpto "Syntax" "opendf_read##syntax"}{...}
-{viewerjumpto "Description" "opendf_read##description"}{...}
-{viewerjumpto "Examples" "opendf_read##examples"}{...}
-help for {cmd:opendf_read}{right:version 0.1 (15 Feb 2024)}
+{vieweralsosee "opendf write" "help opendf write"}{...}
+{vieweralsosee "opendf docu" "help opendf docu"}{...}
+{viewerjumpto "Syntax" "opendf read##syntax"}{...}
+{viewerjumpto "Description" "opendf read##description"}{...}
+{viewerjumpto "Examples" "opendf read##examples"}{...}
+help for  {cmd:opendf read (opendf_read)}{right:version 0.1 (15 Feb 2024)}
 {hline}
 
-opendf_read
+opendf read
 {title:Title}
 
 {phang}
-{bf:opendf_read} {hline 2} builds a stata dataset (.dta) from open data format dataset (.zip) {p_end}
+{bf:opendf read} {hline 2} builds a stata dataset (.dta) from open data format dataset (.zip) {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf_read} 
-{it: input}
-[{cmd:,} {opt clear} {opt save()} {opt replace} {opt verbose}]
+{cmd:opendf read}, {it: input()} [{opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -69,21 +67,21 @@ This command is part of the Data Open Format Project bundle, written to assist w
 
 {phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
 {phang}With the save()-option the dataset is saved as testdata.dta in the working directory. If it already exists, it testdata.dta is replaced, verbose option is set on.{p_end}
-{phang}{cmd:. opendf_read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear save("testdata") replace verbose}{p_end}
+{phang}{cmd:. opendf read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear save("testdata") replace verbose}{p_end}
 
 {phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
-{phang}{cmd:. opendf_read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear}{p_end}
+{phang}{cmd:. opendf read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear}{p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_write}, {help opendf_docu}{p_end}
+{space 2}Help: {help opendf write}, {help opendf docu}{p_end}
