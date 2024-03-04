@@ -213,17 +213,14 @@ program define csv2dta
 	forvalues i=1(1)`_nvar' {
 		forvalues j=1(1)`_var`i'nchar'{
 			if ("`_var`i'_char_name`j''"=="variable"){
-				local _varcode="`_var`i'_char_label`j''"
+				local _varcode=`"`_var`i'_char_label`j''"'
 				}
 			capture confirm variable `_varcode'
 			if (_rc == 0){
 				if strpos("`_var`i'_char_name`j''", "label")>0{
-					if (strpos(`"`_var`i'_char_label`j''"', `"""')>0){
-						local _var`i'_char_label`j'= subinstr(`"`_var`i'_char_name`j''"', `"""', "'", .)
-					}
 					if ("`_var`i'_char_name`j''"=="label"){
 						quietly: label language default
-						label var `_varcode' "`_var`i'_char_label`j''"
+						label var `_varcode' `"`_var`i'_char_label`j''"'
 						if `default_exists'==0{
 							local language_counter=`language_counter'+1
 							local _language`language_counter'="`_label_language'"
@@ -239,11 +236,11 @@ program define csv2dta
 							local _language`language_counter'="`_label_language'"
 							if `verboseit'==1 di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
 						}
-						quietly: label var `_varcode' "`_var`i'_char_label`j''"
+						quietly: label var `_varcode' `"`_var`i'_char_label`j''"'
 					}
 				}
 				if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
-					char `_varcode'[`_var`i'_char_name`j''] "`_var`i'_char_label`j''"
+					char `_varcode'[`_var`i'_char_name`j''] `"`_var`i'_char_label`j''"'
 				}
 			}
 			else {
@@ -267,14 +264,14 @@ program define csv2dta
 			if (`j'==1){
 				forvalues l = 1/`language_counter'{
 					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''" 
+						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"'
 					}
 				}	
 			}
 			if `j'>1 {
 				forvalues l = 1/`language_counter'{
-					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' "`_var`i'_label`j'_lan`_language`l'''", add
+					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
+						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
 					}
 				}
 			}
