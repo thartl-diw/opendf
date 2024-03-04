@@ -1,26 +1,26 @@
 {smcl}
 {* *! version 0.1.0  27feb2024}{...}
-{vieweralsosee "opendf_read" "help opendf_read"}{...}
-{vieweralsosee "opendf_write" "help opendf_write"}{...}
-{vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{viewerjumpto "Syntax" "opendf_installpython##syntax"}{...}
-{viewerjumpto "Description" "opendf_installpython##description"}{...}
-{viewerjumpto "Examples" "opendf_installpython##examples"}{...}
-help for {cmd:opendf_installpython}{right:version 0.1 (15 Feb 2024)}
+{vieweralsosee "opendf read" "help opendf read"}{...}
+{vieweralsosee "opendf write" "help opendf write"}{...}
+{vieweralsosee "opendf docu" "help opendf docu"}{...}
+{viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
+{viewerjumpto "Description" "opendf installpython##description"}{...}
+{viewerjumpto "Examples" "opendf installpython##examples"}{...}
+help for {cmd:opendf installpython (opendf_installpython)}{right:version 0.1 (15 Feb 2024)}
 {hline}
 
-opendf_installpython
+opendf installpython
 {title:Title}
 
 {phang}
-{bf:opendf_installpython} {hline 2} Copies python to some directory on your computer. {p_end}
+{bf:opendf installpython} {hline 2} Copies python to some directory on your computer. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf_installpython} 
-[{cmd:,} {opt version()} {opt location()}]
+{cmd:opendf installpython} 
+[, {opt version()} {opt location()}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -34,7 +34,7 @@ opendf_installpython
 {title:Description}
 
 {pstd}
-{cmd:opendf_installpython} Copies python to some directory on your computer. The command only works for Windows and does not require administrator privileges. But the user needs writing permission for the folder where python is saved. {p_end}
+{cmd:opendf installpython} Copies python to some directory on your computer. The command only works for Windows and does not require administrator privileges. But the user needs writing permission for the folder where python is saved. {p_end}
 {pstd}
 {opt version} Specifies the version of python. It should be 2.7 or higher to function with stata. Default is 3.12. Python 3 is strongly recommended. {p_end}
 {pstd}
@@ -52,24 +52,24 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Instally python v3.12 (default) to the folder python3.12 in the do\plus folder{p_end}
-{phang}{cmd:. opendf_installpython}{p_end}
+{phang}{cmd:. opendf installpython}{p_end}
 
 {phang}Instally python v3.10  to the folder python3.12 in the do\plus folder{p_end}
-{phang}{cmd:. opendf_installpython, version("3.10")}{p_end}
+{phang}{cmd:. opendf installpython, version("3.10")}{p_end}
 
 {phang}rInstally python v3.10  to the folder C:\Program Files\python {p_end}
-{phang}{cmd:. opendf_installpython, version("3.10") location("C:\Program Files\python")} {p_end}
+{phang}{cmd:. opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}{p_end}
