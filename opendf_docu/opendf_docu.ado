@@ -30,7 +30,7 @@ program define opendf_docu
         capture local _label : variable label `varname'
         if _rc==111 {
             display as error "variable `varname' not found"
-            display as error "Enter a valid variable name or execute the opendf_docu without an argument to display the dataset information."
+            display as error "Enter a valid variable name or execute opendf docu without an argument to display the dataset information."
             exit 111
         }
         local _descr: char `varname'[description_`_currentlanguage']
