@@ -54,9 +54,9 @@ program define xml2csv
       di "{p 10 10}{red: {it:set python_exec  C:\...\python.exe}}{p_end}"
       di "{p 10 10}{red: and retry to run the opendf-function.}{p_end}"
       di "{red: 3. If you are using Windows, the opendf package also provides a function that installs a working python version to a specified path or to the directory of stata packages (ado\plus folder).}"
-      di "{p 10 10}{red: If you want to install python through the build-in opendf-function, run: {it:opendf_installpython}}{p_end}"
-      di `"{p 10 10}{red: You can specifiy a version with the argument {it:opendf_installpython, version("3.8")}}{p_end}"'
-      di `"{p 10 10}{red: You can specifiy a location to install python with the argument {it:opendf_installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
+      di "{p 10 10}{red: If you want to install python through the build-in opendf-function, run: {it:opendf installpython}}{p_end}"
+      di `"{p 10 10}{red: You can specifiy a version with the argument {it:opendf installpython, version("3.8")}}{p_end}"'
+      di `"{p 10 10}{red: You can specifiy a location to install python with the argument {it:opendf installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
       di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
     }
     
