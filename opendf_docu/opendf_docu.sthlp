@@ -1,24 +1,24 @@
 {smcl}
 {* *! version 0.1.0  27feb2024}{...}
-{vieweralsosee "opendf_read" "help opendf_read"}{...}
-{vieweralsosee "opendf_write" "help opendf_write"}{...}
-{viewerjumpto "Syntax" "opendf_docu##syntax"}{...}
-{viewerjumpto "Description" "opendf_docu##description"}{...}
-{viewerjumpto "Examples" "opendf_docu##examples"}{...}
-help for {cmd:opendf_docu}{right:version 0.1 (15 Feb 2024)}
+{vieweralsosee "opendf read" "help opendf read"}{...}
+{vieweralsosee "opendf write" "help opendf write"}{...}
+{viewerjumpto "Syntax" "opendf docu##syntax"}{...}
+{viewerjumpto "Description" "opendf docu##description"}{...}
+{viewerjumpto "Examples" "opendf docu##examples"}{...}
+help for {cmd:opendf docu (opendf_docu)}{right:version 0.1 (15 Feb 2024)}
 {hline}
 
-opendf_docu
+opendf docu
 {title:Title}
 
 {phang}
-{bf:opendf_docu} {hline 2} Display information about the dataset or a variable. {p_end}
+{bf:opendf docu} {hline 2} Display information about the dataset or a variable. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf_docu}
+{cmd:opendf docu}
 [{it:{help varname}}]
 
 
@@ -26,7 +26,7 @@ opendf_docu
 {title:Description}
 
 {pstd}
-{cmd:opendf_docu} Displays information about the dataset or a variable, if a variable is specified. {p_end}
+{cmd:opendf docu} Displays information about the dataset or a variable, if a variable is specified. {p_end}
 
 {marker remarks}
 {title:Remarks}
@@ -39,10 +39,10 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Displays information about the dataset.{p_end}
-{phang}{cmd:. opendf_docu}{p_end}
+{phang}{cmd:. opendf docu}{p_end}
 
 {phang}Displays information about the variable bap9001.{p_end}
-{phang}{cmd:. opendf_docu bap9001}{p_end}
+{phang}{cmd:. opendf docu bap9001}{p_end}
 
 
 {marker author}
@@ -56,4 +56,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}{p_end}
