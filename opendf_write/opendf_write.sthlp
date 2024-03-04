@@ -1,25 +1,24 @@
 {smcl}
 {* *! version 0.1.0  27feb2024}{...}
-{vieweralsosee "opendf_read" "help opendf_read"}{...}
-{vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{viewerjumpto "Syntax" "opendf_write##syntax"}{...}
-{viewerjumpto "Description" "opendf_write##description"}{...}
-{viewerjumpto "Examples" "opendf_write##examples"}{...}
-help for {cmd:opendf_write}{right:version 0.1 (15 Feb 2024)}
+{vieweralsosee "opendf read" "help opendf read"}{...}
+{vieweralsosee "opendf docu" "help opendf docu"}{...}
+{viewerjumpto "Syntax" "opendf write##syntax"}{...}
+{viewerjumpto "Description" "opendf write##description"}{...}
+{viewerjumpto "Examples" "opendf write##examples"}{...}
+help for {cmd:opendf write (opendf_write)}{right:version 0.1 (15 Feb 2024)}
 {hline}
 
-opendf_write
+opendf write
 {title:Title}
 
 {phang}
-{bf:opendf_write} {hline 2} Saves data in the opendf-format as opendf-zip folder containing a csv(data) and a xml(metadate) file.{p_end}
+{bf:opendf write} {hline 2} Saves data in the opendf-format as opendf-zip folder containing a csv(data) and a xml(metadate) file.{p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf_write}
-{cmd:, }{opt output()} [{opt input()} {opt languages()} {opt variables()} {opt verbose}]
+{cmd:opendf write}, {it: output()} [{opt input()} {opt languages()} {opt variables()} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -35,7 +34,7 @@ opendf_write
 {title:Description}
 
 {pstd}
-{cmd:opendf_write} Saves a dataset in the opendf-format (zip-folder). The Output is a zip-folder that contains a csv-file with the data and a xml-file with the meta data. {p_end}
+{cmd:opendf write} Saves a dataset in the opendf-format (zip-folder). The Output is a zip-folder that contains a csv-file with the data and a xml-file with the meta data. {p_end}
 {pstd}
 {opt output} Name of the output-zip-folder. Can also include a path where to save the output. {p_end}
 {pstd}
@@ -59,24 +58,24 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
-{phang}{cmd:. opendf_write, output("out")}{p_end}
+{phang}{cmd:. opendf write, output("out")}{p_end}
 
 {phang}Saves the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
-{phang}{cmd:. opendf_write, output("out") languages("en")}{p_end}
+{phang}{cmd:. opendf write, output("out") languages("en")}{p_end}
 
 {phang}Saves the variables pid, cid, hid, syear, name, bap9001 from the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
-{phang}{cmd:. opendf_write, output("out") languages("en") variables(pid cid hid syear name bap9001)}{p_end}
+{phang}{cmd:. opendf write, output("out") languages("en") variables(pid cid hid syear name bap9001)}{p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}{p_end}
