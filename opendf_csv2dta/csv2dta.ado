@@ -55,6 +55,11 @@ program define csv2dta
 		local verboseit 1
 	}
 
+	*locals for warnings
+	local _stringvariables=0
+	local _metadatafornonexistingvariable=0
+	local _varlabelmissing=0
+	local _valuelabelmissing=0
 	*replace backlashes with lashes
 	quietly: local csv_loc: subinstr local csv_loc "\" "`c(dirsep)'", all
 
@@ -215,7 +220,7 @@ program define csv2dta
 			if ("`_var`i'_char_name`j''"=="variable"){
 				local _varcode=`"`_var`i'_char_label`j''"'
 				}
-			capture confirm variable `_varcode'
+			capture confirm variable `_varcode', exact
 			if (_rc == 0){
 				if strpos("`_var`i'_char_name`j''", "label")>0{
 					if ("`_var`i'_char_name`j''"=="label"){
@@ -244,7 +249,7 @@ program define csv2dta
 				}
 			}
 			else {
-				if `verboseit'==1 di "{red: Metadata for {it: `_varcode'} not assigned: variable not in the dataset.}"
+				local _metadatafornonexistingvariable=1
 			}	
 		}
 	}
@@ -253,7 +258,7 @@ program define csv2dta
 			quietly: label language `_language`l''
 			local _varlabel : variable label `var'
 			if "`_varlabel'" == ""{
-				if `verboseit'==1 di "{red: Warning: No Label defined for Variable{it: `var'} for Language{it: `_language`l''}.}"
+				local _varlabelmissing=1
 			}
 		}
 	}
@@ -280,18 +285,18 @@ program define csv2dta
 
 	*Assign value labels to non-String Variables
 	forvalues i=1/`n_variable_to_label'{
-		capture confirm variable `_varname`i''
+		capture confirm variable `_varname`i'', exact
 		if (_rc == 0){
 			local _variable_type : type `_varname`i''
 			if strpos("`_variable_type'", "str") == 1 {
-				if `verboseit'==1 di "{red: Warning: The variable{it: `_varname`i''} was not labelled because it is a string variable.}"
+				local _stringvariables=1
 			}
 			if strpos("`_variable_type'", "str") != 1 {
 				forvalues l = 1/`language_counter'{
 					qui label language `_language`l''
 					capture label list _var`i'_labels_`_language`l''
 					if (_rc == 111 & "`_language`l''" != "default") {
-						if `verboseit'==1 di "{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}"
+						local _valuelabelmissing=1
 					}
 					if (_rc == 0) {
 						label values `_varname`i'' _var`i'_labels_`_language`l''
@@ -311,5 +316,9 @@ program define csv2dta
 	else {
 		label language default, delete
 	}
+	if (`_metadatafornonexistingvariable'==1 & `verboseit'==1) di "{red: Metadata for some Variables not assigned: Variable not in the Dataset.}"
+	if (`_stringvariables'==1 & `verboseit'==1) di "{red: Warning: Some Value Labels were not assigned because Variable is a string Variable.}"
+	if (`_varlabelmissing'==1 & `verboseit'==1) di "{red: Warning: No Label defined for some Variables for some Languages.}"
+	if (`_valuelabelmissing'==1 & `verboseit'==1) di "{red: Warning: No Value Labels defined for some Variables.}"
 	qui label language `_language1'
 end
