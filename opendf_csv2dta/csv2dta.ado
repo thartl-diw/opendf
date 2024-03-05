@@ -55,9 +55,13 @@ program define csv2dta
 		local verboseit 1
 	}
 
-	*locals for warnings
-	local _stringvariables=0
+	*global to save all warnings
+	global warnings ""
+	*locals for occurence of warning type
+	local _valuelabelforstringvariable=0
+	local _datasetlabelmissing=0
 	local _metadatafornonexistingvariable=0
+	local _vallabelfornonexistingvariable=0
 	local _varlabelmissing=0
 	local _valuelabelmissing=0
 	*replace backlashes with lashes
@@ -239,7 +243,8 @@ program define csv2dta
 							quietly: label language `_label_language', new
 							local language_counter=`language_counter'+1
 							local _language`language_counter'="`_label_language'"
-							if `verboseit'==1 di "{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}"
+							local _datasetlabelmissing=1
+							global warnings= "$warnings {p}{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}{p_end}"
 						}
 						quietly: label var `_varcode' `"`_var`i'_char_label`j''"'
 					}
@@ -250,6 +255,7 @@ program define csv2dta
 			}
 			else {
 				local _metadatafornonexistingvariable=1
+				global warnings= "$warnings {p}{red: Metadata for {it: `_varcode'} not assigned: variable not in the dataset.}{p_end}"
 			}	
 		}
 	}
@@ -259,6 +265,7 @@ program define csv2dta
 			local _varlabel : variable label `var'
 			if "`_varlabel'" == ""{
 				local _varlabelmissing=1
+				global warnings= "$warnings {p}{red: Warning: No Label defined for Variable{it: `var'} for Language{it: `_language`l''}.}{p_end}"
 			}
 		}
 	}
@@ -289,7 +296,8 @@ program define csv2dta
 		if (_rc == 0){
 			local _variable_type : type `_varname`i''
 			if strpos("`_variable_type'", "str") == 1 {
-				local _stringvariables=1
+				local _valuelabelforstringvariable=1
+				global warnings= "$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"
 			}
 			if strpos("`_variable_type'", "str") != 1 {
 				forvalues l = 1/`language_counter'{
@@ -297,12 +305,17 @@ program define csv2dta
 					capture label list _var`i'_labels_`_language`l''
 					if (_rc == 111 & "`_language`l''" != "default") {
 						local _valuelabelmissing=1
+						global warnings= "$warnings {p}{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}{p_end}"
 					}
 					if (_rc == 0) {
 						label values `_varname`i'' _var`i'_labels_`_language`l''
 					}
 				}
 			}
+		} 
+		else {
+			local _vallabelfornonexistingvariable=1
+			global warnings= "$warnings {p}{red: Value Labels for {it: `_varname`i''} not assigned: variable not in the dataset.}{p_end}"
 		}
 		
 	}
@@ -316,9 +329,11 @@ program define csv2dta
 	else {
 		label language default, delete
 	}
-	if (`_metadatafornonexistingvariable'==1 & `verboseit'==1) di "{red: Metadata for some Variables not assigned: Variable not in the Dataset.}"
-	if (`_stringvariables'==1 & `verboseit'==1) di "{red: Warning: Some Value Labels were not assigned because Variable is a string Variable.}"
-	if (`_varlabelmissing'==1 & `verboseit'==1) di "{red: Warning: No Label defined for some Variables for some Languages.}"
-	if (`_valuelabelmissing'==1 & `verboseit'==1) di "{red: Warning: No Value Labels defined for some Variables.}"
+	if (`_datasetlabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Dataset Label defined for one or more Languages. For further information display global {it:warnings}}"'
+	if (`_metadatafornonexistingvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Variable Metadata could not be assigned: variable(s) not in the dataset. For further information display global {it:warnings}}"'
+	if (`_vallabelfornonexistingvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Value Labels could not be assigned: variable(s) not in the dataset. For further information display global {it:warnings}}"'
+	if (`_valuelabelforstringvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Value Labels were not assigned because Variable is a string Variable. For further information display global {it:warnings}}"'
+	if (`_varlabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Label defined for some Variables for some Languages. For further information display global {it:warnings}}"'
+	if (`_valuelabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Value Labels defined for some Variables. For further information display global {it:warnings}}"'
 	qui label language `_language1'
 end
