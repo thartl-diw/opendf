@@ -80,32 +80,41 @@ program define dta2csv
 		gen dataset = "`dataset'"
 		foreach l in `_languages'{
 			if "`l'"=="default"{
-				if "`label_`l''"!="" gen label = "`label_`l''"
+				if "`label_`l''"!="" gen label = `"`label_`l''"'
 				if `"`description_`l''"'!= "" gen description = `"`description_`l''"'
 			}
 			else {
-				if "`label_`l''"!="" gen label_`l' = "`label_`l''"
+				if "`label_`l''"!="" gen label_`l' = `"`label_`l''"'
 				if `"`description_`l''"'!= "" gen description_`l' = `"`description_`l''"'
 			}
 		}
 		gen url="`url'"
-		foreach v of varlist _all{
-				local _variable_type : type `v'
-				if strpos("`_variable_type'", "str") == 1 {
-					quietly: replace `v' = subinstr(`v', "'", char(34), .)
-				}
-			}
-		if (`default_exists'==1){
+		*foreach v of varlist _all{
+		*		local _variable_type : type `v'
+		*		if strpos("`_variable_type'", "str") == 1 {
+		*			quietly: replace `v' = subinstr(`v', "'", char(34), .)
+		*		}
+		*	}
+		
+		*order columns (check whether label/description without language tag exist)
+		capture confirm variable label, exact
+		local _label_exists=_rc
+		capture confirm variable description, exact
+		local _description_exists=_rc
+		if (`_description_exists'==0 & `_label_exists'==0){
 			order dataset label label_* description description_* url
-		} 
+		}
 		else {
 			order dataset label* description* url
 		}
 	}
-	*drop empty columns/characteristics (e.g. if description_en is available, but not desription, description is droped(since there is no information stored))
+	*drop empty labels and descriptions columns
 	foreach var of varlist * {
-		qui count if missing(`var')
-		if `=r(N)' == `c(N)' drop `var' 
+		qui replace `var' = "" if `var'=="."
+        if ("`var'" =="label" | "`var'" == "description"){
+            qui count if missing(`var')
+		    if (`=r(N)' == c(N)) drop `var'
+        }     
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'dataset", replace
@@ -151,7 +160,7 @@ program define dta2csv
 			foreach l in `_languages'{
 				if ("`l'"=="default"){
 					local description_`l' : char `var'[description]
-				} 
+				}
 				else {
 					local description_`l' : char `var'[description_`l']
 				}
@@ -177,17 +186,25 @@ program define dta2csv
 			use `datatempfile', clear
 		}
 		use `variablestempfile', clear
-		*order columns
-		if (`default_exists'==1){
+		*order columns (check whether label/description without language tag exist)
+		capture confirm variable label, exact
+		local _label_exists=_rc
+		capture confirm variable description, exact
+		local _description_exists=_rc
+		
+		if (`_description_exists'==0 & `_label_exists'==0){
 			order variable label label_* type description description_* url
-		} 
+		}
 		else {
 			order variable label* type description* url
 		}
-		*drop empty variables (e.g. if description_en is available, but not desription, description is droped(since there is no information stored))
+		*drop empty labels and descriptions columns
 		foreach var of varlist * {
-			qui count if missing(`var')
-			if `=r(N)' == `_nvar' drop `var' 
+			qui replace `var' = "" if `var'=="."
+            if ("`var'" =="label" | "`var'" == "description"){
+                qui count if missing(`var')
+		        if (`=r(N)' == `_nvar') drop `var'
+            }     
 		}
 	}
 	*save variables metadata as variables.csv in working directory (temp folder)
@@ -278,7 +295,7 @@ program define dta2csv
 									local _val`_nvaluelabel'=`_val'
 									local _value_has_any_label=1
 								}
-								local _lbl_`l'`_nvaluelabel'="`_lbl'"
+								local _lbl_`l'`_nvaluelabel'=`"`_lbl'"'
 							}
 						}
 						
@@ -291,10 +308,10 @@ program define dta2csv
 					replace value in `_row_categories_out'=`_val`i''
 					foreach l in `_languages'{
 						if ("`l'"=="default"){
-							replace label in `_row_categories_out'="`_lbl_`l'`i''"
+							replace label in `_row_categories_out'=`"`_lbl_`l'`i''"'
 						}
 						else {
-							replace label_`l' in `_row_categories_out'="`_lbl_`l'`i''"
+							replace label_`l' in `_row_categories_out'=`"`_lbl_`l'`i''"'
 						}
 					}
 				}
@@ -307,19 +324,23 @@ program define dta2csv
 	}
 	quietly: use `categoriestempfile', clear 
 	*order columns
-	if (`default_exists'==1){
+	capture confirm variable label, exact
+	if (_rc==0){
 		order variable value label label_*
-	} 
+	}
 	else {
 		order variable value label*
 	}
 	
 	*drop empty rows
 	quietly: drop if variable == ""
-	*drop empty columns
+	*drop empty labels and descriptions
 	foreach var of varlist * {
-			quietly: qui count if missing(`var')
-			quietly: if `=r(N)' == `c(N)' drop `var' 
+			if ("`var'"!="value") qui replace `var' = "" if `var'=="."
+            if ("`var'"=="label"){
+                quietly: qui count if missing(`var')
+			    quietly: if (`=r(N)' == c(N)) drop `var'
+            }     
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
 	quietly: export delimited "`c(tmpdir)'categories", replace
