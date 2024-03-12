@@ -8,12 +8,11 @@ import shutil
 import xml.etree.ElementTree as ET
 import zipfile
 
-
 #########################
 # MAIN FUNCTION
 #########################
 
-def make_csvs(input_zip, output_dir, languages = ''):
+def make_csvs(input_zip, output_dir, languages = languages):
   global root
   root = load(input_zip)
   make_dir(output_dir)
@@ -321,6 +320,6 @@ def copy_data_csv(input_zip, output_dir):
     output_dir+'/data.csv'
     )
 
-if __name__ == '__main__' or __name__=="builtins":
+if __name__ == '__main__':
   make_csvs(input_zip, output_dir)    
 
