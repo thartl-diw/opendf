@@ -42,5 +42,3 @@ f opendf_csv2xml/csv2xml.ado
 f opendf_csv2xml/csv2xml.sthlp
 f python/xml2csv.py
 f python/csv2xml.py
-f python/exec_xml2csv.py
-f python/exec_csv2xml.py
