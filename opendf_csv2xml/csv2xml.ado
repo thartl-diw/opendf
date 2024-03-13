@@ -18,8 +18,11 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define csv2xml
-    syntax, output(string) input(string) [variables_arg(string) export_data(string) VERBOSE]
-    if "`input'"!= "`c(tmpdir)'"{
+    syntax, output(string) [input(string) variables_arg(string) export_data(string) VERBOSE]
+    if `"`input'"' == ""{
+      local input = "`c(tmpdir)'"
+    }
+    if "`input'" != "`c(tmpdir)'"{
       local input = "`input'/"
     }
 
@@ -33,7 +36,7 @@ program define csv2xml
 	  if (`"`verbose'"' != "") {
 	    local verboseit 1
 	  }
-    *Check for morking python version
+    *Check for working python version
     local _python_working=0
     capture python: print()
     if (_rc==0){
@@ -75,7 +78,6 @@ program define csv2xml
     local _path_to_py_ado: di `_path_to_py_ado'
 
     python: import sys
-    python: import os
     python: from sfi import Macro
     python: input_dir=Macro.getLocal('input_dir')
     python: output_dir=Macro.getLocal('output_dir')
