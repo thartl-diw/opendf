@@ -70,7 +70,6 @@ program define xml2csv
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
-    python: import os
     python: from sfi import Macro
     python: import sys
     python: input_zip=Macro.getLocal('input_zip')
@@ -78,7 +77,7 @@ program define xml2csv
     python: output_dir=Macro.getLocal('output_dir')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import xml2csv
-    python: import exec_xml2csv
-    python: exec_xml2csv.exec_xml2csv(input_zip=input_zip, languages=languages, output_dir=output_dir)
+    python: xml2csv
+    python: xml2csv.make_csvs(input_zip, output_dir, languages)
 
 end
