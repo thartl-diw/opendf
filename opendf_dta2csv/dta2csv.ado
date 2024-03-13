@@ -33,7 +33,7 @@ program define dta2csv
   	}
 	*Save dataset as data.csv
 	quietly: export delimited "`c(tmpdir)'data",  nolabel replace
-	if (`"`output_dir'"' != "") {
+	if (`"`output_dir'"' != "" & "`output_dir'" != "`c(tmpdir)'") {
 		quietly: export delimited "`output_dir'/data", nolabel replace
 	}
 	

@@ -20,18 +20,18 @@
 
 program define opendf_write
 	syntax, output(string) [input(string) languages(string) variables(string) VERBOSE]
-  if (`"`languages'"' == "") {
-		local languages "all"
-	}
+    if (`"`languages'"' == "") {
+	  	local languages "all"
+	  }
     if (`"`variables'"' == "") {
-		local variables "yes"
-	}
+	  	local variables "yes"
+	  }
 
     dta2csv, languages(`languages') input(`input')
     csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data("yes") `verbose'
     **_file** "`output'.zip"
     if _rc == 0 {
-      di "Dataset successfully saved in opendf-format."
+      di "{text: Dataset successfully saved in opendf-format.}"
     }
 end
 

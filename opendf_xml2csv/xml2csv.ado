@@ -19,12 +19,19 @@
 *! version 1.0 March, 1st 2024 - initial release
 
 program define xml2csv
-    syntax, input_zip(string) languages(string) [VERBOSE]
+    syntax, input_zip(string) output_dir(string) languages(string) [VERBOSE]
     local verboseit 0
 	  if (`"`verbose'"' != "") {
 		  local verboseit 1
 	  }
-    *Check for morking python version
+    if (`"`output_dir'"' == "") {
+		  local output_dir = "`c(tmpdir)'"
+	  }
+    if (`"`output_dir'"' != "`c(tmpdir)'") {
+		  local output_dir = "`output_dir'/"
+	  }
+
+    *Check for working python version
     local _python_working=0
     capture python: print()
     if (_rc==0){
@@ -61,18 +68,16 @@ program define xml2csv
     }
     
     local input_zip = subinstr("`input_zip'", "\", "/", .)
-
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
-    python: import os
     python: from sfi import Macro
     python: import sys
-    python: Macro.setGlobal('output_dir', os.environ["TEMP"])
     python: input_zip=Macro.getLocal('input_zip')
     python: languages=Macro.getLocal('languages')
+    python: output_dir=Macro.getLocal('output_dir')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import xml2csv
-    python: import exec_xml2csv
-    python: exec_xml2csv.exec_xml2csv(input_zip=input_zip, languages=languages)
+    python: xml2csv
+    python: xml2csv.make_csvs(input_zip, output_dir, languages)
 
 end
