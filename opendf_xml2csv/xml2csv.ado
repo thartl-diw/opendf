@@ -73,11 +73,11 @@ program define xml2csv
     python: from sfi import Macro
     python: import sys
     python: input_zip=Macro.getLocal('input_zip')
-    python: languages=Macro.getLocal('languages')
+    
     python: output_dir=Macro.getLocal('output_dir')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import xml2csv
-    python: xml2csv
-    python: xml2csv.make_csvs(input_zip, output_dir, languages)
+    python: xml2csv.languages=Macro.getLocal('languages')
+    python: xml2csv.make_csvs(input_zip, output_dir)
 
 end
