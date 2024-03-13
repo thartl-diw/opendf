@@ -22,7 +22,7 @@ csv2xml
 {title:Syntax}
 {p 8 17 2}
 {cmd:csv2xml}, 
-{opt output()} {opt input()} [{opt variables_arg()} {opt export_data()} {opt verbose}]
+{opt output()} [{opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
