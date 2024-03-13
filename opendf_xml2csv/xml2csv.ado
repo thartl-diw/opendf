@@ -66,19 +66,15 @@ program define xml2csv
       di `"{p 10 10}{red: You can specifiy a location to install python with the argument {it:opendf installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
       di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
     }
-    
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
     local _path_to_py_ado: di `_path_to_py_ado'
-
     python: from sfi import Macro
     python: import sys
-    python: Macro.setGlobal('output_dir', os.environ["TEMP"])
     python: input_zip=Macro.getLocal('input_zip')
     python: languages=Macro.getLocal('languages')
+    python: output_dir=Macro.getLocal('output_dir')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import xml2csv
-    python: import exec_xml2csv
-    python: exec_xml2csv.exec_xml2csv(input_zip=input_zip, languages=languages)
-
+    python: xml2csv.make_csvs(input_zip=input_zip, output_dir=output_dir, languages=languages)
 end
