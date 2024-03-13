@@ -83,10 +83,9 @@ program define csv2xml
     python: output_dir=Macro.getLocal('output_dir')
     python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
     python: import csv2xml
-    python: import exec_csv2xml
     python: csv2xml.export_data=Macro.getLocal('export_data')
     python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
-    python: exec_csv2xml.exec_csv2xml(input_dir=input_dir, output_dir=output_dir)
+    python: csv2xml.csv2xml(input_dir=input_dir, output_dir=output_dir)
     shell rd "`output'" /s /q
 end
 

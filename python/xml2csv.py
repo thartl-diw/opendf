@@ -12,7 +12,7 @@ import zipfile
 # MAIN FUNCTION
 #########################
 
-def make_csvs(input_zip, output_dir, languages = languages):
+def make_csvs(input_zip, output_dir, languages = 'all'):
   global root
   root = load(input_zip)
   make_dir(output_dir)
@@ -321,5 +321,5 @@ def copy_data_csv(input_zip, output_dir):
     )
 
 if __name__ == '__main__':
-  make_csvs(input_zip, output_dir)    
+  make_csvs(input_zip, output_dir, languages)    
 
