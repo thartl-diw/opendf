@@ -36,7 +36,7 @@ program define opendf_read
     }
     local input_zip="`input'"
     local csv_temp = "`c(tmpdir)'"
-    xml2csv , input_zip(`input_zip') languages(`languages') output_dir("`csv_temp'") `verbose'
+    xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
     csv2dta, csv_loc("`csv_temp'") save(`save') `replace' `clear' `verbose'
 end
 
