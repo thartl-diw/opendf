@@ -74,8 +74,17 @@ program define csv2xml
     
     local output_dir = subinstr("`output'", "\", "/", .)
     local input_dir = subinstr("`input'", "\", "/", .)
-    local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
-    local _path_to_py_ado: di `_path_to_py_ado'
+    if ("`c(os)'"!="Windows") {
+      if ("`c(os)'"=="Unix"){
+        local _site "`c(sysdir_site)'"
+        local _path_to_py_ado "`_site'/plus/py"
+        local _path_to_py_ado subinstr("`_path_to_py_ado'", "/", "\", .)
+        local _path_to_py_ado: di `_path_to_py_ado'
+      }
+    } else {
+      local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
+      local _path_to_py_ado: di `_path_to_py_ado'
+    }
 
     python: import sys
     python: from sfi import Macro
