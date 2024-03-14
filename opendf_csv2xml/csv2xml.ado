@@ -81,14 +81,15 @@ program define csv2xml
         local _path_to_py_ado "`_site'plus/py"
         local _path_to_py_ado subinstr("`_path_to_py_ado'", "/usr", "/home/`_username'", .)
         local _path_to_py_ado: di `_path_to_py_ado'
-        local _path_to_py_ado subinstr("`_path_to_py_ado'", "/", "\", .)
+        local _path_to_py_ado subinstr("`_path_to_py_ado'", "\", "/", .)
         local _path_to_py_ado: di `_path_to_py_ado'
       }
     } 
     else {
-      local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
+      local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "\", "/", .)
       local _path_to_py_ado: di `_path_to_py_ado'
     }
+
     python: import sys
     python: from sfi import Macro
     python: input_dir=Macro.getLocal('input_dir')
