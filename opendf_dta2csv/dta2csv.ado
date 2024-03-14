@@ -33,12 +33,12 @@ program define dta2csv
   	}
 	*by default csvs are stored in temp directory
 	if (`"`output_dir'"' == "" ){
-      local output_dir = "`c(tmpdir)'"
-    }
+      		local output_dir = "`c(tmpdir)'"
+    	}
 	*if output_dir is not temp dir or if we are in linux, we add / to the path
 	if ("`output_dir'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
-      local output_dir = "`output_dir'/"
-    }
+      		local output_dir = "`output_dir'/"
+    	}
 	*Save dataset as data.csv
 	quietly: export delimited "`output_dir'data",  nolabel replace
 	
