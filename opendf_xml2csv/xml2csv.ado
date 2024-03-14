@@ -70,7 +70,7 @@ program define xml2csv
     if ("`c(os)'"!="Windows") {
       if ("`c(os)'"=="Unix"){
         local _site "`c(sysdir_site)'"
-        local _path_to_py_ado "`_site'/plus/'py"
+        local _path_to_py_ado "`_site'/plus/py"
         local _path_to_py_ado subinstr("`_path_to_py_ado'", "/", "\", .)
         local _path_to_py_ado: di `_path_to_py_ado'
       }
