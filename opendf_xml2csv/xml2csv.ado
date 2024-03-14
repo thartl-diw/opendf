@@ -69,16 +69,12 @@ program define xml2csv
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     if ("`c(os)'"!="Windows") {
       if ("`c(os)'"=="Unix"){
-        local _plus "~/ado/plus/"
-        local _site "/usr/local/ado/"
-        local _plus subinstr("`_plus'", `"~/ado/"', "", .)
-        local _plus: di `_plus'
-        local _path_to_py_ado "`_site'`_plus'py"
+        local _site "`c(sysdir_site)'"
+        local _path_to_py_ado "`_site'/plus/'py"
         local _path_to_py_ado subinstr("`_path_to_py_ado'", "/", "\", .)
         local _path_to_py_ado: di `_path_to_py_ado'
       }
-    } 
-    else {
+    } else {
       local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "/", "\", .)
       local _path_to_py_ado: di `_path_to_py_ado'
     }
