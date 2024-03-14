@@ -342,4 +342,5 @@ program define dta2csv
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
 	quietly: export delimited "`output_dir'categories", replace
+	quietly: use `orig_datatempfile', clear
 end
