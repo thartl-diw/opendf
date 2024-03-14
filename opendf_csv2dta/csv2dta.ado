@@ -247,7 +247,7 @@ program define csv2dta
 						quietly: label var `_varcode' `"`_var`i'_char_label`j''"'
 					}
 				}
-				if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 &  "`_varcode'"!=""{
+				if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
 					char `_varcode'[`_var`i'_char_name`j''] `"`_var`i'_char_label`j''"'
 				}
 			}
