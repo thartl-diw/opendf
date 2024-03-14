@@ -69,7 +69,7 @@ program define csv2dta
 
 
 	*Directory where to save csvs
-	quietly: import delimited "`csv_loc'\dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) `clear'
+	quietly: import delimited "`csv_loc'/dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) `clear'
 
 	*count number of characteristics
 	local dataset_nchar = 0
@@ -83,7 +83,7 @@ program define csv2dta
 	}
 
 
-	quietly: import delimited "`csv_loc'\variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
+	quietly: import delimited "`csv_loc'/variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
 	*number of variables
 	local _nvar = _N
 	*loop over each variable (row)
@@ -101,7 +101,7 @@ program define csv2dta
 	}
 	 	
 	 *Import variable value labels
-	quietly: import delimited "`csv_loc'\categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
+	quietly: import delimited "`csv_loc'/categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
 
 	*save row numbers (number of value labels)
 	local nvalue_labels=`r(N)'
@@ -179,7 +179,7 @@ program define csv2dta
 	}
 
 	*Import Data
-	quietly: import delimited "`csv_loc'\data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear
+	quietly: import delimited "`csv_loc'/data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear
 	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
 	local default_exists=0
 	local language_counter=0
