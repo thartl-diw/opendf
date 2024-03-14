@@ -1,6 +1,5 @@
 /*----------------------------------------------------------------------------------
-  csv2dta.ado: loads data from csvs including meta data to build a stata dataset
-    Copyright (C) 2024  Tom Hartl (thartl@diw.de)
+  csv2xml.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,322 +14,97 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! csv2dta.ado: loads data from csvs including meta data to build a stata dataset
-*! version 0.1 February, 14 2024 - first draft
-program define csv2dta
-	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR VERBOSE]
-	local replaceit 0
-		if (`"`replace'"' != "") local replaceit 1
-		
-	local saveit 0
-	if (`"`save'"' != "") {
-		local saveit 1
-		local save: subinstr local save "\" "`c(dirsep)'", all
-		local save `save'
-	}
+*! csv2xml.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
+*! version 1.0 March, 1st 2024 - initial release
 
-	local clearit 0
-		if (`"`clear'"' != "") local clearit 1
+program define csv2xml
+    syntax, output(string) [input(string) variables_arg(string) export_data(string) VERBOSE]
+    if `"`input'"' == ""{
+      local input = "`c(tmpdir)'"
+    }
 
-	if `replaceit' == 1 & `saveit' == 0 {
-		noisily: display as error "option {bf:replace} requires option {bf:save}"
-		exit 459
-	}	
-	if `replaceit' == 0 & `saveit' == 1 {
-		capture: confirm file "`save'"
-		if _rc == 0 {
-			noisily: display as error "file `save' already exists"
-			exit 602
-		} 
-	}
-	local saveit 0
-	if (`"`save'"' != "") {
-		local saveit 1
-		local save: subinstr local save "\" "`c(dirsep)'", all
-		local save `save'
-	}
+    if ("`input'" == ""){
+      local input = "`c(tmpdir)'"
+    }
 
-	local verboseit 0
-	if (`"`verbose'"' != "") {
-		local verboseit 1
-	}
+    if ("`input'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
+      local input = "`input'/"
+    }
 
-	*global to save all warnings
-	global warnings ""
-	*locals for occurence of warning type
-	local _valuelabelforstringvariable=0
-	local _datasetlabelmissing=0
-	local _metadatafornonexistingvariable=0
-	local _vallabelfornonexistingvariable=0
-	local _varlabelmissing=0
-	local _valuelabelmissing=0
-	*replace backlashes with lashes
-	quietly: local csv_loc: subinstr local csv_loc "\" "`c(dirsep)'", all
+    if (`"`export_data'"' == "") {
+		local export_data "yes"
+    }
+    if (`"`variables_arg'"' == "") {
+      local variables_arg "yes"
+    }
+    local verboseit 0
+	  if (`"`verbose'"' != "") {
+	    local verboseit 1
+	  }
+    *Check for working python version
+    local _python_working=0
+    capture python: print()
+    if (_rc==0){
+        local _python_working=1
+    }
+    else {
+      local subdirs : dir "`c(sysdir_plus)'" dirs "python*"
+      foreach x in `subdirs'{
+        if (`_python_working'==0){
+          capture set  python_exec "`c(sysdir_plus)'`x'\python.exe"
+          capture python: print()
+          if (_rc==0) {
+            local _python_working 1
+          }
+        }
+      }
+    }
 
+    if (`_python_working'==1){
+        if (`verboseit'==1) di "Working Python Version available."
+    }
+    else {
+      di "{red: Warning: Could not find a python installation >= 2.7 on the current machine.}"
+      di "{red: 1. To install python visit:}"
+      di `"{p 10 10}{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}{p_end}"'
+      di "{red: 2. If you have a working python version on your PC but Stata doesn't find it automatically, you can activate it manually by indicating which python.exe to use with following command:}"
+      di "{p 10 10}{red: {it:set python_exec  C:\...\python.exe}}{p_end}"
+      di "{p 10 10}{red: and retry to run the opendf-function.}{p_end}"
+      di "{red: 3. If you are using Windows, the opendf package also provides a function that installs a working python version to a specified path or to the directory of stata packages (ado\plus folder).}"
+      di "{p 10 10}{red: If you want to install python through the build-in opendf-function, run: {it:opendf installpython}}{p_end}"
+      di `"{p 10 10}{red: You can specifiy a version with the argument {it:opendf installpython, version("3.8")}}{p_end}"'
+      di `"{p 10 10}{red: You can specifiy a location to install python with the argument {it:opendf installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
+      di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
+    }
+    
+    local output_dir = subinstr("`output'", "\", "/", .)
+    local input_dir = subinstr("`input'", "\", "/", .)
+    local _path_to_py_ado "`c(sysdir_plus)'py"
+    *if ("`c(os)'"!="Windows") {
+    *  if ("`c(os)'"=="Unix"){
+    *    local _site "`c(sysdir_site)'"
+    *    local _username "`c(username)'"
+    *    local _path_to_py_ado "`_site'plus/py"
+    *    local _path_to_py_ado subinstr("`_path_to_py_ado'", "/usr", "/home/`_username'", .)
+    *    local _path_to_py_ado: di `_path_to_py_ado'
+    *    local _path_to_py_ado subinstr("`_path_to_py_ado'", "\", "/", .)
+    *    local _path_to_py_ado: di `_path_to_py_ado'
+    *  }
+    *} 
+    *else {
+    *  local _path_to_py_ado subinstr("`c(sysdir_plus)'py", "\", "/", .)
+    *  local _path_to_py_ado: di `_path_to_py_ado'
+    *}
 
-	*Directory where to save csvs
-	quietly: import delimited "`csv_loc'/dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) `clear'
-
-	*count number of characteristics
-	local dataset_nchar = 0
-	*loop over each characteristic (column)
-	*The name of characteristic 1 is saved in local macro dataset_char1_name
-	*The value of characteristic 1 is saved in local macro dataset_char1_label
-	foreach var of varlist _all {
-		local dataset_nchar = `dataset_nchar'+1
-		local dataset_char`dataset_nchar'_name = "`var'"
-		local dataset_char`dataset_nchar'_label = `var' in 1
-	}
-
-
-	quietly: import delimited "`csv_loc'/variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
-	*number of variables
-	local _nvar = _N
-	*loop over each variable (row)
-	forvalues i=1(1)`_nvar' {
-		*counter for number of characteristics
-		local _var`i'nchar = 0
-		*loop over each characteristic (column)
-		*The name of characteristic 1 of variable 1 is saved in local macro _var1_char_name1
-		*The value of characteristic 1 of variable 1 is saved in local macro _var1_char_label1
-		foreach var of varlist _all {
-			local _var`i'nchar = `_var`i'nchar'+1
-			local _var`i'_char_name`_var`i'nchar'= "`var'"
-			local _var`i'_char_label`_var`i'nchar'= `var' in `i'
-		}
-	}
-	 	
-	 *Import variable value labels
-	quietly: import delimited "`csv_loc'/categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
-
-	*save row numbers (number of value labels)
-	local nvalue_labels=`r(N)'
-
-
-
-	*loop over each value label (each row of dataset)
-	forvalues i=1/`nvalue_labels'{
-		if (`i'==1){
-			*counter for number of variables to label
-			local n_variable_to_label=1
-			*counter for number of value label for this variable
-			local nvalues=1
-			*Save variable name as local
-			local _varname`n_variable_to_label' = variable in `i'
-			*save value of value label as local
-			local _var`n_variable_to_label'_value`nvalues' = value in `i'
-			*save language label of value as local
-			foreach x of varlist _all{
-				if strpos("`x'", "label")>0{
-					if ("`x'" == "label"){
-						local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
-					} 
-					else {
-						local _label_language = subinstr("`x'", "label_", "", .)
-						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
-					}
-					
-				}
-			}
-			
-			
-		}
-		if(`i'>1){
-			local j = `i'-1
-			local actual_var=variable in `i'
-			local last_var=variable in `j'
-			if ("`actual_var'" == "`last_var'"){
-				local nvalues=`nvalues'+1
-				local _var`n_variable_to_label'_value`nvalues' = value in `i'
-				foreach x of varlist _all{
-					if strpos("`x'", "label")>0{
-						if ("`x'" == "label"){
-							local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
-						} 
-						else {
-							local _label_language = subinstr("`x'", "label_", "", .)
-							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
-						}
-					}
-				}		
-			}
-			if ("`actual_var'" != "`last_var'"){
-				local _var`n_variable_to_label'_nvals = `nvalues'
-				local nvalues=1
-				local n_variable_to_label=`n_variable_to_label'+1
-				local _varname`n_variable_to_label' = "`actual_var'"
-				local _var`n_variable_to_label'_value`nvalues' = value in `i'
-				foreach x of varlist _all{
-					if strpos("`x'", "label")>0{
-						if ("`x'" == "label"){
-							local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
-						} 
-						else {
-							local _label_language = subinstr("`x'", "label_", "", .)
-							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
-						}
-					}
-				}
-			}
-		}
-		if (`i'==`nvalue_labels'){
-			local _var`n_variable_to_label'_nvals = `nvalues'
-		}
-	}
-
-	*Import Data
-	quietly: import delimited "`csv_loc'/data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear
-	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
-	local default_exists=0
-	local language_counter=0
-
-	*assign dataset labels and characteristics
-	forvalues i=1/`dataset_nchar' {
-			if (strpos("`dataset_char`i'_name'", "label")>0){
-				if ("`dataset_char`i'_name'"=="label"){
-					quietly: label language default
-					label data "`dataset_char`i'_label'"
-					* If no language is defined, the label is assigned to the language default
-					if `default_exists'==0{
-						local language_counter=`language_counter'+1
-						local _language`language_counter'="default"
-						local default_exists=1
-					}
-				}
-				else {
-					local _label_language = subinstr("`dataset_char`i'_name'", "label_", "", .)
-					capture quietly: label language `_label_language', new
-					if (_rc==110) {
-					quietly: label language `_label_language'
-					}
-					else {
-					local language_counter=`language_counter'+1
-					local _language`language_counter'="`_label_language'"
-					quietly: label data "`dataset_char`i'_label'"
-				}
-				
-				}
-				
-			}
-		if (strpos("`dataset_char`i'_name'", "label")==0){
-			char _dta[`dataset_char`i'_name'] "`dataset_char`i'_label'"
-		}
-	}
-	*assign variable labels and characteristics
-	forvalues i=1(1)`_nvar' {
-		forvalues j=1(1)`_var`i'nchar'{
-			if ("`_var`i'_char_name`j''"=="variable"){
-				local _varcode=`"`_var`i'_char_label`j''"'
-				}
-			capture confirm variable `_varcode', exact
-			if (_rc == 0){
-				if strpos("`_var`i'_char_name`j''", "label")>0{
-					if ("`_var`i'_char_name`j''"=="label"){
-						quietly: label language default
-						label var `_varcode' `"`_var`i'_char_label`j''"'
-						if `default_exists'==0{
-							local language_counter=`language_counter'+1
-							local _language`language_counter'="`_label_language'"
-							local default_exists=1
-						}
-					}
-					if ("`_var`i'_char_name`j''"!="label"){
-						local _label_language = subinstr("`_var`i'_char_name`j''", "label_", "", .)
-						capture label language `_label_language'
-						if (_rc == 111){
-							quietly: label language `_label_language', new
-							local language_counter=`language_counter'+1
-							local _language`language_counter'="`_label_language'"
-							local _datasetlabelmissing=1
-							global warnings= `"$warnings {p}{red: Warning: No Dataset Label defined for Language{it: `_label_language'}.}{p_end}"'
-						}
-						quietly: label var `_varcode' `"`_var`i'_char_label`j''"'
-					}
-				}
-				if "`_var`i'_char_name`j''"!="variable" & strpos("`_var`i'_char_name`j''", "label")==0 {
-					char `_varcode'[`_var`i'_char_name`j''] `"`_var`i'_char_label`j''"'
-				}
-			}
-			else {
-				local _metadatafornonexistingvariable=1
-				global warnings= `"$warnings {p}{red: Metadata for{it: `_varcode'} not assigned: variable not in the dataset.}{p_end}"'
-			}	
-		}
-	}
-	foreach var of varlist _all{
-		forvalues l = 1/`language_counter'{
-			quietly: label language `_language`l''
-			local _varlabel : variable label `var'
-			if "`_varlabel'" == ""{
-				local _varlabelmissing=1
-				global warnings= `"$warnings {p}{red: Warning: No Label defined for Variable{it: `var'} for Language{it: `_language`l''}.}{p_end}"'
-			}
-		}
-	}
-	*Build value labels from locals
-	forvalues i=1/`n_variable_to_label'{
-		forvalues j=1/`_var`i'_nvals'{
-			if (`j'==1){
-				forvalues l = 1/`language_counter'{
-					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"'
-					}
-				}	
-			}
-			if `j'>1 {
-				forvalues l = 1/`language_counter'{
-					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
-					}
-				}
-			}
-		}
-	}
-
-	*Assign value labels to non-String Variables
-	forvalues i=1/`n_variable_to_label'{
-		capture confirm variable `_varname`i'', exact
-		if (_rc == 0){
-			local _variable_type : type `_varname`i''
-			if strpos("`_variable_type'", "str") == 1 {
-				local _valuelabelforstringvariable=1
-				global warnings= `"$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"'
-			}
-			if strpos("`_variable_type'", "str") != 1 {
-				forvalues l = 1/`language_counter'{
-					qui label language `_language`l''
-					capture label list _var`i'_labels_`_language`l''
-					if (_rc == 111 & "`_language`l''" != "default") {
-						local _valuelabelmissing=1
-						global warnings= `"$warnings {p}{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}{p_end}"'
-					}
-					if (_rc == 0) {
-						label values `_varname`i'' _var`i'_labels_`_language`l''
-					}
-				}
-			}
-		} 
-		else {
-			local _vallabelfornonexistingvariable=1
-			global warnings= `"$warnings {p}{red: Value Labels for {it: `_varname`i''} not assigned: variable not in the dataset.}{p_end}"'
-		}
-		
-	}
-	if `saveit'==1 {
-		quietly: save `"`save'"', `replace'
-	}
-	if `default_exists'==1{
-		di "{red: Warning: Your dataset contains labels and/or descriptions without a language tag. Labels and descriptions without a language tag are not compatible with opendf-format and might get lost when data is saved in opendf-format.}"
-		di "{red: The labels have been assigned to the language default. Check {it: label language} to list defined languages.}"
-	}
-	else {
-		label language default, delete
-	}
-	if (`_datasetlabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Dataset Label defined for one or more Languages. For further information display global {it:warnings}}"'
-	if (`_metadatafornonexistingvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Variable Metadata could not be assigned: variable(s) not in the dataset. For further information display global {it:warnings}}"'
-	if (`_vallabelfornonexistingvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Value Labels could not be assigned: variable(s) not in the dataset. For further information display global {it:warnings}}"'
-	if (`_valuelabelforstringvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Value Labels were not assigned because Variable is a string Variable. For further information display global {it:warnings}}"'
-	if (`_varlabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Label defined for some Variables for some Languages. For further information display global {it:warnings}}"'
-	if (`_valuelabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Value Labels defined for some Variables. For further information display global {it:warnings}}"'
-	qui label language `_language1'
+    python: import sys
+    python: from sfi import Macro
+    python: input_dir=Macro.getLocal('input_dir')
+    python: output_dir=Macro.getLocal('output_dir')
+    python: sys.path.append(Macro.getLocal('_path_to_py_ado'))
+    python: import csv2xml
+    python: csv2xml.export_data=Macro.getLocal('export_data')
+    python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
+    python: csv2xml.csv2xml(input_dir=input_dir, output_dir=output_dir)
+    shell rd "`output'" /s /q
 end
+
