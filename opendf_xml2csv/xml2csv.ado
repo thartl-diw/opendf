@@ -24,10 +24,8 @@ program define xml2csv
 	  if (`"`verbose'"' != "") {
 		  local verboseit 1
 	  }
-    if (`"`output_dir'"' == "") {
-		  local output_dir = "`c(tmpdir)'"
-	  }
-    if (`"`output_dir'"' != "`c(tmpdir)'") {
+    
+    if (`"`output_dir'"' != "`c(tmpdir)'" | "`c(os)'"=="Unix") {
 		  local output_dir = "`output_dir'/"
 	  }
 
