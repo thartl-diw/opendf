@@ -27,7 +27,7 @@ program define opendf_write
 	  	local variables "yes"
 	  }
 
-    dta2csv, languages(`languages') input(`input')
+    dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
     csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data("yes") `verbose'
     **_file** "`output'.zip"
     if _rc == 0 {

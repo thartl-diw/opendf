@@ -31,11 +31,17 @@ program define dta2csv
     	di as error "Dataset is empty."
     	exit
   	}
+	*by default csvs are stored in temp directory
+	if (`"`output_dir'"' == "" ){
+      local output_dir = "`c(tmpdir)'"
+    }
+	*if output_dir is not temp dir or if we are in linux, we add / to the path
+	if ("`output_dir'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
+      local output_dir = "`output_dir'/"
+    }
 	*Save dataset as data.csv
-	quietly: export delimited "`c(tmpdir)'data",  nolabel replace
-	if (`"`output_dir'"' != "" & "`output_dir'" != "`c(tmpdir)'") {
-		quietly: export delimited "`output_dir'/data", nolabel replace
-	}
+	quietly: export delimited "`output_dir'data",  nolabel replace
+	
 	
 	*save original data as tempfile
 	quietly: tempfile orig_datatempfile 
@@ -117,11 +123,7 @@ program define dta2csv
         }     
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
-	quietly: export delimited "`c(tmpdir)'dataset", replace
-	*if output_dir is specified, the csvs are additionally saved in the specified directory
-	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'/dataset", replace
-	}
+	quietly: export delimited "`output_dir'dataset", replace
 
 	*******   export variables meta data to variables.csv**************
 
@@ -208,11 +210,7 @@ program define dta2csv
 		}
 	}
 	*save variables metadata as variables.csv in working directory (temp folder)
-	quietly: export delimited "`c(tmpdir)'variables", replace
-	*if output_dir is specified, the csvs are additionally saved in the specified directory
-	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'/variables", replace
-	}
+	quietly: export delimited "`output_dir'variables", replace
 	
 
 
@@ -343,10 +341,5 @@ program define dta2csv
             }     
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
-	quietly: export delimited "`c(tmpdir)'categories", replace
-	*if output_dir is specified, the csvs are additionally saved in the specified directory
-	if (`"`output_dir'"' != "") {
-		quietly: export delimited "`output_dir'/categories", replace
-	}
-	quietly: use `orig_datatempfile', clear
+	quietly: export delimited "`output_dir'categories", replace
 end
