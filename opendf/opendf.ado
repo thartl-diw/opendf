@@ -19,7 +19,7 @@
 *! version 0.1 February, 22 2024 - first draft
 
 program define opendf, rclass 
-	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) REPLACE CLEAR VERBOSE]
+	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) REPLACE CLEAR VERBOSE]
 	local _fun = lower("`anything'")
 
 	if ("`_fun'"=="read"){
@@ -30,7 +30,7 @@ program define opendf, rclass
 		opendf_write,  output("`output'") input("`input'") languages("`languages'") variables("`variables'") `verbose'
 	}
 	
-	if ("`_fun'"=="install_python"){
+	if ("`_fun'"=="installpython"){
 		opendf_installpython, version("`version'") location("`location'")
 	}
 
