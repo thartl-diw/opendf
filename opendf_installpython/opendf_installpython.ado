@@ -28,7 +28,7 @@ program define opendf_installpython
 	}
 	
 	if (`"`version'"' == "") {
-		local _py_version= "3.11"
+		local _py_version= "3.12"
 	}
 	else {
 		local _py_version="`version'"
