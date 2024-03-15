@@ -176,11 +176,11 @@ program define dta2csv
 			
 			foreach l in `_languages'{
 				if "`l'"=="default"{
-					if `"`description_`l''"'!= "" replace description in `_nvar_counter' = "`description_`l''"
+					if `"`description_`l''"'!= "" replace description in `_nvar_counter' = `"`description_`l''"'
 					if `"`label_`l''"'!= "" replace label in `_nvar_counter' = "`label_`l''"
 				}
 				else {
-					if `"`description_`l''"'!= "" replace description_`l' in `_nvar_counter' = "`description_`l''"
+					if `"`description_`l''"'!= "" replace description_`l' in `_nvar_counter' = `"`description_`l''"'
 					if `"`label_`l''"'!= "" replace label_`l' in `_nvar_counter' = "`label_`l''"
 				}
 			}
