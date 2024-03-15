@@ -31,7 +31,7 @@ program define opendf_write
     csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data("yes") `verbose'
     **_file** "`output'.zip"
     if _rc == 0 {
-      di "{text: Dataset successfully saved in opendf-format.}"
+      di "{text: Dataset successfully saved in opendf-format to {it: `output'.zip}.}"
     }
 end
 
