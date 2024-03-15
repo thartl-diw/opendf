@@ -40,7 +40,7 @@ program define dta2csv
       		local output_dir = "`output_dir'/"
     	}
 	*Save dataset as data.csv
-	quietly: export delimited "`output_dir'data",  nolabel replace
+	quietly: export delimited "`output_dir'data",  nolabel replace quote
 	
 	
 	*save original data as tempfile
@@ -123,7 +123,7 @@ program define dta2csv
         }     
 	}
 	*save dataset metadata as dataset.csv in working directory (temp folder)
-	quietly: export delimited "`output_dir'dataset", replace
+	quietly: export delimited "`output_dir'dataset", replace quote
 
 	*******   export variables meta data to variables.csv**************
 
@@ -210,7 +210,7 @@ program define dta2csv
 		}
 	}
 	*save variables metadata as variables.csv in working directory (temp folder)
-	quietly: export delimited "`output_dir'variables", replace
+	quietly: export delimited "`output_dir'variables", replace quote
 	
 
 
@@ -341,6 +341,6 @@ program define dta2csv
             }     
 		}
 	*save variables metadata as variables.csv in working directory (temp folder)
-	quietly: export delimited "`output_dir'categories", replace
+	quietly: export delimited "`output_dir'categories", replace quote
 	quietly: use `orig_datatempfile', clear
 end
