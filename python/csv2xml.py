@@ -18,7 +18,7 @@ def pretty_print(current, parent=None, index=-1, depth=0):
 
 # get head of csv file              
 def header(input_dir,csv_file):
-  with open(input_dir+"/"+csv_file,"r", encoding="utf8") as file:
+  with open(input_dir+"/"+csv_file,"r", encoding="utf-8") as file:
     dict_reader=csv.DictReader(file)
     header = dict_reader.fieldnames      
   return header
