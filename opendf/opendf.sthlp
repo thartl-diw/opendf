@@ -14,12 +14,12 @@ help for {cmd:opendf}{right:version 0.1 (04 Mar 2024)}
 
     Read data
 
-{p 8 16 2}{cmd:opendf} {cmd:read}, {it: input()} [{opt clear} {opt save()} {opt replace} {opt verbose}]
+{p 8 16 2}{cmd:opendf} {cmd:read} {it:input} [,{opt clear} {opt save()} {opt replace} {opt verbose}]
 
 
     Write data
 
-{p 8 16 2}{cmd:opendf} {cmd:write}, {it: output()} [{opt input()} {opt languages()} {opt variables()} {opt verbose}]
+{p 8 16 2}{cmd:opendf} {cmd:write} {it:output} [,{opt input()} {opt languages()} {opt variables()} {opt verbose}]
 
 
     Display metadata of dataset or variable
