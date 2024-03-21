@@ -33,7 +33,7 @@ The opendataformat package consists of three main functions:
 
 ``` stata
 * You can load a dataset in opendf-format with opendf_read by specifying the path to the zip-folder, (in this case, the testdataset from github):
-opendf_read "https://thartl-diw.github.io/opendf/testdata.zip", clear verbose
+opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear verbose
 
 ```
 
