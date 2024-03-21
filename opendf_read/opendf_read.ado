@@ -19,9 +19,10 @@
 *! version 0.1 February, 14 2024 - first draft
 
 program define opendf_read
-	syntax, input(string) [LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]
-	*If the data.zip is a web path, the data is downloaded to the temp-folder
-	  if strpos("`input'", "http")>0 | strpos("`input'", "www.")>0{
+	syntax anything [,LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]
+	local input=`"`anything'"'
+  *If the data.zip is a web path, the data is downloaded to the temp-folder
+	  if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
 		  local _tempdir "`c(tmpdir)'"
 	  	local _path_to_data `"`_tempdir'data.zip"'
 	    quietly: copy `input' `_path_to_data', replace
@@ -34,7 +35,7 @@ program define opendf_read
 	  else {
       local languages "all"
     }
-    local input_zip="`input'"
+    local input_zip=`"`input'"'
     local csv_temp = "`c(tmpdir)'"
     xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
     csv2dta, csv_loc("`csv_temp'") save(`save') `replace' `clear' `verbose'
