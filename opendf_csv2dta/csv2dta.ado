@@ -298,10 +298,6 @@ program define csv2dta
 			}
 			if `j'>1 {
 				forvalues l = 1/`language_counter'{
-					capture di `"`_var`i'_label`j'_lan`_language`l'''"'
-					if _rc ==0 di `"`_var`i'_label`j'_lan`_language`l'''"'
-					capture di "`_var`i'_label`j'_lan`_language`l'''"
-					if _rc ==0 di "`_var`i'_label`j'_lan`_language`l'''"
 					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
 						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
 					}
