@@ -42,7 +42,7 @@ opendf write
 {pstd}
 {opt languages} The languages that should be saved in the opendf-file. Default is all.{p_end}
 {pstd}
-{opt languages} The variables that should be saved in the opendf-file. Default is all.{p_end}
+{opt variables} Indicates the variables that should be saved in the opendf-file. Default is all.{p_end}
 {pstd}
 {opt verbose} if activated, more warnings are displayed.{p_end}
 
