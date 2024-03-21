@@ -70,7 +70,13 @@ program define csv2dta
 
 	*Directory where to save csvs
 	quietly: import delimited "`csv_loc'/dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) `clear'
-
+	*remove gravis (`) from strings to avert errors
+	foreach var of varlist _all{
+		local _variable_type : type `var'
+		if strpos("`_variable_type'", "str") == 1{
+			qui: replace `var' = subinstr(`var', "`=char(96)'", "'",.) 
+		}
+	}
 	*count number of characteristics
 	local dataset_nchar = 0
 	*loop over each characteristic (column)
@@ -84,6 +90,13 @@ program define csv2dta
 
 
 	quietly: import delimited "`csv_loc'/variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
+	*remove gravis (`) from strings to avert errors
+	foreach var of varlist _all{
+		local _variable_type : type `var'
+		if strpos("`_variable_type'", "str") == 1{
+			qui: replace `var' = subinstr(`var', "`=char(96)'", "'",.) 
+		}
+	}
 	*number of variables
 	local _nvar = _N
 	*loop over each variable (row)
@@ -102,7 +115,13 @@ program define csv2dta
 	 	
 	 *Import variable value labels
 	quietly: import delimited "`csv_loc'/categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
-
+	*remove gravis (`) from strings to avert errors
+	foreach var of varlist _all{
+		local _variable_type : type `var'
+		if strpos("`_variable_type'", "str") == 1{
+			qui: replace `var' = subinstr(`var', "`=char(96)'", "'",.) 
+		}
+	}
 	*save row numbers (number of value labels)
 	local nvalue_labels=`r(N)'
 
@@ -179,7 +198,7 @@ program define csv2dta
 	}
 
 	*Import Data
-	quietly: import delimited "`csv_loc'/data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear
+	quietly: import delimited "`csv_loc'/data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear	
 	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
 	local default_exists=0
 	local language_counter=0
@@ -272,13 +291,17 @@ program define csv2dta
 		forvalues j=1/`_var`i'_nvals'{
 			if (`j'==1){
 				forvalues l = 1/`language_counter'{
-					if "`_var`i'_label`j'_lan`_language`l'''" != ""{
+					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
 						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"'
 					}
 				}	
 			}
 			if `j'>1 {
 				forvalues l = 1/`language_counter'{
+					capture di `"`_var`i'_label`j'_lan`_language`l'''"'
+					if _rc ==0 di `"`_var`i'_label`j'_lan`_language`l'''"'
+					capture di "`_var`i'_label`j'_lan`_language`l'''"
+					if _rc ==0 di "`_var`i'_label`j'_lan`_language`l'''"
 					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
 						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
 					}
