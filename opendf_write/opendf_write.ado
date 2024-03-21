@@ -19,19 +19,22 @@
 *! version 0.1 February, 22 2024 - first draft
 
 program define opendf_write
-	syntax, output(string) [input(string) languages(string) variables(string) VERBOSE]
+	syntax anything [,input(string) languages(string) variables(varlist) VERBOSE]
+    local output=`"`anything'"'
     if (`"`languages'"' == "") {
 	  	local languages "all"
 	  }
-    if (`"`variables'"' == "") {
-	  	local variables "yes"
+    quietly: tempfile orig_dataset 
+	  quietly: save `orig_dataset'
+    if (`"`variables'"' != "" & `"`variables'"'!= "all") {
+	  	    keep `variables'
 	  }
-
     dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
-    csv2xml, output(`output') input("`c(tmpdir)'") variables_arg(`variables') export_data("yes") `verbose'
-    **_file** "`output'.zip"
+    csv2xml, output(`output') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    **_file** `"`output'.zip"'
     if _rc == 0 {
-      di "{text: Dataset successfully saved in opendf-format to {it: `output'.zip}.}"
+      di "{text: Dataset successfully saved in opendf-format to {it:"`anything'".zip}.}"
     }
+    quietly: use `orig_dataset', clear
 end
 

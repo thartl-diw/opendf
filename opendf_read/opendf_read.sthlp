@@ -18,7 +18,7 @@ opendf read
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf read}, {it: input()} [{opt clear} {opt save()} {opt replace} {opt verbose}]
+{cmd:opendf read} {it: input} [,{opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -67,10 +67,10 @@ This command is part of the Data Open Format Project bundle, written to assist w
 
 {phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
 {phang}With the save()-option the dataset is saved as testdata.dta in the working directory. If it already exists, it testdata.dta is replaced, verbose option is set on.{p_end}
-{phang}{cmd:. opendf read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear save("testdata") replace verbose}{p_end}
+{phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear save("testdata") replace verbose}{p_end}
 
 {phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
-{phang}{cmd:. opendf read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear}{p_end}
+{phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear}{p_end}
 
 
 {marker author}

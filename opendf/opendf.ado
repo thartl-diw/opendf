@@ -20,22 +20,22 @@
 
 program define opendf, rclass 
 	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) REPLACE CLEAR VERBOSE]
-	local _fun = lower("`anything'")
+	local _fun = `"`anything'"'
+	tokenize `"`_fun'"'
 
-	if ("`_fun'"=="read"){
-		opendf_read, input("`input'") `clear' save("`save'") `replace' `verbose'
+	if ("`1'"=="read"){
+		opendf_read `"`2'"', `clear' save("`save'") `replace' `verbose'
 	}
 
-	if ("`_fun'"=="write"){
-		opendf_write,  output("`output'") input("`input'") languages("`languages'") variables("`variables'") `verbose'
+	if ("`1'"=="write"){
+		opendf_write `"`2'"', input("`input'") languages("`languages'") variables("`variables'") `verbose'
 	}
 	
-	if ("`_fun'"=="installpython"){
+	if ("`1'"=="installpython"){
 		opendf_installpython, version("`version'") location("`location'")
 	}
 
-	tokenize "`_fun'"
 	if ("`1'"=="docu"){
-		opendf_docu "`2'"
+		opendf_docu `"`2'"'
 	}
 end
