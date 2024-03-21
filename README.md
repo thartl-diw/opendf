@@ -33,7 +33,7 @@ The opendataformat package consists of three main functions:
 
 ``` stata
 * You can load a dataset in opendf-format with opendf_read by specifying the path to the zip-folder, (in this case, the testdataset from github):
-opendf_read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear verbose
+opendf_read "https://thartl-diw.github.io/opendf/testdata.zip", clear verbose
 
 ```
 
@@ -54,7 +54,7 @@ For data providers the csv2dta and csv2xml functions might be interesting to con
 
 ### Multilingual Datasets
 
-When working with a multilingual dataset, the `opendataformatr` package provides the option to specify the language you want to work with for the main functions: `read_opendf()`, `docu_opendf()`, `write_opendf()`
+When working with a multilingual dataset, the `opendataformatr` package provides the option to specify the language you want to work with for the main functions: `opendf read`, `opendf docu`, `opendf write`.
  
 You can achieve this by using the `languages` argument and setting it to either `all` to include all languages, or by specifying the language code such as `de` for German or `en` for English. 
 This allows you to easily select the desired language for your dataset operations. Metadata without a language tag will be assigned to the language `default`.
