@@ -12,8 +12,6 @@ This resource provides detailed documentation and profiles illustrating the stor
 
 Additionally, you will have access to a practical example of [real data in the Open Data Format](https://git.soep.de/opendata/open-data-package).
 
-Learn more about the Open Data Format in R in `vignette("opendataformat")`.
-
 ## Installation
 
 ``` stata
@@ -27,11 +25,11 @@ net install opendf, from (https://thartl-diw.github.io/opendf/) replace
 
 The opendataformat package consists of three main functions:
 
-- `opendf_read` to read an Open Data Format file in R. This function takes an input parameter, which is the path to the Open Data Format ZIP file, and points to an R object for further processing.
+- `opendf_read` to read an Open Data Format file in Stata. This function takes an input parameter, which is the path to the Open Data Format ZIP file.
 
-- `opendf_docu` to explore the dataset information. You can display metadata for the whole dataset using `opendf_docu` or an selected variable `opendf_docu *variable*` as input and you will get the metadata displayed in Stata. 
+- `opendf_docu` to explore the dataset information. You can display metadata for the whole dataset using `opendf_docu` or an selected variable `opendf_docu variable`. 
 
-- `opendf_write` to write the stata data frame to an Open Data Format ZIP file. By specifying the dataframe input and providing the output directory path the function will generate a ZIP file containing the dataset as "data.csv" and "metadata.xml".
+- `opendf_write` to write the stata data frame to an Open Data Format ZIP file. By specifying the dataframe input and providing the output directory path the function will generate a ZIP file containing the dataset stored in a "data.csv" and the metadata stored in a "metadata.xml".
 
 ``` stata
 * You can load a dataset in opendf-format with opendf_read by specifying the path to the zip-folder, (in this case, the testdataset from github):
@@ -58,9 +56,8 @@ For data providers the csv2dta and csv2xml functions might be interesting to con
 
 When working with a multilingual dataset, the `opendataformatr` package provides the option to specify the language you want to work with for the main functions: `read_opendf()`, `docu_opendf()`, `write_opendf()`
  
-You can achieve this by using the `languages` argument and setting it to either 
-`all` to include all languages, or by specifying the language code such as `de` for German or `en` for English. 
-This allows you to easily select the desired language for your dataset operations.
+You can achieve this by using the `languages` argument and setting it to either `all` to include all languages, or by specifying the language code such as `de` for German or `en` for English. 
+This allows you to easily select the desired language for your dataset operations. Metadata without a language tag will be assigned to the language `default`.
 The language codes are defined by the [ISO 639-1](https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes).
 
 
