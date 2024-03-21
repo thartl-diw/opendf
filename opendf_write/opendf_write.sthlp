@@ -18,7 +18,7 @@ opendf write
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf write}, {it: output()} [{opt input()} {opt languages()} {opt variables()} {opt verbose}]
+{cmd:opendf write} {it: output} [,{opt input()} {opt languages()} {opt variables()} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -58,13 +58,13 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
-{phang}{cmd:. opendf write, output("out")}{p_end}
+{phang}{cmd:. opendf write "out"}{p_end}
 
 {phang}Saves the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
-{phang}{cmd:. opendf write, output("out") languages("en")}{p_end}
+{phang}{cmd:. opendf write "out", languages("en")}{p_end}
 
 {phang}Saves the variables pid, cid, hid, syear, name, bap9001 from the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
-{phang}{cmd:. opendf write, output("out") languages("en") variables(pid cid hid syear name bap9001)}{p_end}
+{phang}{cmd:. opendf write "out", languages("en") variables(pid cid hid syear name bap9001)}{p_end}
 
 
 {marker author}
