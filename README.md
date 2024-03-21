@@ -25,15 +25,15 @@ net install opendf, from (https://thartl-diw.github.io/opendf/) replace
 
 The opendataformat package consists of three main functions:
 
-- `opendf_read` to read an Open Data Format file in Stata. This function takes an input parameter, which is the path to the Open Data Format ZIP file.
+- `opendf read` to read an Open Data Format file in Stata. This function takes an input parameter, which is the path to the Open Data Format ZIP file.
 
-- `opendf_docu` to explore the dataset information. You can display metadata for the whole dataset using `opendf_docu` or an selected variable `opendf_docu variable`. 
+- `opendf docu` to explore the dataset information. You can display metadata for the whole dataset using `opendf docu` or an selected variable `opendf docu variable`. 
 
-- `opendf_write` to write the stata data frame to an Open Data Format ZIP file. By specifying the dataframe input and providing the output directory path the function will generate a ZIP file containing the dataset stored in a "data.csv" and the metadata stored in a "metadata.xml".
+- `opendf write` to write the stata data frame to an Open Data Format ZIP file. By specifying the dataframe input and providing the output directory path the function will generate a ZIP file containing the dataset stored in a "data.csv" and the metadata stored in a "metadata.xml".
 
 ``` stata
 * You can load a dataset in opendf-format with opendf_read by specifying the path to the zip-folder, (in this case, the testdataset from github):
-opendf_read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear verbose
+opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear verbose
 
 ```
 
@@ -41,7 +41,7 @@ opendf_read, input("https://thartl-diw.github.io/opendf/testdata.zip") clear ver
 
 The opendataformat package provides further functions that might be helpful:
 
-- `opendf_installpython` will install a python version that enables the opendf-package to work. Some functions (`opendf_read` and `opendf_write`) need a working python version on your PC. If stata is not able to find a working python version, this command will copy a python (default v3.12) to the stata ado/plus folder (where stata packages are stored). You can also specify the python version you want to install and specify a location where the folder with the python version should be deployed. But than you have to tell stata manually where the python.exe is located using "set python_exec".
+- `opendf installpython` will install a python version that enables the opendf-package to work. Some functions (`opendf read` and `opendf write`) need a working python version on your PC. If stata is not able to find a working python version, this command will copy a python (default v3.12) to the stata ado/plus folder (where stata packages are stored). You can also specify the python version you want to install and specify a location where the folder with the python version should be deployed. But than you have to tell stata manually where the python.exe is located using "set python_exec".
 
 - `csv2dta` to read data from four csvs containing data and metadata into stata. 
 
@@ -54,7 +54,7 @@ For data providers the csv2dta and csv2xml functions might be interesting to con
 
 ### Multilingual Datasets
 
-When working with a multilingual dataset, the `opendataformatr` package provides the option to specify the language you want to work with for the main functions: `read_opendf()`, `docu_opendf()`, `write_opendf()`
+When working with a multilingual dataset, the `opendataformatr` package provides the option to specify the language you want to work with for the main functions: `opendf read`, `opendf docu`, `opendf write`.
  
 You can achieve this by using the `languages` argument and setting it to either `all` to include all languages, or by specifying the language code such as `de` for German or `en` for English. 
 This allows you to easily select the desired language for your dataset operations. Metadata without a language tag will be assigned to the language `default`.
