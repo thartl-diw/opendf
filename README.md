@@ -29,7 +29,7 @@ The opendataformat package consists of three main functions:
 
 - `opendf_read` to read an Open Data Format file in R. This function takes an input parameter, which is the path to the Open Data Format ZIP file, and points to an R object for further processing.
 
-- `opendf_docu` to explore the dataset information. You can set the whole dataset `opendf_docu` or an selected variable `opendf_docu variable` as input and you will get the metadata displayed in Stata. 
+- `opendf_docu` to explore the dataset information. You can display metadata for the whole dataset using `opendf_docu` or an selected variable `opendf_docu *variable*` as input and you will get the metadata displayed in Stata. 
 
 - `opendf_write` to write the stata data frame to an Open Data Format ZIP file. By specifying the dataframe input and providing the output directory path the function will generate a ZIP file containing the dataset as "data.csv" and "metadata.xml".
 
