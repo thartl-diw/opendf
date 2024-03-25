@@ -21,7 +21,7 @@
 program define opendf_write
   syntax anything [,input(string) languages(string) variables(varlist) REPLACE VERBOSE]
     local replaceit 0
-		if (`"`replace'"' != "") local replaceit 1
+    if (`"`replace'"' != "") local replaceit 1
     local output=`anything'
     if (strpos("`output'", ".zip") == 0) local output = "`output'.zip"
     capture confirm file "`output'"
