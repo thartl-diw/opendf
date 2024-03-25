@@ -28,7 +28,7 @@ program define opendf, rclass
 	}
 
 	if ("`1'"=="write"){
-		opendf_write `"`2'"', input("`input'") languages("`languages'") variables("`variables'") `verbose'
+		opendf_write `"`2'"', input("`input'") languages("`languages'") variables("`variables'") `replace' `verbose'
 	}
 	
 	if ("`1'"=="installpython"){

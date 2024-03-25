@@ -18,7 +18,7 @@ opendf write
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf write} {it: output} [,{opt input()} {opt languages()} {opt variables()} {opt verbose}]
+{cmd:opendf write} {it: output} [,{opt input()} {opt languages()} {opt variables()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
@@ -27,6 +27,7 @@ opendf write
 {synopt :{opt input(string)}}A path to a stata dataset which should be saved in opendf-format. {p_end}
 {synopt :{opt languages(string)}}Chooses, which languages to keep. Default is all. {p_end}
 {synopt :{opt variables(string)}}Chooses, which Variables to keep. Default is all. {p_end}
+{synopt :{opt replace}}Overwrite the opendf file. {p_end}
 {synopt :{opt verbose}}More warnings are displayed. {p_end}
 {synoptline}
 
@@ -44,7 +45,8 @@ opendf write
 {pstd}
 {opt variables} Indicates the variables that should be saved in the opendf-file. Default is all.{p_end}
 {pstd}
-{opt verbose} if activated, more warnings are displayed.{p_end}
+{opt verbose} Indicates whether any existing file with this name should be overwritten.{p_end}
+{opt verbose} If activated, more warnings are displayed.{p_end}
 
 
 {marker remarks}
