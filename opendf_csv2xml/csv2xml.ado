@@ -105,6 +105,5 @@ program define csv2xml
     python: csv2xml.export_data=Macro.getLocal('export_data')
     python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
     python: csv2xml.csv2xml(input_dir=input_dir, output_dir=output_dir)
-    shell rd "`output'" /s /q
 end
 
