@@ -33,10 +33,9 @@ def get_lang(input_dir,csv_file, attribute):
   return lang  
 
 # make output directory  
-def make_output_dir(temp_output_dir):
-  if os.path.exists(temp_output_dir+'/'):
-    shutil.rmtree(temp_output_dir+'/')
-  os.makedirs(temp_output_dir+'/')
+def make_output_dir(output_dir):
+  if not os.path.exists(output_dir+'/'):        
+    os.makedirs(output_dir+'/')
 
 # copy data.csv from input dir to output dir
 def copy_data_csv(input_dir, output_dir, export_data):
@@ -158,17 +157,12 @@ def csv2xml(input_dir, output_dir):
                       labl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
                       labl.text = line['label_'+lang]
   # write xml
-  dir_name = output_dir.replace('\\','/')
-  dir_name = output_dir.split('/')
-  dir_name = dir_name[ len(dir_name)-1]
-  temp_output_dir=input_dir+'/'+dir_name
-  make_output_dir(temp_output_dir)
+  make_output_dir(output_dir)
   pretty_print(root)
   tree = ET.ElementTree(root)
-  tree.write(temp_output_dir+"/metadata.xml", xml_declaration=True, encoding="utf-8")
-  copy_data_csv(input_dir, temp_output_dir, export_data)
-  shutil.make_archive(temp_output_dir, "zip", temp_output_dir)
-  shutil.copyfile(temp_output_dir+".zip",output_dir+'.zip')
+  tree.write(output_dir+"/metadata.xml", xml_declaration=True, encoding="utf-8")
+  copy_data_csv(input_dir, output_dir, export_data)
+  shutil.make_archive(output_dir, "zip", output_dir)
 
 if __name__ == '__main__':
   csv2xml(input_dir, output_dir)
