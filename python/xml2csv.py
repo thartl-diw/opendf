@@ -322,4 +322,3 @@ def copy_data_csv(input_zip, output_dir):
 
 if __name__ == '__main__':
   make_csvs(input_zip, output_dir, languages)    
-
