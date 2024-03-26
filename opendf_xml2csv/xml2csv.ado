@@ -65,6 +65,7 @@ program define xml2csv
       di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
     }
     local input_zip = subinstr("`input_zip'", "\", "/", .)
+    local output_dir = subinstr("`output_dir'", "\", "/", .)
     local _path_to_py_ado "`c(sysdir_plus)'py"
     
     python: from sfi import Macro
