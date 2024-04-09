@@ -68,17 +68,16 @@ program define opendf_docu
         }
         local _url: char _dta[url]
     }
-    if "`_output'"=="variable" display "Variable: {p 20 20}`_name'{p_end}"
-    if "`_output'"=="dataset" display "Dataset: {p 20 20}`_name'{p_end}"
-    display `"Label: {p 20 20}`_label'{p_end}"'
-    if "`_output'"=="dataset" display "Languages: {p 20 20}`_languages'{p_end}{p 20 20}{text: currently set:} `_activelanguage'{p_end}"
-    display `"Description: {p 20 20}`_descr'{p_end}"'
-    display "URL: "
+    *if "`_output'"=="variable" display "{p}Variable: {text:`_name'}{p_end}"
+    if "`_output'"=="dataset" display "{p}Dataset: {text:`_name'}{p_end}"
+    display `"Label: {text:`_label'}"'
+    if "`_output'"=="dataset" display "{p}Languages: {text:`_languages'}{p_end}{p}{text:(currently set:} `_activelanguage'{text:)}{p_end}"
+    display `"{p}Description: {text:`_descr'}{p_end}"'
     if "`_url'" != "" {
-        display `"{p 20 20}{stata "view browse `_url'":`_url'}{p_end}"'
+        display `"{p}URL: {stata "view browse `_url'":`_url'}{p_end}"'
     }
-    else di ""
-    if "`_output'"=="variable" display "Variable Type: {p 20 20}`_type'{p_end}"
+    else di "URL: "
+    if "`_output'"=="variable" display "{p}Variable Type: {text:`_type'}{p_end}"
     if "`_output'"=="variable"{
 		capture local _lblname: value label `varname'
 		if "`_lblname'"!= "" {
@@ -87,7 +86,7 @@ program define opendf_docu
 			forvalues _val=`r(min)'/`r(max)'{
 				quietly local _lbl: label `_lblname' `_val'
 				if ("`_lbl'" != "`_val'") {
-					display `"{p 20 20}`_val' :  `_lbl'{p_end}"'
+					display `"{p}{text:`_val' :  `_lbl'}{p_end}"'
 				}
 			}
 		}
