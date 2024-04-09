@@ -62,6 +62,11 @@ program define dta2csv
 	else {
 		local _languages: `languages'
 	}
+
+	if (`"`_languages'"' == "") {
+		local _languages="default"
+	}
+
 	local dataset : char _dta[dataset]
 	local url : char _dta[url]
 	local label = ""
@@ -103,16 +108,24 @@ program define dta2csv
 		*	}
 		
 		*order columns (check whether label/description without language tag exist)
-		capture confirm variable label, exact
-		local _label_exists=_rc
 		capture confirm variable description, exact
-		local _description_exists=_rc
-		if (`_description_exists'==0 & `_label_exists'==0){
-			order dataset label label_* description description_* url
+		if (_rc==0) {
+			local _description_ description
 		}
-		else {
-			order dataset label* description* url
+		capture confirm variable description_
+		if (_rc==0) {
+			local _description_ `_description_' description_*
 		}
+		capture confirm variable label, exact
+		if (_rc==0) {
+			local _label_ label
+		}
+		capture confirm variable label_
+		if (_rc==0) {
+			local _label_ `_label_' label_*
+		}
+		
+		order dataset `_label_' `_description_' url
 	}
 	*drop empty labels and descriptions columns
 	foreach var of varlist * {
@@ -189,17 +202,25 @@ program define dta2csv
 		}
 		use `variablestempfile', clear
 		*order columns (check whether label/description without language tag exist)
-		capture confirm variable label, exact
-		local _label_exists=_rc
 		capture confirm variable description, exact
-		local _description_exists=_rc
+		if (_rc==0) {
+			local _description_ description
+		}
+		capture confirm variable description_
+		if (_rc==0) {
+			local _description_ `_description_' description_*
+		}
+		capture confirm variable label, exact
+		if (_rc==0) {
+			local _label_ label
+		}
+		capture confirm variable label_
+		if (_rc==0) {
+			local _label_ `_label_' label_*
+		}
 		
-		if (`_description_exists'==0 & `_label_exists'==0){
-			order variable label label_* type description description_* url
-		}
-		else {
-			order variable label* type description* url
-		}
+		order variable `_label_' type `_description_' url
+		
 		*drop empty labels and descriptions columns
 		foreach var of varlist * {
 			qui replace `var' = "" if `var'=="."
@@ -323,12 +344,14 @@ program define dta2csv
 	quietly: use `categoriestempfile', clear 
 	*order columns
 	capture confirm variable label, exact
-	if (_rc==0){
-		order variable value label label_*
+	if (_rc==0) {
+		local _label_ label
 	}
-	else {
-		order variable value label*
-	}
+	capture confirm variable label_
+	if (_rc==0) {
+		local _label_ `_label_' label_*
+	}	
+	order variable value `_label_' 
 	
 	*drop empty rows
 	quietly: drop if variable == ""
