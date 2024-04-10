@@ -335,15 +335,16 @@ program define csv2dta
 		}
 		
 	}
-	if `saveit'==1 {
-		quietly: save `"`save'"', `replace'
-	}
+	
 	if `default_exists'==1{
 		di "{red: Warning: Your dataset contains labels and/or descriptions without a language tag. Labels and descriptions without a language tag are not compatible with opendf-format and might get lost when data is saved in opendf-format.}"
 		di "{red: The labels have been assigned to the language default. Check {it: label language} to list defined languages.}"
 	}
 	else {
 		label language default, delete
+	}
+	if `saveit'==1 {
+		quietly: save `"`save'"', `replace'
 	}
 	if (`_datasetlabelmissing'==1 & `verboseit'==1) di `"{red: Warning: No Dataset Label defined for one or more Languages. For further information display global {it:warnings}}"'
 	if (`_metadatafornonexistingvariable'==1 & `verboseit'==1) di `"{red: Warning: Some Variable Metadata could not be assigned: variable(s) not in the dataset. For further information display global {it:warnings}}"'
