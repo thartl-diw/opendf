@@ -35,6 +35,13 @@ program define opendf_write
 	  }
     quietly: tempfile orig_dataset 
 	  quietly: save `orig_dataset'
+    if (`"`input'"' != "") {
+      capture quietly use "`input'"
+      if _rc==601{
+        di as error "Error: `input' is not a valid stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
+        exit 601
+      }
+    }
     if (`"`variables'"' != "" & `"`variables'"'!= "all") {
 	  	    keep `variables'
 	  }
