@@ -20,13 +20,6 @@
 
 program define dta2csv
     syntax, [languages(string) input(string) output_dir(string)]
-	if (`"`input'"' != "") {
-		capture quietly use "`input'"
-		if _rc==601{
-			di as error "Error: `input' is not a valid stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
-			exit 601
-		}
-	}
 	if (c(N) == 0 & c(k)==0) {
     	di as error "Dataset is empty."
     	exit
