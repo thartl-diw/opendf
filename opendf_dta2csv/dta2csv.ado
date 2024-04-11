@@ -52,7 +52,7 @@ program define dta2csv
 	quietly: tempfile datatempfile 
 	quietly: save `datatempfile'
 
-	if (`"`languages'"' == "") {
+	if ("`languages'" == "") {
 		local languages="all"
 	}
 
@@ -60,7 +60,7 @@ program define dta2csv
 		local _languages: char _dta[_lang_list]
 	}
 	else {
-		local _languages: `languages'
+		local _languages= "`languages'"
 	}
 
 	if (`"`_languages'"' == "") {
