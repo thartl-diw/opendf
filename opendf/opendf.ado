@@ -34,6 +34,9 @@ program define opendf, rclass
 	if ("`1'"=="installpython"){
 		opendf_installpython, version("`version'") location("`location'")
 	}
+	if ("`1'"=="removepython"){
+		opendf_removepython, version("`version'") location("`location'")
+	}
 
 	if ("`1'"=="docu"){
 		opendf_docu `"`2'"'
