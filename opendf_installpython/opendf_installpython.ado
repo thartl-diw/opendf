@@ -61,4 +61,3 @@ program define opendf_installpython
     *restore working directory
 	qui cd "`_wd'"
 end
-
