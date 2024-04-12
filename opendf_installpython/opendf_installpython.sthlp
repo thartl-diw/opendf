@@ -3,6 +3,7 @@
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
+{vieweralsosee "opendf removepython" "help opendf removepython"}{...}
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
@@ -72,4 +73,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut f√
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}{p_end}
