@@ -24,7 +24,10 @@ program opendf_removepython
         if (`"`location'"' ==""){
                 local location = c(sysdir_plus)
         }
-        local subdirs : dir "C:\Users\User\ado\plus/" dirs "*"
+        if (`"`version'"' ==""){
+            local version = "3"
+        }
+        local subdirs : dir "`location'" dirs "*"
         local python_version_found = "FALSE"
         foreach _dir in `subdirs'{
             if (strpos("`_dir'", "python`version'")>0){
