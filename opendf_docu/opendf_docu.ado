@@ -24,7 +24,6 @@ program define opendf_docu
     *get activated label language
     local _currentlanguage: char _dta[_lang_c]
     local _languages: char _dta[_lang_list]
-    local _activelanguage: char _dta[_lang_c]
     *if varname is not empty, we assume that varname is a variable
     if (`"`varname'"' != "") {
         local _output = "variable"
@@ -36,14 +35,14 @@ program define opendf_docu
             exit 111
         }
         local _descr: char `varname'[description_`_currentlanguage']
-        if "`_descr'"=="" {
+        if `"`_descr'"'=="" {
             local _descr: char `varname'[description]
         }
-        if "`_descr'"=="" {
+        if `"`_descr'"'=="" {
             local mylanguage=strupper("`_currentlanguage'")
             local _descr: char `varname'[description_`mylanguage']
         }
-            if "`_descr'"=="" {
+            if `"`_descr'"'=="" {
             local mylanguage=strlower("`_currentlanguage'")
             local _descr: char `varname'[description_`mylanguage']
         }
@@ -71,7 +70,7 @@ program define opendf_docu
     *if "`_output'"=="variable" display "{p}Variable: {text:`_name'}{p_end}"
     if "`_output'"=="dataset" display "{p}Dataset: {text:`_name'}{p_end}"
     display `"Label: {text:`_label'}"'
-    if "`_output'"=="dataset" display "{p}Languages: {text:`_languages'}{p_end}{p}{text:(currently set:} `_activelanguage'{text:)}{p_end}"
+    if "`_output'"=="dataset" display "{p}Languages: {text:`_languages'}{p_end}{p}{text:(currently set:} `_currentlanguage'{text:)}{p_end}"
     display `"{p}Description: {text:`_descr'}{p_end}"'
     if "`_url'" != "" {
         display `"{p}URL: {stata "view browse `_url'":`_url'}{p_end}"'
