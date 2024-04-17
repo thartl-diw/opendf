@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_docu.ado: displays metadata of variable or datasat
-*! version 0.1 February, 20 2024 - first draft
+*! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf_docu
     *varname arguments
