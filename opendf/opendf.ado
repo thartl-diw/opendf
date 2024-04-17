@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf.ado: provides programs to work with opendf data format
-*! version 0.1 February, 22 2024 - first draft
+*! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf, rclass 
 	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) REPLACE CLEAR VERBOSE]
