@@ -41,7 +41,9 @@ opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear verbose
 
 The opendataformat package provides further functions that might be helpful:
 
-- `opendf installpython` will install a python version that enables the opendf-package to work. Some functions (`opendf read` and `opendf write`) need a working python version on your PC. If stata is not able to find a working python version, this command will copy a python (default v3.12) to the stata ado/plus folder (where stata packages are stored). You can also specify the python version you want to install and specify a location where the folder with the python version should be deployed. But than you have to tell stata manually where the python.exe is located using "set python_exec".
+- `opendf installpython` will install a python version that enables the opendf-package to work. Some functions (`opendf read` and `opendf write`) need a working python version on your PC. If stata is not able to find a working python version, you can use this command to copy a python (default v3.12) to the stata ado/plus folder (where stata packages are stored). You can also specify the python version you want to install and specify a location where the folder with the python version should be deployed. But than you have to tell stata manually where the python.exe is located using "set python_exec".
+
+- `opendf removepython` will remove python versions installed with `opendf installpython`. By default the the command will delete all python3 folders/installations from the stata ado folder (the default folder where `opendf installpython` deploys the python installation). With the `version()`-option can also specify which python version to remove. With the `location()`-option you can indicate where to delete the python folders from.
 
 - `csv2dta` to read data from four csvs containing data and metadata into stata. 
 
