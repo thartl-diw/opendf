@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0  17apr2024}{...}
+{* *! version 1.0 (17 Apr 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
