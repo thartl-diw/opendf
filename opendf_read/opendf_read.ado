@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_read.ado: loads data from opendf format (zip) to stata
-*! version 0.1 February, 14 2024 - first draft
+*! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf_read
 	syntax anything [,LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]

@@ -15,7 +15,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! csv2xml.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
-*! version 1.0 March, 1st 2024 - initial release
+*! version 1.0 April, 17 2024 - Pre-Release
 
 program define csv2xml
     syntax, output(string) [input(string) variables_arg(string) export_data(string) VERBOSE]

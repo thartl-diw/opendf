@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! dta2csv.ado: loads data from csvs including meta data to build a stata dataset
-*! version 1.0 March, 1st 2024 - initial release
+*! version 1.0 April, 17 2024 - Pre-Release
 
 program define dta2csv
     syntax, [languages(string) input(string) output_dir(string)]

@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 0.1.0  27feb2024}{...}
+{* *! version 1.0 (17 Apr 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
@@ -7,7 +7,7 @@
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
-help for {cmd:opendf installpython (opendf_installpython)}{right:version 0.1 (15 Feb 2024)}
+help for {cmd:opendf installpython (opendf_installpython)}{right:version 1.0 (17 Apr 2024)}
 {hline}
 
 opendf installpython

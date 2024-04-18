@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0.0  27feb2024}{...}
+{* *! version 1.0 (17 Apr 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
@@ -8,7 +8,8 @@
 {viewerjumpto "Description" "csv2xml##description"}{...}
 {viewerjumpto "Options" "csv2xml##options"}{...}
 {viewerjumpto "Examples" "csv2xml##examples"}{...}
-help for {cmd:csv2xml}{right:version 1.0 (13 Feb 2024)}
+help for {cmd:csv2xml}{right:version 1.0 (17 Apr 2024)}
+
 {hline}
 
 csv2xml
