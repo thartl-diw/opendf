@@ -24,7 +24,7 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 
     Display metadata of dataset or variable
 
-{p 8 16 2}{cmd:opendf} {cmd:docu} [{it: varname}]
+{p 8 16 2}{cmd:opendf} {cmd:docu} [{it: varname}, {opt languages()}]
 
     Download a python version to work with Stata.
 
