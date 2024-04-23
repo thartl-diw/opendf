@@ -19,60 +19,100 @@
 *! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf_docu
-    *varname arguments
-    args varname
+	syntax [anything], [LANGUAGES(string)]
+
+    local varname `anything'
+    *args varname
+    
     *get activated label language
     local _currentlanguage: char _dta[_lang_c]
     local _languages: char _dta[_lang_list]
+    if (`"`languages'"' ==""){
+        local _lang = "`_currentlanguage'"
+    }
+    else {
+        if (`"`languages'"' =="all"){
+            local _lang = "`_languages'"
+        }
+        else {
+            local _lang = "`languages'"
+            label language `_lang'
+        }
+    }
     *if varname is not empty, we assume that varname is a variable
     if (`"`varname'"' != "") {
         local _output = "variable"
         local _name = "`varname'"
-        capture local _label : variable label `varname'
-        if _rc==111 {
-            display as error "variable `varname' not found"
-            display as error "Enter a valid variable name or execute opendf docu without an argument to display the dataset information."
-            exit 111
-        }
-        local _descr: char `varname'[description_`_currentlanguage']
-        if `"`_descr'"'=="" {
-            local _descr: char `varname'[description]
-        }
-        if `"`_descr'"'=="" {
-            local mylanguage=strupper("`_currentlanguage'")
-            local _descr: char `varname'[description_`mylanguage']
-        }
-            if `"`_descr'"'=="" {
-            local mylanguage=strlower("`_currentlanguage'")
-            local _descr: char `varname'[description_`mylanguage']
-        }
+        foreach l in `_lang'{
+		    qui label language `l'
+			capture local _label_`l' : variable label `varname'
+			if _rc==111 {
+				display as error "variable `varname' not found"
+				display as error "Enter a valid variable name or execute opendf docu without an argument to display the dataset information."
+				exit 111
+			}
+			local _descr_`l': char `varname'[description_`l']
+			if `"`_descr_`l''"'=="" {
+				local _descr_`l': char `varname'[description]
+			}
+			if `"`_descr_`l''"'=="" {
+				local mylanguage=strupper("`l'")
+				local _descr_`l': char `varname'[description_`mylanguage']
+			}
+				if `"`_descr_`l''"'=="" {
+				local mylanguage=strlower("`l'")
+				local _descr_`l': char `varname'[description_`mylanguage']
+			}
+		}
+		
+        
         local _url: char `varname'[url]
         local _type: char `varname'[type]
     }
     else {
         local _output "dataset"
         local _name: char _dta[dataset]
-        local _label : data label
-        local _descr: char _dta[description_`_currentlanguage']
-        if `"`_descr'"'=="" {
-            local _descr: char _dta[description]
-        }
-        if `"`_descr'"'=="" {
-            local mylanguage=strupper("`_currentlanguage'")
-            local _descr: char _dta[description_`mylanguage']
-        }
-        if `"`_descr'"'=="" {
-            local mylanguage=strlower("`_currentlanguage'")
-            local _descr: char _dta[description_`mylanguage']
-        }
+        foreach l in `_lang'{
+		    qui label language `l'
+		    local _label_`l' : data label
+			local _descr_`l': char _dta[description_`l']
+			if `"`_descr_`l''"'=="" {
+				local _descr_`l': char _dta[description]
+			}
+			if `"`_descr_`l''"'=="" {
+				local mylanguage=strupper("`l'")
+				local _descr: char _dta[description_`mylanguage']
+			}
+			if `"`_descr_`l''"'=="" {
+				local mylanguage=strlower("`l'")
+				local _descr_`l': char _dta[description_`mylanguage']
+			}
+		}
+		
         local _url: char _dta[url]
     }
     *if "`_output'"=="variable" display "{p}Variable: {text:`_name'}{p_end}"
     if "`_output'"=="dataset" display "{p}Dataset: {text:`_name'}{p_end}"
-    display `"Label: {text:`_label'}"'
+    foreach l in `_lang'{
+	    if (`"`languages'"'=="all"){
+		    local _l=" `l'"
+		}
+		else {
+		    local _l=""
+		}
+	    display `"Label`_l': {text:`_label_`l''}"'
+	}
     if "`_output'"=="dataset" display "{p}Languages: {text:`_languages'}{p_end}{p}{text:(currently set:} `_currentlanguage'{text:)}{p_end}"
-    display `"{p}Description: {text:`_descr'}{p_end}"'
-    if "`_url'" != "" {
+	foreach l in `_lang'{
+	    if (`"`languages'"'=="all"){
+		    local _l=" `l'"
+		}
+		else {
+		    local _l=""
+		}
+		display `"{p}Description`_l': {text:`_descr_`l''}{p_end}"'
+	}
+	if "`_url'" != "" {
         display `"{p}URL: {stata "view browse `_url'":`_url'}{p_end}"'
     }
     else di "URL: "
@@ -90,6 +130,7 @@ program define opendf_docu
 			}
 		}
 	}
+    qui label language `_currentlanguage'
 
 end
 

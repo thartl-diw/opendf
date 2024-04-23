@@ -39,6 +39,6 @@ program define opendf, rclass
 	}
 
 	if ("`1'"=="docu"){
-		opendf_docu `"`2'"'
+		opendf_docu `"`2'"', languages("`languages'")
 	}
 end
