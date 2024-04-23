@@ -19,7 +19,12 @@ opendf docu
 {title:Syntax}
 {p 8 17 2}
 {cmd:opendf docu}
-[{it:{help varname}}]
+[{it:{help varname}}, {opt languages()}]
+
+{synoptset 20 tabbed}{...}
+{marker comopt}{synopthdr:options}
+{synopt :{opt languages(string)}} Chooses, which languages to display. Default is the active label language. To see all languages, set languages("all") {p_end}
+{synoptline}
 
 
 {marker description}
@@ -27,7 +32,7 @@ opendf docu
 
 {pstd}
 {cmd:opendf docu} Displays information about the dataset or a variable, if a variable is specified. {p_end}
-
+{opt languages} The languages that should be displayed. Default is the active label language. To see all languages, set languages("all") {p_end}
 {marker remarks}
 {title:Remarks}
 
@@ -43,6 +48,9 @@ This command is part of the Data Open Format Project bundle, written to assist w
 
 {phang}Displays information about the variable bap9001.{p_end}
 {phang}{cmd:. opendf docu bap9001}{p_end}
+
+phang}Displays information about the variable bap9001 in all languages available.{p_end}
+{phang}{cmd:. opendf docu bap9001, languages("all")}{p_end}
 
 
 {marker author}
