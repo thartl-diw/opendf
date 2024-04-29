@@ -56,6 +56,7 @@ def csv2xml(input_dir, output_dir):
   # check if location output directory exists/is valid
   dir_name = output_dir.replace('\\','/')
   dir_name = output_dir.split('/')
+  output_dir_name = dir_name[ len(dir_name)-1]
   root_dir=dir_name
   del(root_dir[len(root_dir)-1])
   root_dir = '/'.join(root_dir)
@@ -167,8 +168,7 @@ def csv2xml(input_dir, output_dir):
                         labl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
                         labl.text = line['label_'+lang]
     # write xml
-    dir_name = dir_name[ len(dir_name)-1]
-    temp_output_dir=input_dir+'/'+dir_name
+    temp_output_dir=input_dir+'/'+output_dir_name
     make_output_dir(temp_output_dir)
     pretty_print(root)
     tree = ET.ElementTree(root)
