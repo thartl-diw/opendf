@@ -268,6 +268,7 @@ def make_categories_dictionary(languages):
   ## make list of dictionaries
   list_of_dictionaries=[]
   for var in root.findall('.//dataDscr/var'):
+    lang_list = get_lang('.//dataDscr/var/catgry/labl')
     for cat in var.findall('catgry'):
       #### header as keys
       dictionary = {key:"" for key in header}
@@ -290,7 +291,7 @@ def make_categories_dictionary(languages):
         for lab in cat.findall('labl'):
           if lab.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
             dictionary['label'] = lab.text
-      if languages in get_lang('.//dataDscr/var/catgry/labl'):      
+      if languages in lang_list:      
         for lab in cat.findall('labl'):
           if lab.get('{http://www.w3.org/XML/1998/namespace}lang') == languages:
             dictionary['label' + '_' + lab.get('{http://www.w3.org/XML/1998/namespace}lang')] = lab.text
