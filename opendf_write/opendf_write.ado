@@ -20,6 +20,7 @@
 
 program define opendf_write
   syntax anything [,input(string) languages(string) variables(varlist) REPLACE VERBOSE]
+    preserve
     local replaceit 0
     if (`"`replace'"' != "") local replaceit 1
     local output=`anything'
@@ -33,8 +34,6 @@ program define opendf_write
     if (`"`languages'"' == "") {
 	  	local languages "all"
 	  }
-    quietly: tempfile orig_dataset 
-	  quietly: save `orig_dataset'
     if (`"`input'"' != "") {
       capture quietly use "`input'"
       if _rc==601{
@@ -47,12 +46,16 @@ program define opendf_write
 	  }
     qui local output_folder= subinstr(`"`anything'"', ".zip", "", .)
 	  qui local output_folder: di `output_folder'
+    
+    local wd: pwd
+    if (strpos("`output_folder'", "\")==0 & strpos("`output_folder'", "/")==0){
+      local output_folder= "`wd'/`output_folder'"
+    }
+    
     dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
     csv2xml, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     capture confirm file `"`output'"'
     if _rc == 0 {
       di "{text: Dataset successfully saved in opendf-format to {it:`output'}.}"
     }
-    quietly: use `orig_dataset', clear
 end
-
