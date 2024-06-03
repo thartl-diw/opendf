@@ -63,4 +63,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut f√
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu} {help opendf installpython} {help opendf removepython}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}, {help opendf removepython}{p_end}
