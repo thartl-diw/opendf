@@ -49,19 +49,14 @@ csv2dta
 {pstd}The file containing the metadata for the variables has to be named variables.csv {p_end}
 {pstd}The file containing the metadata for the values has to be named categories.csv {p_end}
 {pstd} Metadata information is saved as labels or characteristics. {p_end}
-{pstd}
-{opt rowrange([start][:end])} specifies the row range of data to load. {p_end}
-{opt colrange([start][:end])} specifies the column range of data to load. {p_end}
-{opt clear} specifies that it is okay to replace the data in memory, even though the current data have not been saved to disk.{p_end}
-{pstd}
-{opt replace} overwrite existing reshaped competency dataset.{break}
+{pstd}{opt rowrange([start][:end])}} specifies a range of rows within the data to load. {it: start} and {it: end} are integer row numbers.{p_end}
+{pstd}{opt colrange([start][:end])}} specifies a range of variables within the data to load.  {it: start} and {it: end} are integer column numbers.{p_end}
+{pstd}{opt clear} specifies that it is okay to replace the data in memory, even though the current data have not been saved to disk.{p_end}
+{pstd}{opt replace} overwrite existing file.{break}
 If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
-{pstd}
-{opt save} stores data to a desired filepath and filename.{break}
+{pstd}{opt save} stores data to a desired filepath and filename.{break}
 If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
-
-{pstd}
-{opt save} stores data to a desired filepath and filename.{break}
+{pstd}{opt save} stores data to a desired filepath and filename.{break}
 If option {opt replace} is specified, a former saved file will be overwritten.
 {p_end}
 
