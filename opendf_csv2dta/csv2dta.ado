@@ -18,7 +18,7 @@
 *! csv2dta.ado: loads data from csvs including meta data to build a stata dataset
 *! version 1.0 April, 17 2024 - Pre-Release
 program define csv2dta
-	syntax, csv_loc(string) [SAVE(string) REPLACE CLEAR VERBOSE]
+	syntax, csv_loc(string) [ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
 	local replaceit 0
 		if (`"`replace'"' != "") local replaceit 1
 		
@@ -198,7 +198,7 @@ program define csv2dta
 	}
 
 	*Import Data
-	quietly: import delimited "`csv_loc'/data.csv", varnames(1) case(preserve) encoding(ISO-8859-9) clear	
+	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(ISO-8859-9) clear	
 	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
 	local default_exists=0
 	local language_counter=0
