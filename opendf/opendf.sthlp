@@ -14,7 +14,7 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 
     Read data
 
-{p 8 16 2}{cmd:opendf} {cmd:read} {it:input} [,{opt clear} {opt save()} {opt replace} {opt verbose}]
+{p 8 16 2}{cmd:opendf} {cmd:read} {it:input} [,{opt rowrange()} {opt colrange()} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 
     Write data
@@ -26,10 +26,15 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 
 {p 8 16 2}{cmd:opendf} {cmd:docu} [{it: varname}, {opt languages()}]
 
+
     Download a python version to work with Stata.
 
 {p 8 16 2}{cmd:opendf} {cmd:installpython} [, {opt version()} {opt location()}]
 
+
+    Delete a python version installed with opendf installpython.
+
+{p 8 16 2}{cmd:opendf} {cmd:removepython} [, {opt version()} {opt location()}]
 
 
 {marker description}{...}
@@ -43,6 +48,8 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 {cmd:opendf docu} {hline 2} Display information about the dataset or a variable. {p_end}
 {pstd}
 {cmd:opendf installpython} {hline 2} Copies python to some directory on your computer. {p_end}
+{pstd}
+{cmd:opendf remove} {hline 2} Removes python that was installed with opendf installpython. {p_end}
 
 
 {marker author}
@@ -56,4 +63,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut f√
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu} {help opendf installpython}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu} {help opendf installpython} {help opendf removepython}{p_end}
