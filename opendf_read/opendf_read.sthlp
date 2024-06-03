@@ -23,8 +23,8 @@ opendf read
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
 {synoptline}
-{synopt :{opt rowrange([start][:end])}}Indicates the range of rows to read. {p_end}
-{synopt :{opt colrange([start][:end])}}Indicates the range of columns to read. {p_end}
+{synopt :{opt rowrange}([start][:end])}Indicates the range of rows to read. {p_end}
+{synopt :{opt colrange}([start][:end])}Indicates the range of columns to read. {p_end}
 {synopt :{opt clear}}allows you to clear dataset in memory {p_end}
 {synopt :{opth save(string)}}save data to desired filepath and filename {p_end}
 {synopt :{opt replace}}overwriting former saved file {p_end}
@@ -45,11 +45,11 @@ The dataset is stored in the format of the original dataset. Metadata is saved a
 {opt input} path to zip file or name of zip file in working directory.
 
 {pstd}
-{opt rowrange([start][:end])}} specifies a range of rows within the data to load. {it: start} and {it: end} are integer row numbers. {break}
+{opt "rowrange([start][:end])"} specifies a range of rows within the data to load. {it: start} and {it: end} are integer row numbers. {break}
 Note that the first row contains the columns names. Therefore, rowrange(1:10) will lead to 9 rows.
 
 {pstd}
-{opt colrange([start][:end])}} specifies a range of variables within the data to load.  {it: start} and {it: end} are integer column numbers.
+{opt "colrange([start][:end])"} specifies a range of variables within the data to load.  {it: start} and {it: end} are integer column numbers.
 
 {pstd}
 {opt clear} specifies that it is okay to replace the data in memory, even though the current data have not been saved to disk.{p_end}
@@ -81,6 +81,8 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
 {phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear}{p_end}
 
+{phang}Read the first 10 lines of the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. Since the first line is also the header, the range has to be set to 11. {p_end}
+{phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", rowrange(:11}{p_end}
 
 {marker author}
 {title:Author}
