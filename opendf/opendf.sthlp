@@ -3,8 +3,8 @@
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
-{viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
-{viewerjumpto "Description" "opendf installpython##description"}{...}
+{viewerjumpto "Syntax" "opendf##syntax"}{...}
+{viewerjumpto "Description" "opendf##description"}{...}
 help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 {hline}
 
