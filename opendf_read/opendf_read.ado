@@ -17,9 +17,9 @@
 -----------------------------------------------------------------------------------*/
 *! opendf_read.ado: loads data from opendf format (zip) to stata
 *! version 1.0 April, 17 2024 - Pre-Release
-
+			
 program define opendf_read
-	syntax anything [,LANGUAGES(string) SAVE(string) REPLACE CLEAR VERBOSE]
+	syntax anything [,LANGUAGES(string) ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
 	local input=`"`anything'"'
   *If the data.zip is a web path, the data is downloaded to the temp-folder
 	  if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
@@ -38,6 +38,6 @@ program define opendf_read
     local input_zip=`"`input'"'
     local csv_temp = "`c(tmpdir)'"
     xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
-    csv2dta, csv_loc("`csv_temp'") save(`save') `replace' `clear' `verbose'
+    csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
 end
 

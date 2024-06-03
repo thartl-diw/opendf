@@ -19,12 +19,12 @@
 *! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf, rclass 
-	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) REPLACE CLEAR VERBOSE]
+	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) ROWRange(string) COLRange(string) REPLACE CLEAR VERBOSE]
 	local _fun = `"`anything'"'
 	tokenize `"`_fun'"'
 
 	if ("`1'"=="read"){
-		opendf_read `"`2'"', `clear' save("`save'") `replace' `verbose'
+		opendf_read `"`2'"', rowrange(`rowrange') colrange(`colrange') `clear' save("`save'") `replace' `verbose'
 	}
 
 	if ("`1'"=="write"){
