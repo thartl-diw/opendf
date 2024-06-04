@@ -45,8 +45,7 @@ The dataset is stored in the format of the original dataset. Metadata is saved a
 {opt input} path to zip file or name of zip file in working directory.
 
 {pstd}
-{opt "rowrange([start][:end])"} specifies a range of rows within the data to load. {it: start} and {it: end} are integer row numbers. {break}
-Note that the first row contains the columns names. Therefore, rowrange(1:10) will lead to 9 rows.
+{opt "rowrange([start][:end])"} specifies a range of rows within the data to load (excluding the header). {it: start} and {it: end} are integer row numbers.
 
 {pstd}
 {opt "colrange([start][:end])"} specifies a range of variables within the data to load.  {it: start} and {it: end} are integer column numbers.
