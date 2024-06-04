@@ -88,7 +88,6 @@ program define csv2dta
 
 		local rowrange "`rowstart':`rowend'"
 	}
-	display "`rowrange'"
 	
 	*global to save all warnings
 	global warnings ""
