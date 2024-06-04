@@ -22,7 +22,7 @@ csv2dta
 {p 8 17 2}
 {cmd:csv2dta}, 
 {it:csv_loc()}
-[{cmd:} {opt rowrange([start][:end])} {opt colrange([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
+[{cmd:} {opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}

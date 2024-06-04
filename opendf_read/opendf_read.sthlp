@@ -18,7 +18,7 @@ opendf read
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf read} {it: input} [,rowrange([start][:end])} colrange([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
+{cmd:opendf read} {it: input} [,{opt rowrange}([start][:end]) {opt colrange}([start][:end]) {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
