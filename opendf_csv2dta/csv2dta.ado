@@ -55,6 +55,41 @@ program define csv2dta
 		local verboseit 1
 	}
 
+	if (`"`rowrange'"' != ""){
+		* Define the local macro with the string
+		local _rowrangeraw "`rowrange'"
+
+		* Find the position of the colon
+		local pos = strpos("`_rowrangeraw'", ":")
+
+		* Extract the parts before and after the colon
+		local part1 = substr("`_rowrangeraw'", 1, `pos' - 1)
+		local part2 = substr("`_rowrangeraw'", `pos' + 1, .)
+
+		* Convert the parts to scalars, handling potential missing values
+		scalar scalar1 = cond("`part1'" == "", ., real("`part1'"))
+		scalar scalar2 = cond("`part2'" == "", ., real("`part2'"))
+
+		*add 1 to the row range to skip the header and paste it to the new input for rowrange
+		if (scalar1 != .) {
+			scalar scalar1 = scalar1 + 1
+			local rowstart `=scalar1'
+		}
+		else {
+			local rowstart ""
+		}
+		if (scalar2 != .) {
+			scalar scalar2 = scalar2 + 1
+			local rowend `=scalar2'
+		}
+		else {
+			local rowend ""
+		}
+
+		local rowrange "`rowstart':`rowend'"
+	}
+	display "`rowrange'"
+	
 	*global to save all warnings
 	global warnings ""
 	*locals for occurence of warning type
