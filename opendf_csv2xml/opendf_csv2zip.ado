@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  csv2xml.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
+  opendf_csv2zip.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,10 +14,10 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! csv2xml.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
+*! opendf_csv2zip.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
 *! version 1.0 April, 17 2024 - Pre-Release
 
-program define csv2xml
+program define opendf_csv2zip
     syntax, output(string) [input(string) variables_arg(string) export_data(string) VERBOSE]
     if `"`input'"' == ""{
       local input = "`c(tmpdir)'"
