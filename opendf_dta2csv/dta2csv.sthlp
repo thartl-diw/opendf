@@ -3,7 +3,7 @@
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{vieweralsosee "csv2dta" "help csv2dta"}{...}
+{vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
 {viewerjumpto "Syntax" "dta2csv##syntax"}{...}
 {viewerjumpto "Description" "dta2csv##description"}{...}
 {viewerjumpto "Options" "dta2csv##options"}{...}
