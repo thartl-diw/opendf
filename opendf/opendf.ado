@@ -19,7 +19,7 @@
 *! version 1.0 April, 17 2024 - Pre-Release
 
 program define opendf, rclass 
-	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) ROWRange(string) COLRange(string) REPLACE CLEAR VERBOSE]
+	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) ROWRange(string) COLRange(string) csv_loc(string) variables_arg(string) export_data(string) REPLACE CLEAR VERBOSE]
 	local _fun = `"`anything'"'
 	tokenize `"`_fun'"'
 
@@ -40,5 +40,12 @@ program define opendf, rclass
 
 	if ("`1'"=="docu"){
 		opendf_docu `"`2'"', languages("`languages'")
+	}
+
+	if ("`1'"=="csv2dta"){
+		opendf_csv2dta, csv_loc(`csv_loc') rowrange(`rowrange') colrange(`colrange') `clear' save("`save'") `replace' `verbose'
+	}
+	if ("`1'"=="csv2zip"){
+		opendf_csv2zip, output(string) input(string) variables_arg(`variables_arg') export_data(`export_data')
 	}
 end

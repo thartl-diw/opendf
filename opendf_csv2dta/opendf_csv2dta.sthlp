@@ -3,24 +3,26 @@
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{viewerjumpto "Syntax" "csv2dta##syntax"}{...}
-{viewerjumpto "Description" "csv2dta##description"}{...}
-{viewerjumpto "Options" "csv2dta##options"}{...}
-{viewerjumpto "Examples" "csv2dta##examples"}{...}
-help for {cmd:csv2dta}{right:version 1.0 (17 Apr 2024)}
+{vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
+{viewerjumpto "Syntax" "opendf_csv2dta##syntax"}{...}
+{viewerjumpto "Description" "opendf_csv2dta##description"}{...}
+{viewerjumpto "Options" "opendf_csv2dta##options"}{...}
+{viewerjumpto "Examples" "opendf_csv2dta##examples"}{...}
+help for {cmd:opendf csv2dta (opendf_csv2dta)}{right:version 1.0 (17 Apr 2024)}
+
 {hline}
 
-csv2dta
+opendf_csv2dta
 {title:Title}
 
 {phang}
-{bf:csv2dta} {hline 2} builds a stata dataset (.dta) from csv files containing meta data for survey data. {p_end}
+{bf:opendf_csv2dta} {hline 2} builds a stata dataset (.dta) from csv files containing meta data for survey data. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:csv2dta}, 
+{cmd:opendf_csv2dta}, 
 {it:csv_loc()}
 [{cmd:} {opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
@@ -41,7 +43,7 @@ csv2dta
 {title:Description}
 
 {pstd}
-{cmd:csv2dta} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
+{cmd:opendf_csv2dta} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
 {pstd}
 {opt csv_loc} is a path to a folder where 4 csvs have to be included that contain data and metadata. {p_end}
 {pstd}The file containing the data has to be named data.csv {p_end}
@@ -87,4 +89,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu} {help csv2xml}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu} {help opendf_csv2zip}{p_end}

@@ -3,26 +3,26 @@
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{vieweralsosee "csv2dta" "help csv2dta"}{...}
-{viewerjumpto "Syntax" "csv2xml##syntax"}{...}
-{viewerjumpto "Description" "csv2xml##description"}{...}
-{viewerjumpto "Options" "csv2xml##options"}{...}
-{viewerjumpto "Examples" "csv2xml##examples"}{...}
-help for {cmd:csv2xml}{right:version 1.0 (17 Apr 2024)}
+{vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
+{viewerjumpto "Syntax" "opendf_csv2zip##syntax"}{...}
+{viewerjumpto "Description" "opendf_csv2zip##description"}{...}
+{viewerjumpto "Options" "opendf_csv2zip##options"}{...}
+{viewerjumpto "Examples" "opendf_csv2zip##examples"}{...}
+help for {cmd:opendf csv2zip (opendf_csv2zip)}{right:version 1.0 (17 Apr 2024)}
 
 {hline}
 
-csv2xml
+opendf_csv2zip
 {title:Title}
 
 {phang}
-{bf:csv2xml} {hline 2} generates an opendf-format zip-file from csv files containing data meta data for survey data. {p_end}
+{bf:opendf_csv2zip} {hline 2} generates an opendf-format zip-file from csv files containing data meta data for survey data. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:csv2xml}, 
+{cmd:opendf_csv2zip}, 
 {opt output()} [{opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
@@ -46,7 +46,7 @@ If you are exporting the entire dataset, you can choose whether or not to export
 #' * If you set \code{variables = "no"}, only the information describing the
 #' dataset is exported.
 {pstd}
-{cmd:csv2xml} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
+{cmd:opendf_csv2zip} Transforms survey data from several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
 {pstd}The file containing the data has to be named data.csv {p_end}
 {pstd}The file containing the metadata for the datset has to be named dataset.csv {p_end}
 {pstd}The file containing the metadata for the variables has to be named variables.csv {p_end}
@@ -71,7 +71,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Builds and saves the datafile out.zip in the current working directory in opendf-format (.zip) from the four csvs located in "C:/Documents/Data". {p_end}
-{phang}{cmd:. csv2xml, output("out") input("C:/Documents/Data")}{p_end}
+{phang}{cmd:. opendf_csv2zip, output("out") input("C:/Documents/Data")}{p_end}
 
 
 
@@ -87,4 +87,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help csv2dta}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help opendf_csv2dta}{p_end}
