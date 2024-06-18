@@ -36,6 +36,16 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 
 {p 8 16 2}{cmd:opendf} {cmd:removepython} [, {opt version()} {opt location()}]
 
+    
+    Build a stata dataset (.dta) with metadata from the opendf specification from csv files containing meta data for survey data.
+
+{p 8 16 2}{cmd:opendf} {cmd:csv2dta} [, {opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
+
+
+    Write data in open data format (.zip) from csv files containing meta data for survey data.
+
+{p 8 16 2}{cmd:opendf} {cmd:csv2zip} [, {opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
+
 
 {marker description}{...}
 {title:Description}
@@ -49,7 +59,11 @@ help for {cmd:opendf}{right:version 1.0 (17 Apr 2024)}
 {pstd}
 {cmd:opendf installpython} {hline 2} Copies python to some directory on your computer. {p_end}
 {pstd}
-{cmd:opendf remove} {hline 2} Removes python that was installed with opendf installpython. {p_end}
+{cmd:opendf removepython} {hline 2} Removes python that was installed with opendf installpython. {p_end}
+{pstd}
+{cmd:opendf csv2dta} {hline 2} Build a stata dataset (.dta) with metadata from the opendf specification from four csv files containing meta data for survey data. {p_end}
+{pstd}
+{cmd:opendf csv2zip} {hline 2}  Write data in open data format (.zip) from four csv files containing meta data for survey data. {p_end}
 
 
 {marker author}
