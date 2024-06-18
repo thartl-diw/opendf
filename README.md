@@ -45,13 +45,13 @@ The opendataformat package provides further functions that might be helpful:
 
 - `opendf removepython` will remove python versions installed with `opendf installpython`. By default the the command will delete all python3 folders/installations from the stata ado folder (the default folder where `opendf installpython` deploys the python installation). With the `version()`-option can also specify which python version to remove. With the `location()`-option you can indicate where to delete the python folders from.
 
-- `csv2dta` to read data from four csvs containing data and metadata into stata. 
+- `opendf_csv2dta` to read data from four csvs containing data and metadata into stata. 
 
-- `csv2xml` to save data from four csvs containing data and metadata to a opendf-format (zip-folder containing data.csv and metadata.xml). The csvs consist of data.csv (raw data), dataset.csv (dataset metadata), varaibles.csv (variables metadata) and categories.csv (value labels for variables).
+- `opendf_csv2zip` to save data from four csvs containing data and metadata to a opendf-format (zip-folder containing data.csv and metadata.xml). The csvs consist of data.csv (raw data), dataset.csv (dataset metadata), varaibles.csv (variables metadata) and categories.csv (value labels for variables).
 
 
 
-For data providers the csv2dta and csv2xml functions might be interesting to convert their data to the opendf format. 
+For data providers the `opendf_csv2dta` and `opendf_csv2dta` functions might be interesting to convert their data to the opendf format. 
 
 
 ### Multilingual Datasets
