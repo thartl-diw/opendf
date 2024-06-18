@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  csv2dta.ado: loads data from csvs including meta data to build a stata dataset
+  opendf_csv2dta.ado: loads data from csvs including meta data to build a stata dataset
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! csv2dta.ado: loads data from csvs including meta data to build a stata dataset
+*! opendf_csv2dta.ado: loads data from csvs including meta data to build a stata dataset
 *! version 1.0 April, 17 2024 - Pre-Release
 program define opendf_csv2dta
 	syntax, csv_loc(string) [ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
