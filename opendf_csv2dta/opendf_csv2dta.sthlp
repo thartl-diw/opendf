@@ -89,4 +89,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu} {help opendf_csv2dta}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu} {help opendf_csv2zip}{p_end}
