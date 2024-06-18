@@ -3,7 +3,7 @@
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
-{vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
+{vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
 {viewerjumpto "Syntax" "opendf_csv2zip##syntax"}{...}
 {viewerjumpto "Description" "opendf_csv2zip##description"}{...}
 {viewerjumpto "Options" "opendf_csv2zip##options"}{...}
@@ -87,4 +87,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut fü
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help csv2dta}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help opendf_csv2dta}{p_end}
