@@ -43,9 +43,9 @@ program define opendf, rclass
 	}
 
 	if ("`1'"=="csv2dta"){
-		csv2dta, csv_loc(`csv_loc') rowrange(`rowrange') colrange(`colrange') `clear' save("`save'") `replace' `verbose'
+		opendf_csv2dta, csv_loc(`csv_loc') rowrange(`rowrange') colrange(`colrange') `clear' save("`save'") `replace' `verbose'
 	}
-	if ("`1'"=="csv2opendf"){
-		csv2xml, output(string) input(string) variables_arg(`variables_arg') export_data(`export_data')
+	if ("`1'"=="csv2zip"){
+		opendf_csv2zip, output(string) input(string) variables_arg(`variables_arg') export_data(`export_data')
 	}
 end
