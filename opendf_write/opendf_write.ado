@@ -53,7 +53,7 @@ program define opendf_write
     }
     
     dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
-    csv2xml, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    opendf csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     capture confirm file `"`output'"'
     if _rc == 0 {
       di "{text: Dataset successfully saved in opendf-format to {it:`output'}.}"
