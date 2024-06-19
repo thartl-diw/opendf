@@ -35,7 +35,7 @@ program define opendf_write
 	  	local languages "all"
 	  }
     if (`"`input'"' != "") {
-      capture quietly use "`input'"
+      capture quietly use "`input'", clear
       if _rc==601{
         di as error "Error: `input' is not a valid stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
         exit 601
