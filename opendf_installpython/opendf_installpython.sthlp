@@ -7,7 +7,7 @@
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
-help for {cmd:opendf installpython (opendf_installpython)}{right:version 1.0 (17 Apr 2024)}
+help for {cmd:opendf installpython (opendf_installpython)}{right:version 1.1 (22 July 2024)}
 {hline}
 
 opendf installpython
