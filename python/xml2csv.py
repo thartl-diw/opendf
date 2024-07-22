@@ -1,4 +1,4 @@
-# version 1.0 (17 Apr 2024)
+# version 1.1 (22 July 2024)
 
 #########################
 # MODULES
@@ -99,6 +99,8 @@ def make_dataset_header(languages):
   header.extend(get_unique(header_lang_spec(
     'label', './/fileDscr/fileTxt/fileCitation/titlStmt/titl', languages)))
   header.extend(get_unique(header_lang_spec(
+    'label', './/fileDscr/fileTxt/fileCitation/titlStmt/parTitl', languages)))
+  header.extend(get_unique(header_lang_spec(
     'description', './/fileDscr/fileTxt/fileCont', languages)))
   header.extend(get_unique(header_if_exists(
     'url', './/fileDscr/notes/ExtLink')))
@@ -120,7 +122,12 @@ def make_dataset_dictionary(languages):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
         dictionary['label'] = ele.text
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is not None:  
-        dictionary['label' + '_' + ele.get('{http://www.w3.org/XML/1998/namespace}lang')] = ele.text  
+        dictionary['label' + '_' + ele.get('{http://www.w3.org/XML/1998/namespace}lang')] = ele.text 
+    for ele in root.findall('.//fileDscr/fileTxt/fileCitation/titlStmt/parTitl'):
+      if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
+        dictionary['label'] = ele.text
+      if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is not None:  
+        dictionary['label' + '_' + ele.get('{http://www.w3.org/XML/1998/namespace}lang')] = ele.text
     ### dataset description all    
     for ele in root.findall('.//fileDscr/fileTxt/fileCont'):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
@@ -132,15 +139,22 @@ def make_dataset_dictionary(languages):
     for ele in root.findall('.//fileDscr/fileTxt/fileCitation/titlStmt/titl'):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
         dictionary['label'] = ele.text
+    for ele in root.findall('.//fileDscr/fileTxt/fileCitation/titlStmt/parTitl'):
+      if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
+        dictionary['label'] = ele.text
     ### dataset description default    
     for ele in root.findall('.//fileDscr/fileTxt/fileCont'):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') is None:
         dictionary['description'] = ele.text
-  if languages in get_lang('.//fileDscr/fileTxt/fileCitation/titlStmt/titl'):
+  if languages in (get_lang('.//fileDscr/fileTxt/fileCitation/titlStmt/titl') | get_lang('.//fileDscr/fileTxt/fileCitation/titlStmt/parTitl')):
     ### dataset label code
     for ele in root.findall('.//fileDscr/fileTxt/fileCitation/titlStmt/titl'):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') == languages:
         dictionary['label' + '_' + languages] = ele.text
+    for ele in root.findall('.//fileDscr/fileTxt/fileCitation/titlStmt/parTitl'):
+      if ele.get('{http://www.w3.org/XML/1998/namespace}lang') == languages:
+        dictionary['label' + '_' + languages] = ele.text
+        
     ### dataset description code
     for ele in root.findall('.//fileDscr/fileTxt/fileCont'):
       if ele.get('{http://www.w3.org/XML/1998/namespace}lang') == languages:
@@ -312,5 +326,4 @@ def write_categories_csv(output_dir, languages):
 
 
 if __name__ == '__main__':
-  make_csvs(input_zip, output_dir, languages)    
-
+  make_csvs(input_zip, output_dir, languages)   
