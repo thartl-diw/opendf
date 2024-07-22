@@ -1,4 +1,4 @@
-# version 1.0 (17 Apr 2024)
+# version 1.1 (22 July 2024)
 
 # Modules
 import csv
@@ -64,6 +64,12 @@ def csv2xml(input_dir, output_dir):
     # dataset
     # check if dataset.csv exists
     if os.path.exists(input_dir+"/dataset.csv") == True :
+      #study description
+      stdyDscr=ET.SubElement(root,'stdyDscr')
+      citation=ET.SubElement(stdyDscr,'citation')
+      titlStmt=ET.SubElement(citation,'titlStmt')
+      
+      #file description
       fileDscr=ET.SubElement(root,'fileDscr')
       fileTxt=ET.SubElement(fileDscr,'fileTxt')
       with open(input_dir+"/dataset.csv",mode="r",encoding="utf-8") as file:
@@ -73,8 +79,31 @@ def csv2xml(input_dir, output_dir):
           # dataset name
           fileName=ET.SubElement(fileTxt,'fileName')
           fileName.text=row['dataset']
+          
+          titl=ET.SubElement(titlStmt,'titl')
+          titl.text=row['dataset']
           # get keys
           list_keys = row.keys()
+
+        # dataset label
+        fileCitation=ET.SubElement(fileTxt,'fileCitation')
+        titlStmt=ET.SubElement(fileCitation,'titlStmt')
+        first_label=0
+        if 'label' in list_keys:
+          titl=ET.SubElement(titlStmt,'titl')
+          titl.text=row['label']
+          first_label=1
+        if any(item.startswith('label_') for item in list_keys):
+          for lang in get_lang(input_dir,"dataset.csv","label"):
+            if first_label==0:
+              titl=ET.SubElement(titlStmt,'titl')
+              titl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
+              titl.text=row['label_'+lang]
+              first_label=1
+            else:
+              parTitl=ET.SubElement(titlStmt,'parTitl')
+              parTitl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
+              parTitl.text=row['label_'+lang]
         # dataset description
         if 'description' in list_keys:
           fileCont=ET.SubElement(fileTxt,'fileCont')
@@ -84,17 +113,6 @@ def csv2xml(input_dir, output_dir):
             fileCont=ET.SubElement(fileTxt,'fileCont')
             fileCont.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
             fileCont.text=row['description_'+lang]
-        # dataset label
-        fileCitation=ET.SubElement(fileTxt,'fileCitation')
-        titlStmt=ET.SubElement(fileCitation,'titlStmt')
-        if 'label' in list_keys:
-          titl=ET.SubElement(titlStmt,'titl')
-          titl.text=row['label']
-        if any(item.startswith('label_') for item in list_keys):
-          for lang in get_lang(input_dir,"dataset.csv","label"):
-            titl=ET.SubElement(titlStmt,'titl')
-            titl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
-            titl.text=row['label_'+lang]
         # url
         if 'url' in list_keys:
           notes=ET.SubElement(fileDscr,'notes')
@@ -138,35 +156,37 @@ def csv2xml(input_dir, output_dir):
                     txt = ET.SubElement(var, 'txt')
                     txt.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
                     txt.text = row['description_'+lang]
-                if 'url' in list_keys:    
-                  if not row['url'] == '':
-                    notes = ET.SubElement(var, 'notes')
-                    ExtLink = ET.SubElement(notes, 'ExtLink')
-                    ExtLink.attrib['URI'] = row['url']
-                if 'type' in list_keys:
-                  if not row['type'] == '':
-                    varFormat = ET.SubElement(var, 'varFormat')
-                    varFormat.attrib['type'] = row['type']
-
-                # variable categories        
+                #variable categories        
                 varname = row['variable']
                 for line in list_categories:
                   # get keys
-                  list_keys = line.keys()
+                  list_keys2 = line.keys()
                   if line['variable'] == varname:
                     catgry = ET.SubElement(var, 'catgry')
                     # value
                     catValu = ET.SubElement(catgry, 'catValu')
                     catValu.text = line['value']
                     # value label
-                    if 'label' in list_keys:
+                    if 'label' in list_keys2:
                       labl = ET.SubElement(catgry, 'labl')
                       labl.text = line['label']
-                    if any(item.startswith('label_') for item in list_keys):  
+                    if any(item.startswith('label_') for item in list_keys2):  
                       for lang in get_lang(input_dir,"categories.csv","label"):
                         labl = ET.SubElement(catgry, 'labl')
                         labl.attrib['{http://www.w3.org/XML/1998/namespace}lang'] = lang
-                        labl.text = line['label_'+lang]
+                        labl.text = line['label_'+lang]   
+                # Variable type
+                if 'type' in list_keys:
+                  if not row['type'] == '':
+                    varFormat = ET.SubElement(var, 'varFormat')
+                    varFormat.attrib['type'] = row['type']                
+                # Variable URL
+                if 'url' in list_keys:    
+                  if not row['url'] == '':
+                    notes = ET.SubElement(var, 'notes')
+                    ExtLink = ET.SubElement(notes, 'ExtLink')
+                    ExtLink.attrib['URI'] = row['url']
+                
     # write xml
     temp_output_dir=input_dir+'/'+output_dir_name
     make_output_dir(temp_output_dir)
@@ -178,7 +198,6 @@ def csv2xml(input_dir, output_dir):
     shutil.copyfile(temp_output_dir+".zip",output_dir+'.zip')
   else :
     raise ValueError('Invalid output directory: No writing permission for '+root_dir)
-
 
 if __name__ == '__main__':
   csv2xml(input_dir, output_dir)
