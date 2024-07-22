@@ -5,7 +5,7 @@
 {viewerjumpto "Syntax" "opendf docu##syntax"}{...}
 {viewerjumpto "Description" "opendf docu##description"}{...}
 {viewerjumpto "Examples" "opendf docu##examples"}{...}
-help for {cmd:opendf docu (opendf_docu)}{right:version 1.0 (17 Apr 2024)}
+help for {cmd:opendf docu (opendf_docu)}{right:version 1.1 (22 July 2024)}
 {hline}
 
 opendf docu
