@@ -5,7 +5,7 @@
 {viewerjumpto "Syntax" "opendf read##syntax"}{...}
 {viewerjumpto "Description" "opendf read##description"}{...}
 {viewerjumpto "Examples" "opendf read##examples"}{...}
-help for  {cmd:opendf read (opendf_read)}{right:version 1.0 (17 Apr 2024)}
+help for  {cmd:opendf read (opendf_read)}{right:version 1.1 (22 July 2024)}
 {hline}
 
 opendf read
