@@ -95,7 +95,7 @@ def header_lang_spec(element, xpath, languages='all'):
 
 # dataset header
 def make_dataset_header(languages):
-  header = ['dataset']
+  header = ['study', 'dataset']
   header.extend(get_unique(header_lang_spec(
     'label', './/fileDscr/fileTxt/fileCitation/titlStmt/titl', languages)))
   header.extend(get_unique(header_lang_spec(
@@ -111,6 +111,11 @@ def make_dataset_dictionary(languages):
   header = make_dataset_header(languages)
   ## header as keys
   dictionary = {key:"" for key in header}
+   ## study name
+  if root.findtext(".//stdyDscr/citation/titlStmt/titl") is not None:
+    dictionary['study'] = root.findtext(".//stdyDscr/citation/titlStmt/titl")
+  if root.findtext(".//stdyDscr/citation/titlStmt/titl") is None:  
+    dictionary['study'] = "study"
   ## dataset name
   if root.findtext(".//fileDscr/fileTxt/fileName") is not None:
     dictionary['dataset'] = root.findtext(".//fileDscr/fileTxt/fileName")
