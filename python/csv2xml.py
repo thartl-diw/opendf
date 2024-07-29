@@ -81,7 +81,7 @@ def csv2xml(input_dir, output_dir):
           fileName.text=row['dataset']
           
           titl=ET.SubElement(titlStmt,'titl')
-          titl.text=row['dataset']
+          titl.text=row['study']
           # get keys
           list_keys = row.keys()
 
