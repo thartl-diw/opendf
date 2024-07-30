@@ -18,8 +18,9 @@
 *! opendf_write.ado: saves a stata (.dta) dataset in the opendf format 
 *! version 1.2 July, 30 2024 - Release
 
-program define opendf_write
-  syntax anything [,input(string) languages(string) variables(varlist) REPLACE VERBOSE]
+program define opendf_write 
+    version 16
+    syntax anything [,input(string) languages(string) variables(varlist) REPLACE VERBOSE]
     preserve
     local replaceit 0
     if (`"`replace'"' != "") local replaceit 1

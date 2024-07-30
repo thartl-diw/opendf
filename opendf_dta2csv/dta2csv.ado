@@ -19,8 +19,9 @@
 *! version 1.2 July, 30 2024 - Release
 
 
-program define dta2csv
-    syntax, [languages(string) input(string) output_dir(string)]
+program define dta2csv 
+	version 16
+    	syntax, [languages(string) input(string) output_dir(string)]
 	if (c(N) == 0 & c(k)==0) {
     	di as error "Dataset is empty."
     	exit
