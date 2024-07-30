@@ -160,60 +160,19 @@ program define opendf_csv2dta
 	*save row numbers (number of value labels)
 	local nvalue_labels=`r(N)'
 
-
-
-	*loop over each value label (each row of dataset)
-	forvalues i=1/`nvalue_labels'{
-		if (`i'==1){
-			*counter for number of variables to label
-			local n_variable_to_label=1
-			*counter for number of value label for this variable
-			local nvalues=1
-			*Save variable name as local
-			local _varname`n_variable_to_label' = variable in `i'
-			*save value of value label as local
-			local _var`n_variable_to_label'_value`nvalues' = value in `i'
-			*save language label of value as local
-			foreach x of varlist _all{
-				if strpos("`x'", "label")>0{
-					if ("`x'" == "label"){
-						local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
-					} 
-					else {
-						local _label_language = subinstr("`x'", "label_", "", .)
-						local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
-					}
-					
-				}
-			}
-			
-			
-		}
-		if(`i'>1){
-			local j = `i'-1
-			local actual_var=variable in `i'
-			local last_var=variable in `j'
-			if ("`actual_var'" == "`last_var'"){
-				local nvalues=`nvalues'+1
-				local _var`n_variable_to_label'_value`nvalues' = value in `i'
-				foreach x of varlist _all{
-					if strpos("`x'", "label")>0{
-						if ("`x'" == "label"){
-							local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
-						} 
-						else {
-							local _label_language = subinstr("`x'", "label_", "", .)
-							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
-						}
-					}
-				}		
-			}
-			if ("`actual_var'" != "`last_var'"){
-				local _var`n_variable_to_label'_nvals = `nvalues'
+	if (`nvalue_labels'>0){
+		*loop over each value label (each row of dataset)
+		forvalues i=1/`nvalue_labels'{
+			if (`i'==1){
+				*counter for number of variables to label
+				local n_variable_to_label=1
+				*counter for number of value label for this variable
 				local nvalues=1
-				local n_variable_to_label=`n_variable_to_label'+1
-				local _varname`n_variable_to_label' = "`actual_var'"
+				*Save variable name as local
+				local _varname`n_variable_to_label' = variable in `i'
+				*save value of value label as local
 				local _var`n_variable_to_label'_value`nvalues' = value in `i'
+				*save language label of value as local
 				foreach x of varlist _all{
 					if strpos("`x'", "label")>0{
 						if ("`x'" == "label"){
@@ -223,14 +182,57 @@ program define opendf_csv2dta
 							local _label_language = subinstr("`x'", "label_", "", .)
 							local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
 						}
+						
+					}
+				}
+				
+				
+			}
+			if(`i'>1){
+				local j = `i'-1
+				local actual_var=variable in `i'
+				local last_var=variable in `j'
+				if ("`actual_var'" == "`last_var'"){
+					local nvalues=`nvalues'+1
+					local _var`n_variable_to_label'_value`nvalues' = value in `i'
+					foreach x of varlist _all{
+						if strpos("`x'", "label")>0{
+							if ("`x'" == "label"){
+								local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
+							} 
+							else {
+								local _label_language = subinstr("`x'", "label_", "", .)
+								local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+							}
+						}
+					}		
+				}
+				if ("`actual_var'" != "`last_var'"){
+					local _var`n_variable_to_label'_nvals = `nvalues'
+					local nvalues=1
+					local n_variable_to_label=`n_variable_to_label'+1
+					local _varname`n_variable_to_label' = "`actual_var'"
+					local _var`n_variable_to_label'_value`nvalues' = value in `i'
+					foreach x of varlist _all{
+						if strpos("`x'", "label")>0{
+							if ("`x'" == "label"){
+								local _var`n_variable_to_label'_label`nvalues'_landefault = `x'[`i']
+							} 
+							else {
+								local _label_language = subinstr("`x'", "label_", "", .)
+								local _var`n_variable_to_label'_label`nvalues'_lan`_label_language' = `x'[`i']
+							}
+						}
 					}
 				}
 			}
-		}
-		if (`i'==`nvalue_labels'){
-			local _var`n_variable_to_label'_nvals = `nvalues'
+			if (`i'==`nvalue_labels'){
+				local _var`n_variable_to_label'_nvals = `nvalues'
+			}
 		}
 	}
+
+	
 
 	*Import Data
 	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(ISO-8859-9) clear	
@@ -321,55 +323,57 @@ program define opendf_csv2dta
 			}
 		}
 	}
-	*Build value labels from locals
-	forvalues i=1/`n_variable_to_label'{
-		forvalues j=1/`_var`i'_nvals'{
-			if (`j'==1){
-				forvalues l = 1/`language_counter'{
-					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"'
-					}
-				}	
-			}
-			if `j'>1 {
-				forvalues l = 1/`language_counter'{
-					if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
-						label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
+	if (`nvalue_labels'>0){
+		*Build value labels from locals
+		forvalues i=1/`n_variable_to_label'{
+			forvalues j=1/`_var`i'_nvals'{
+				if (`j'==1){
+					forvalues l = 1/`language_counter'{
+						if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
+							label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"'
+						}
+					}	
+				}
+				if `j'>1 {
+					forvalues l = 1/`language_counter'{
+						if `"`_var`i'_label`j'_lan`_language`l'''"' != ""{
+							label define _var`i'_labels_`_language`l'' `_var`i'_value`j'' `"`_var`i'_label`j'_lan`_language`l'''"', add
+						}
 					}
 				}
 			}
 		}
-	}
 
-	*Assign value labels to non-String Variables
-	forvalues i=1/`n_variable_to_label'{
-		capture confirm variable `_varname`i'', exact
-		if (_rc == 0){
-			local _variable_type : type `_varname`i''
-			if strpos("`_variable_type'", "str") == 1 {
-				local _valuelabelforstringvariable=1
-				global warnings= `"$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"'
-			}
-			if strpos("`_variable_type'", "str") != 1 {
-				forvalues l = 1/`language_counter'{
-					qui label language `_language`l''
-					capture label list _var`i'_labels_`_language`l''
-					if (_rc == 111 & "`_language`l''" != "default") {
-						local _valuelabelmissing=1
-						global warnings= `"$warnings {p}{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}{p_end}"'
-					}
-					if (_rc == 0) {
-						label values `_varname`i'' _var`i'_labels_`_language`l''
+		*Assign value labels to non-String Variables
+		forvalues i=1/`n_variable_to_label'{
+			capture confirm variable `_varname`i'', exact
+			if (_rc == 0){
+				local _variable_type : type `_varname`i''
+				if strpos("`_variable_type'", "str") == 1 {
+					local _valuelabelforstringvariable=1
+					global warnings= `"$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"'
+				}
+				if strpos("`_variable_type'", "str") != 1 {
+					forvalues l = 1/`language_counter'{
+						qui label language `_language`l''
+						capture label list _var`i'_labels_`_language`l''
+						if (_rc == 111 & "`_language`l''" != "default") {
+							local _valuelabelmissing=1
+							global warnings= `"$warnings {p}{red: Warning: No Value Labels defined for Variable{it: `_varname`i''} for Language{it: `_language`l'' }.}{p_end}"'
+						}
+						if (_rc == 0) {
+							label values `_varname`i'' _var`i'_labels_`_language`l''
+						}
 					}
 				}
+			} 
+			else {
+				local _vallabelfornonexistingvariable=1
+				global warnings= `"$warnings {p}{red: Value Labels for {it: `_varname`i''} not assigned: variable not in the dataset.}{p_end}"'
 			}
-		} 
-		else {
-			local _vallabelfornonexistingvariable=1
-			global warnings= `"$warnings {p}{red: Value Labels for {it: `_varname`i''} not assigned: variable not in the dataset.}{p_end}"'
-		}
-		
+		}	
 	}
+	
 	
 	if `default_exists'==1{
 		di "{red: Warning: Your dataset contains labels and/or descriptions without a language tag. Labels and descriptions without a language tag are not compatible with opendf-format and might get lost when data is saved in opendf-format.}"
