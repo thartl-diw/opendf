@@ -5,7 +5,7 @@
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {viewerjumpto "Syntax" "opendf##syntax"}{...}
 {viewerjumpto "Description" "opendf##description"}{...}
-help for {cmd:opendf}{right:version 1.1 (22 July 2024)}
+help for {cmd:opendf}{right:version 1.2 (30 July 2024)}
 {hline}
 
 
