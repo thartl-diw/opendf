@@ -5,25 +5,25 @@
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
 {vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
 {vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
-{viewerjumpto "Syntax" "opendf_xml2csv##syntax"}{...}
-{viewerjumpto "Description" "opendf_xml2csv##description"}{...}
-{viewerjumpto "Options" "opendf_xml2csv##options"}{...}
-{viewerjumpto "Examples" "opendf_xml2csv##examples"}{...}
-help for {cmd:opendf csv2zip (opendf_xml2csv)}{right:version 1.2 (30 July 2024)}
+{viewerjumpto "Syntax" "xml2csv##syntax"}{...}
+{viewerjumpto "Description" "xml2csv##description"}{...}
+{viewerjumpto "Options" "xml2csv##options"}{...}
+{viewerjumpto "Examples" "xml2csv##examples"}{...}
+help for {cmd:opendf csv2zip (xml2csv)}{right:version 1.2 (30 July 2024)}
 
 {hline}
 
-opendf_xml2csv
+xml2csv
 {title:Title}
 
 {phang}
-{bf:opendf_xml2csv} {hline 2} generates vour csvs from an opendf-format zip-file containing data meta data for survey data. {p_end}
+{bf:xml2csv} {hline 2} generates vour csvs from an opendf-format zip-file containing data meta data for survey data. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:opendf_xml2csv}, 
+{cmd:xml2csv}, 
 {opt input_zip()} {opt output_dir()} {opt languages()} [{opt verbose}]
 
 {synoptset 20 tabbed}{...}
@@ -40,7 +40,7 @@ opendf_xml2csv
 {title:Description}
 
 {pstd}
-{cmd:opendf_xml2csv} Transforms survey data from an odf zip-file to four csvs several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
+{cmd:xml2csv} Transforms survey data from an odf zip-file to four csvs several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
 
 {pstd}{opt input_zip} is the (path and) name of the ODF zip-folder.{p_end}
 {pstd}{opt output_dir} is the path to the folder where 4 csvs will be written to. {p_end}
