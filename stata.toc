@@ -1,5 +1,5 @@
 *! TOC File
-v 1.0
+v 1.2
 d The opendf package
 
 p opendf package to work with data in the opendf format (.zip)

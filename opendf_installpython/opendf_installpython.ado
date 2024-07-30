@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_installpython.ado: for windows users: copies python to the stata ado folder or a specified location. Default is version 3.12.
-*! version 1.1 July, 22 2024 - Release
+*! version 1.2 July, 30 2024 - Release
 
 
 program define opendf_installpython

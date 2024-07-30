@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0 (17 Apr 2024)}{...}
+{* *! version 1.2 (30 July 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
@@ -8,7 +8,7 @@
 {viewerjumpto "Description" "dta2csv##description"}{...}
 {viewerjumpto "Options" "dta2csv##options"}{...}
 {viewerjumpto "Examples" "dta2csv##examples"}{...}
-help for {cmd:dta2csv}{right:version 1.1 (22 July 2024)}
+help for {cmd:dta2csv}{right:version 1.2 (30 July 2024)}
 {hline}
 
 dta2csv

@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_docu.ado: displays metadata of variable or datasat
-*! version 1.1 July, 22 2024 - Release
+*! version 1.2 July, 30 2024 - Release
 
 
 program define opendf_docu
@@ -72,7 +72,9 @@ program define opendf_docu
     }
     else {
         local _output "dataset"
-        local _name: char _dta[dataset]
+        local _study: char _dta[study]
+	local _name: char _dta[dataset]
+	local _name: "`_study': `_name'"
         foreach l in `_lang'{
 		    qui label language `l'
 		    local _label_`l' : data label

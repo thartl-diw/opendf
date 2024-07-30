@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_read.ado: loads data from opendf format (zip) to stata
-*! version 1.1 July, 22 2024 - Release
+*! version 1.2 July, 30 2024 - Release
 
 			
 program define opendf_read

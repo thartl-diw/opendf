@@ -1,4 +1,4 @@
-v 1.0
+v 1.2
 d opendf
 d
 d The opendataformat package is specifically designed to facilitate the seamless utilization of the Open Data Format.
@@ -22,7 +22,7 @@ d
 d Author: Tom Hartl
 d Support: thartl@diw.de
 
-* version 1.1 22 July 2024 - release
+* version 1.2 30 July 2024 - release
 
 f opendf/opendf.ado
 f opendf/opendf.sthlp

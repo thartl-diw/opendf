@@ -1,4 +1,4 @@
-# version 1.1 (22 July 2024)
+# version 1.2 (30 July 2024)
 
 # Modules
 import csv
@@ -81,7 +81,7 @@ def csv2xml(input_dir, output_dir):
           fileName.text=row['dataset']
           
           titl=ET.SubElement(titlStmt,'titl')
-          titl.text=row['dataset']
+          titl.text=row['study']
           # get keys
           list_keys = row.keys()
 
