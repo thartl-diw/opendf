@@ -30,7 +30,10 @@ program define opendf_read
 		quietly: copy `input' `_path_to_data', replace
 		local input `_path_to_data'
 	}
-
+	*Add default extension if .zip is missing
+	if strpos(`"`input'"', ".zip")==0{
+		local input="`input'.zip"
+	}
 	if (`"`languages'"' != "") {
 	  	local languages `languages'
 	}
