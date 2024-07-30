@@ -19,26 +19,27 @@
 *! version 1.2 July, 30 2024 - Release
 
 			
-program define opendf_read
+program define opendf_read 
+	version 16
 	syntax anything [,LANGUAGES(string) ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
 	local input=`"`anything'"'
-  *If the data.zip is a web path, the data is downloaded to the temp-folder
-	  if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
-		  local _tempdir "`c(tmpdir)'"
+  	*If the data.zip is a web path, the data is downloaded to the temp-folder
+	if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
+		local _tempdir "`c(tmpdir)'"
 	  	local _path_to_data `"`_tempdir'data.zip"'
-	    quietly: copy `input' `_path_to_data', replace
-	    local input `_path_to_data'
-	  }
+		quietly: copy `input' `_path_to_data', replace
+		local input `_path_to_data'
+	}
 
-	  if (`"`languages'"' != "") {
+	if (`"`languages'"' != "") {
 	  	local languages `languages'
-	  }
-	  else {
-      local languages "all"
-    }
-    local input_zip=`"`input'"'
-    local csv_temp = "`c(tmpdir)'"
-    xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
-    opendf csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
+	}
+	else {
+      		local languages "all"
+    	}
+    	local input_zip=`"`input'"'
+    	local csv_temp = "`c(tmpdir)'"
+    	xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+    	opendf csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
 end
 
