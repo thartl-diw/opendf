@@ -18,7 +18,8 @@
 *! xml2csv.ado: loads data from csvs including meta data to build a stata dataset
 *! version 1.2 July, 30 2024 - Release
 
-program define xml2csv
+program define xml2csv 
+    version 16
     syntax, input_zip(string) output_dir(string) languages(string) [VERBOSE]
     local verboseit 0
 	  if (`"`verbose'"' != "") {
