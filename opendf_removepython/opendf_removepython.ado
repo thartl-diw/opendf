@@ -18,7 +18,8 @@
 *! opendf_installpython.ado: for windows users: Remove python folders from a specific location or by default from the ado/plus stata folder, where opendf installpython deploys the python by default
 *! version 1.2 July, 30 2024 - Release
 
-program opendf_removepython
+program opendf_removepython 
+	version 16
 	syntax, [VERSION(string) LOCATION(string)]
 	quietly {
         if (`"`location'"' ==""){
