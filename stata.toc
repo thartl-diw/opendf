@@ -1,5 +1,9 @@
 *! TOC File
 v 1.2
-d The opendf package
+d Author: Tom Hartl
+d DIW Berlin
+d thartl@diw.de
+d https://github.com/thartl-diw/opendf
+d 'opendf': package to work with data in the open data format (.zip)
 
-p opendf package to work with data in the opendf format (.zip)
+p opendf 
