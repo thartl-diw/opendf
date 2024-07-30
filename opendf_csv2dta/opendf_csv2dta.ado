@@ -17,7 +17,8 @@
 -----------------------------------------------------------------------------------*/
 *! opendf_csv2dta.ado: loads data from csvs including meta data to build a stata dataset
 *! version 1.2 July, 30 2024 - Release
-program define opendf_csv2dta
+program define opendf_csv2dta 
+	version 16
 	syntax, csv_loc(string) [ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
 	local replaceit 0
 		if (`"`replace'"' != "") local replaceit 1
