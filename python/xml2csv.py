@@ -1,4 +1,4 @@
-# version 1.1 (22 July 2024)
+# version 1.2 (30 July 2024)
 
 #########################
 # MODULES
