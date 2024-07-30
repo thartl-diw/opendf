@@ -17,7 +17,8 @@
 *! opendf_csv2zip.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
 *! version 1.2 July, 30 2024 - Release
 
-program define opendf_csv2zip
+program define opendf_csv2zip 
+	version 16
     syntax, output(string) [input(string) variables_arg(string) export_data(string) VERBOSE]
     if `"`input'"' == ""{
       local input = "`c(tmpdir)'"
