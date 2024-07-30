@@ -72,9 +72,9 @@ program define opendf_docu
     }
     else {
         local _output "dataset"
-        local _study: char _dta[study]
-	local _name: char _dta[dataset]
-	local _name: "`_study': `_name'"
+       	local _study: char _dta[study]
+	local _dataset: char _dta[dataset]
+	local _name= "`_study': `_dataset'"
         foreach l in `_lang'{
 		    qui label language `l'
 		    local _label_`l' : data label
