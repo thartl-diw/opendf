@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! dta2csv.ado: loads data from csvs including meta data to build a stata dataset
-*! version 1.1 July, 22 2024 - Release
+*! version 1.1 July, 30 2024 - Release
 
 
 program define dta2csv
@@ -61,6 +61,7 @@ program define dta2csv
 		local _languages="default"
 	}
 
+	local study : char _dta[study]
 	local dataset : char _dta[dataset]
 	local url : char _dta[url]
 	local label = ""
@@ -82,6 +83,7 @@ program define dta2csv
 	clear
 	quietly {
 		set obs 1
+		gen study = "`study'"
 		gen dataset = "`dataset'"
 		foreach l in `_languages'{
 			if "`l'"=="default"{
@@ -119,7 +121,7 @@ program define dta2csv
 			local _label_ `_label_' label_*
 		}
 		
-		order dataset `_label_' `_description_' url
+		order study dataset `_label_' `_description_' url
 	}
 	*drop empty labels and descriptions columns
 	foreach var of varlist * {
