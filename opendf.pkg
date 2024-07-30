@@ -15,7 +15,7 @@ d opendf_docu displays metadata of the dataset or a variable
 d (see https://github.com/thartl-diw/opendf/) 
 d
 d Requires: Stata version 16
-d Requires: Python
+d Requires: Python 3
 d
 d Distribution-Date: 20240417
 d
