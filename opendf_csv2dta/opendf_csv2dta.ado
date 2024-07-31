@@ -380,7 +380,7 @@ program define opendf_csv2dta
 		di "{red: The labels have been assigned to the language default. Check {it: label language} to list defined languages.}"
 	}
 	else {
-		label language default, delete
+		capture label language default, delete
 	}
 	if `saveit'==1 {
 		quietly: save `"`save'"', `replace'
