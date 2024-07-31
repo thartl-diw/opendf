@@ -104,7 +104,7 @@ program define opendf_csv2dta
 
 
 	*Directory where to save csvs
-	quietly: import delimited "`csv_loc'/dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) `clear'
+	quietly: import delimited "`csv_loc'/dataset.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) asdouble `clear'
 	*remove gravis (`) from strings to avert errors
 	foreach var of varlist _all{
 		local _variable_type : type `var'
@@ -124,7 +124,7 @@ program define opendf_csv2dta
 	}
 
 
-	quietly: import delimited "`csv_loc'/variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
+	quietly: import delimited "`csv_loc'/variables.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) asdouble clear
 	*remove gravis (`) from strings to avert errors
 	foreach var of varlist _all{
 		local _variable_type : type `var'
@@ -148,8 +148,8 @@ program define opendf_csv2dta
 		}
 	}
 	 	
-	 *Import variable value labels
-	quietly: import delimited "`csv_loc'/categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) clear
+	*Import variable value labels
+	quietly: import delimited "`csv_loc'/categories.csv", varnames(1) case(preserve) encoding(UTF-8) bindquote(strict) maxquotedrows(10000) asdouble clear
 	*remove gravis (`) from strings to avert errors
 	foreach var of varlist _all{
 		local _variable_type : type `var'
@@ -235,7 +235,7 @@ program define opendf_csv2dta
 	
 
 	*Import Data
-	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(ISO-8859-9) clear	
+	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(ISO-8859-9) asdouble clear	
 	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
 	local default_exists=0
 	local language_counter=0
@@ -380,7 +380,7 @@ program define opendf_csv2dta
 		di "{red: The labels have been assigned to the language default. Check {it: label language} to list defined languages.}"
 	}
 	else {
-		label language default, delete
+		capture label language default, delete
 	}
 	if `saveit'==1 {
 		quietly: save `"`save'"', `replace'
