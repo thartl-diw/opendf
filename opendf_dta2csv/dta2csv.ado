@@ -277,7 +277,8 @@ program define dta2csv
 			foreach l in `_languages'{
 				capture qui label language `l '
 				capture qui local _lblname: value label `var'
-				if ("`_lblname'"!= ""){
+				capture label list `_lblname'
+				if ("`_lblname'"!= "" & _rc==0){
 					local _has_label=1
 				}				
 			}
