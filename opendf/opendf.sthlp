@@ -80,6 +80,13 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {cmd:opendf zip2csv} {hline 2}  Write four CSV-files containing meta data for survey data from ODF zip-file. {p_end}
 
 
+{marker remarks}
+{title:Remarks}
+
+{pstd}
+The opendf commands from the Data Open Format Project bundle are written to assist with survey data files in the open data format (ODF/.zip).{p_end}
+
+
 {marker author}
 {title:Author}
 
