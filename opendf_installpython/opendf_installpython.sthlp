@@ -55,13 +55,13 @@ To activate any python installation on your computer in Stata, run: {cmd: set py
 {marker examples}
 {title:Examples}
 
-{phang}Instally python v3.12 (default) to the folder python3.12 in the ado\plus folder{p_end}
+{phang}Install python v3.12 (default) to the folder python3.12 in the ado\plus folder. {p_end}
 {phang}{cmd: opendf installpython}{p_end}
 
-{phang}Instally python v3.10  to the folder python3.12 in the ado\plus folder{p_end}
+{phang}Install python v3.10  to the folder python3.10 in the ado\plus folder. {p_end}
 {phang}{cmd: opendf installpython, version("3.10")}{p_end}
 
-{phang}rInstally python v3.10  to the folder C:\Program Files\python {p_end}
+{phang}Install python v3.10  to the folder "C:\Program Files\python". {p_end}
 {phang}{cmd: opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
 
 
@@ -69,7 +69,7 @@ To activate any python installation on your computer in Stata, run: {cmd: set py
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
