@@ -39,7 +39,7 @@ opendf installpython
 {pstd}
 {opt version} Specifies the version of python to be removed. {p_end}
 {pstd}
-{opt location} Specifies the location where the python folder should be deleted. Default is the Stata ado/plus folder, where opendf installpython deploys python by defualt. {p_end}
+{opt location} Specifies the location where the python folder should be deleted. Default is the Stata ado/plus folder, where opendf installpython deploys python by default. {p_end}
 
 
 {marker remarks}
@@ -52,24 +52,24 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Instally python v3.12 (default) to the folder python3.12 in the do\plus folder{p_end}
+{phang}Install python v3.12 (default) to the folder python3.12 in the ado\plus folder{p_end}
 {phang}{cmd:. opendf installpython}{p_end}
 
-{phang} Deletes python v3.12 in the do\plus folder{p_end}
+{phang} Deletes python v3.12 from the ado\plus folder{p_end}
 {phang}{cmd:. opendf removepython, version("3.12")}{p_end}
 
 {phang} Deletes all folders which contain "python" in the name in C:\Program Files\python {p_end}
-{phang}{cmd:. opendf installpython, location("C:\Program Files\python")} {p_end}
+{phang}{cmd:. opendf removepython, location("C:\Program Files\python")} {p_end}
 
 {phang} Deletes a folder "python3.12" in C:\Program Files\python if it exists {p_end}
-{phang}{cmd:. opendf installpython, version("3.12") location("C:\Program Files\python")} {p_end}
+{phang}{cmd:. opendf removepython, version("3.12") location("C:\Program Files\python")} {p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
