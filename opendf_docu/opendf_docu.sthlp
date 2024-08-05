@@ -33,6 +33,8 @@ opendf docu
 {pstd}
 {cmd:opendf docu} displays information about the dataset or a variable, if a variable is specified. {p_end}
 {pstd}
+{it:  varname} can be indicated to display information about a variable instead of the dataset. {p_end}
+{pstd}
 {opt languages} indicates the languages that should be displayed. Default is the active label language. To see all languages, set languages("all") {p_end}
 {marker remarks}
 

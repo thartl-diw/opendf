@@ -38,7 +38,7 @@ opendf write
 {pstd}
 {cmd:opendf write} Saves a dataset in the opendf-format (zip-folder). The Output is a zip-folder that contains a csv-file with the data and a xml-file with the meta data. {p_end}
 {pstd}
-{opt output} Name of the output-zip-folder. Can also include a path where to save the output. The extension ".zip" can be omited. {p_end}
+{it: output} Name of the output-zip-folder. Can also include a path where to save the output. The extension ".zip" can be omited. {p_end}
 {pstd}
 {opt input} A Stata dataset (.dta) that should be saved in the opendf-format.{p_end}
 {pstd}
