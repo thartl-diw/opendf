@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2 (30 July 2024)}{...}
+{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
@@ -7,7 +7,7 @@
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
-help for {cmd:opendf installpython (opendf_installpython)}{right:version 1.2 (30 July 2024)}
+help for {cmd:opendf installpython (opendf_installpython)}{right: version 2.0.0 (05 August 2024)}
 {hline}
 
 opendf installpython
@@ -73,4 +73,4 @@ Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut f√
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}, {help opendf removepython}{p_end}

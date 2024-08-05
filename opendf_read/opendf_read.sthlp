@@ -1,11 +1,11 @@
 {smcl}
-{* *! version 1.2 (30 July 2024)}{...}
+{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {viewerjumpto "Syntax" "opendf read##syntax"}{...}
 {viewerjumpto "Description" "opendf read##description"}{...}
 {viewerjumpto "Examples" "opendf read##examples"}{...}
-help for  {cmd:opendf read (opendf_read)}{right:version 1.2 (30 July 2024)}
+help for  {cmd:opendf read (opendf_read)}{right: version 2.0.0 (05 August 2024)}
 {hline}
 
 opendf read

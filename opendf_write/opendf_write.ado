@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_write.ado: saves a stata (.dta) dataset in the opendf format 
-*! version 1.2 July, 30 2024 - Release
+*! version 2.0.0 August, 05 2024 - SSC Release
 
 program define opendf_write 
     version 16
@@ -53,8 +53,8 @@ program define opendf_write
       local output_folder= "`wd'/`output_folder'"
     }
     
-    dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
-    opendf csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
+    opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     capture confirm file `"`output'"'
     if _rc == 0 {
       di "{text: Dataset successfully saved in opendf-format to {it:`output'}.}"

@@ -16,7 +16,8 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_read.ado: loads data from opendf format (zip) to stata
-*! version 1.2 July, 30 2024 - Release
+*! version 2.0.0 August, 05 2024 - SSC Release
+
 
 			
 program define opendf_read 
@@ -42,7 +43,7 @@ program define opendf_read
     	}
     	local input_zip=`"`input'"'
     	local csv_temp = "`c(tmpdir)'"
-    	xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
-    	opendf csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
+    	opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+    	opendf_csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
 end
 

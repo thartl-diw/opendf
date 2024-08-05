@@ -1,4 +1,4 @@
-v 1.2
+v 2.0.0
 d opendf
 d
 d The opendataformat package is specifically designed to facilitate the seamless utilization of the Open Data Format.
@@ -22,7 +22,7 @@ d
 d Author: Tom Hartl
 d Support: thartl@diw.de
 
-* version 1.2 30 July 2024 - release
+* version 2.0.0, 05 August 2024 - SSC release
 
 f opendf/opendf.ado
 f opendf/opendf.sthlp
@@ -36,12 +36,13 @@ f opendf_installpython/opendf_installpython.ado
 f opendf_installpython/opendf_installpython.sthlp
 f opendf_removepython/opendf_removepython.ado
 f opendf_removepython/opendf_removepython.sthlp
-f opendf_xml2csv/xml2csv.ado
-f opendf_xml2csv/xml2csv.sthlp
+f opendf_zip2csv/opendf_zip2csv.ado
+f opendf_zip2csv/opendf_zip2csv.sthlp
 f opendf_csv2dta/opendf_csv2dta.ado
 f opendf_csv2dta/opendf_csv2dta.sthlp
-f opendf_dta2csv/dta2csv.ado
-f opendf_csv2xml/opendf_csv2zip.ado
-f opendf_csv2xml/opendf_csv2zip.sthlp
+f opendf_dta2csv/opendf_dta2csv.ado
+f opendf_dta2csv/opendf_dta2csv.sthlp
+f opendf_csv2zip/opendf_csv2zip.ado
+f opendf_csv2zip/opendf_csv2zip.sthlp
 f python/xml2csv.py
 f python/csv2xml.py

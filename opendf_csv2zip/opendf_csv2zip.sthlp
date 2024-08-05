@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2 (30 July 2024)}{...}
+{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
@@ -8,7 +8,7 @@
 {viewerjumpto "Description" "opendf_csv2zip##description"}{...}
 {viewerjumpto "Options" "opendf_csv2zip##options"}{...}
 {viewerjumpto "Examples" "opendf_csv2zip##examples"}{...}
-help for {cmd:opendf csv2zip (opendf_csv2zip)}{right:version 1.2 (30 July 2024)}
+help for {cmd:opendf csv2zip (opendf_csv2zip)}{right: version 2.0.0 (05 August 2024)}
 
 {hline}
 

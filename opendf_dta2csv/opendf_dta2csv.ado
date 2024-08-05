@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  dta2csv.ado: builds csv files containing data and meta data from stata dataset (.dta)
+  opendf_dta2csv: builds csv files containing data and meta data from stata dataset (.dta)
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,21 +15,18 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! dta2csv.ado: loads data from csvs including meta data to build a stata dataset
-*! version 1.2 July, 30 2024 - Release
+*! opendf_dta2csv.ado: loads data from csvs including meta data to build a stata dataset
+*! version 2.0.0 August, 05 2024 - SSC Release
 
 
-program define dta2csv 
+program define opendf_dta2csv 
 	version 16
-    	syntax, [languages(string) input(string) output_dir(string)]
+    	syntax, output_dir(string) [languages(string) input(string)]
 	if (c(N) == 0 & c(k)==0) {
     	di as error "Dataset is empty."
     	exit
   	}
-	*by default csvs are stored in temp directory
-	if (`"`output_dir'"' == "" ){
-      		local output_dir = "`c(tmpdir)'"
-    	}
+
 	*if output_dir is not temp dir or if we are in linux, we add / to the path
 	if ("`output_dir'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
       		local output_dir = "`output_dir'/"
@@ -132,7 +129,7 @@ program define dta2csv
 		    if (`=r(N)' == c(N)) drop `var'
         }     
 	}
-	*save dataset metadata as dataset.csv in working directory (temp folder)
+	*save dataset metadata as dataset.csv in output directory
 	quietly: export delimited "`output_dir'dataset", replace quote
 
 	*******   export variables meta data to variables.csv**************
@@ -227,7 +224,7 @@ program define dta2csv
             }     
 		}
 	}
-	*save variables metadata as variables.csv in working directory (temp folder)
+	*save variables metadata as variables.csv in output directory
 	quietly: export delimited "`output_dir'variables", replace quote
 	
 
@@ -361,7 +358,7 @@ program define dta2csv
 			    quietly: if (`=r(N)' == c(N)) drop `var'
             }     
 		}
-	*save variables metadata as variables.csv in working directory (temp folder)
+	*save variables metadata as variables.csv in output directory
 	quietly: export delimited "`output_dir'categories", replace quote
 	quietly: use `orig_datatempfile', clear
 end
