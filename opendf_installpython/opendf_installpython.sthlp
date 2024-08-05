@@ -47,19 +47,22 @@ opendf installpython
 
 {pstd}
 This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
-
+{pstd}
+The deployed python version will not be found automatcally by Stata. However, it will be found by the functions in the opendf package, if it is installed to the default location.{p_end}
+{pstd}
+To activate any python installation on your computer in Stata, run: {cmd: set python_exec "C:/...path to python.exe"}.{p_end}
 
 {marker examples}
 {title:Examples}
 
-{phang}Instally python v3.12 (default) to the folder python3.12 in the do\plus folder{p_end}
-{phang}{cmd:. opendf installpython}{p_end}
+{phang}Instally python v3.12 (default) to the folder python3.12 in the ado\plus folder{p_end}
+{phang}{cmd: opendf installpython}{p_end}
 
-{phang}Instally python v3.10  to the folder python3.12 in the do\plus folder{p_end}
-{phang}{cmd:. opendf installpython, version("3.10")}{p_end}
+{phang}Instally python v3.10  to the folder python3.12 in the ado\plus folder{p_end}
+{phang}{cmd: opendf installpython, version("3.10")}{p_end}
 
 {phang}rInstally python v3.10  to the folder C:\Program Files\python {p_end}
-{phang}{cmd:. opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
+{phang}{cmd: opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
 
 
 {marker author}
