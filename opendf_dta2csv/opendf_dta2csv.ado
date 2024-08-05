@@ -129,7 +129,7 @@ program define opendf_dta2csv
 		    if (`=r(N)' == c(N)) drop `var'
         }     
 	}
-	*save dataset metadata as dataset.csv in working directory (temp folder)
+	*save dataset metadata as dataset.csv in output directory
 	quietly: export delimited "`output_dir'dataset", replace quote
 
 	*******   export variables meta data to variables.csv**************
@@ -224,7 +224,7 @@ program define opendf_dta2csv
             }     
 		}
 	}
-	*save variables metadata as variables.csv in working directory (temp folder)
+	*save variables metadata as variables.csv in output directory
 	quietly: export delimited "`output_dir'variables", replace quote
 	
 
@@ -358,7 +358,7 @@ program define opendf_dta2csv
 			    quietly: if (`=r(N)' == c(N)) drop `var'
             }     
 		}
-	*save variables metadata as variables.csv in working directory (temp folder)
+	*save variables metadata as variables.csv in output directory
 	quietly: export delimited "`output_dir'categories", replace quote
 	quietly: use `orig_datatempfile', clear
 end
