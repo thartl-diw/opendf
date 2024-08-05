@@ -21,15 +21,12 @@
 
 program define opendf_dta2csv 
 	version 16
-    	syntax, [languages(string) input(string) output_dir(string)]
+    	syntax, output_dir(string) [languages(string) input(string)]
 	if (c(N) == 0 & c(k)==0) {
     	di as error "Dataset is empty."
     	exit
   	}
-	*by default csvs are stored in temp directory
-	if (`"`output_dir'"' == "" ){
-      		local output_dir = "`c(tmpdir)'"
-    	}
+
 	*if output_dir is not temp dir or if we are in linux, we add / to the path
 	if ("`output_dir'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
       		local output_dir = "`output_dir'/"
