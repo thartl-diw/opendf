@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_installpython.ado: for windows users: copies python to the stata ado folder or a specified location. Default is version 3.12.
+  opendf_installpython.ado: for windows users: copies python to the Stata ado folder or a specified location. Default is version 3.12.
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! opendf_installpython.ado: for windows users: copies python to the stata ado folder or a specified location. Default is version 3.12.
+*! opendf_installpython.ado: for windows users: copies python to the Stata ado folder or a specified location. Default is version 3.12.
 *! version 2.0.0 August, 05 2024 - SSC Release
 
 
@@ -25,7 +25,7 @@ program define opendf_installpython
 	*Returns error of we are not in wondows and exit
 	if (c(os) != "Windows"){
 	  di as error "The command {it:opendf installpython} is only working for Windows. To install python manually for your operating system go to:"
-		di as error `"{stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}"'
+		di as error `"{Stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}"'
 		exit
 	}
 	

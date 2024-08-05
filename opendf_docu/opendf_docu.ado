@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_docu.ado: loads data from opendf format (zip) to stata
+  opendf_docu.ado: loads data from opendf format (zip) to Stata
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -117,7 +117,7 @@ program define opendf_docu
 		display `"{p}Description`_l': {text:`_descr_`l''}{p_end}"'
 	}
 	if "`_url'" != "" {
-        display `"{p}URL: {stata "view browse `_url'":`_url'}{p_end}"'
+        display `"{p}URL: {Stata "view browse `_url'":`_url'}{p_end}"'
     }
     else di "URL: "
     if "`_output'"=="variable" display "{p}Variable Type: {text:`_type'}{p_end}"

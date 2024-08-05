@@ -16,7 +16,7 @@ opendf_csv2dta
 {title:Title}
 
 {phang}
-{bf:opendf_csv2dta} {hline 2} builds a stata dataset (.dta) from csv files containing meta data for survey data. {p_end}
+{bf:opendf_csv2dta} {hline 2} builds a Stata dataset (.dta) from csv files containing meta data for survey data. {p_end}
 
 
 {marker syntax}
@@ -30,8 +30,8 @@ opendf_csv2dta
 {marker comopt}{synopthdr:options}
 {synoptline}
 {synopt :{opt csv_loc(string)}}Indicates location of csvs. {p_end}
-{synopt :{opt rowrange([start][:end])}}Indicates the range of rows to read. {p_end}
-{synopt :{opt colrange([start][:end])}}Indicates the range of columns to read. {p_end}
+{synopt :{opt rowrange}([start][:end])}Indicates the range of rows to read. {p_end}
+{synopt :{opt colrange}([start][:end])}Indicates the range of columns to read. {p_end}
 {synopt :{opt clear}}allows you to clear dataset in memory {p_end}
 {synopt :{opt save(string)}}save data to desired filepath and filename. {p_end}
 {synopt :{opt replace}}overwriting former saved file {p_end}
@@ -62,6 +62,7 @@ If option {opt replace} is specified, a former saved file will be overwritten.{p
 If option {opt replace} is specified, a former saved file will be overwritten.
 {p_end}
 
+
 {marker remarks}
 {title:Remarks}
 
@@ -72,17 +73,15 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Builds a stata dataset containing metadata in the characteristics and the labels from the four csvs located in "C:/Documents/Data". {p_end}
+{phang}Builds a Stata dataset containing metadata in the characteristics and the labels from the four csvs located in "C:/Documents/Data". {p_end}
 {phang}{cmd:. csv2xml, input("C:/Documents/Data")}{p_end}
-
-
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}

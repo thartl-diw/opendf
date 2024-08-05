@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_read.ado: loads data from opendf format (zip) to stata
+  opendf_read.ado: loads data from opendf format (zip) to Stata
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! opendf_read.ado: loads data from opendf format (zip) to stata
+*! opendf_read.ado: loads data from opendf format (zip) to Stata
 *! version 2.0.0 August, 05 2024 - SSC Release
 
 

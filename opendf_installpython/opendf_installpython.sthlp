@@ -37,7 +37,7 @@ opendf installpython
 {pstd}
 {cmd:opendf installpython} Copies python to some directory on your computer. The command only works for Windows and does not require administrator privileges. But the user needs writing permission for the folder where python is saved. {p_end}
 {pstd}
-{opt version} Specifies the version of python. It should be 2.7 or higher to function with stata. Default is 3.12. Python 3 is strongly recommended. {p_end}
+{opt version} Specifies the version of python. It should be 2.7 or higher to function with Stata. Default is 3.12. Python 3 is strongly recommended. {p_end}
 {pstd}
 {opt location} Specifies the location where the python folder will be copied to. If this option is set, the user has to manually indicate where python is located using {cmd: set python_exec "path to python.exe"} at every start of Stata. {p_end}
 
@@ -51,6 +51,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 The deployed python version will not be found automatically by Stata. However, it will be found by the functions of the opendf package, if it is installed to the default location (ado/plus-folder of Stata).{p_end}
 {pstd}
 To activate any python installation on your computer in Stata, run: {cmd: set python_exec "C:/...path to python.exe"}.{p_end}
+
 
 {marker examples}
 {title:Examples}

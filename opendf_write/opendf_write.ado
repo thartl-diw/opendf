@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_write.ado: loads data from opendf format (zip) to stata
+  opendf_write.ado: loads data from opendf format (zip) to Stata
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! opendf_write.ado: saves a stata (.dta) dataset in the opendf format 
+*! opendf_write.ado: saves a Stata (.dta) dataset in the opendf format 
 *! version 2.0.0 August, 05 2024 - SSC Release
 
 program define opendf_write 
@@ -38,7 +38,7 @@ program define opendf_write
     if (`"`input'"' != "") {
       capture quietly use "`input'", clear
       if _rc==601{
-        di as error "Error: `input' is not a valid stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in stata."
+        di as error "Error: `input' is not a valid Stata dataset (.dta). Insert the path to a valid dataset (.dta) or leave argument 'input' empty to use the dataset loaded in Stata."
         exit 601
       }
     }

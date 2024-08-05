@@ -24,12 +24,13 @@ opendf write
 {marker comopt}{synopthdr:options}
 {synoptline}
 {synopt :{opt output(string)}}(Path and) Name of the output-zip-folder. {p_end}
-{synopt :{opt input(string)}}A path to a stata dataset which should be saved in opendf-format. {p_end}
+{synopt :{opt input(string)}}A path to a Stata dataset which should be saved in opendf-format. {p_end}
 {synopt :{opt languages(string)}}Chooses, which languages to keep. Default is all. {p_end}
 {synopt :{opt variables(string)}}Chooses, which Variables to keep. Default is all. {p_end}
 {synopt :{opt replace}}Overwrite the opendf file. {p_end}
 {synopt :{opt verbose}}More warnings are displayed. {p_end}
 {synoptline}
+
 
 {marker description}
 {title:Description}
@@ -39,13 +40,14 @@ opendf write
 {pstd}
 {opt output} Name of the output-zip-folder. Can also include a path where to save the output. The extension ".zip" can be omited. {p_end}
 {pstd}
-{opt input} A stata dataset (.dta) that should be saved in the opendf-format.{p_end}
+{opt input} A Stata dataset (.dta) that should be saved in the opendf-format.{p_end}
 {pstd}
 {opt languages} The languages that should be saved in the opendf-file. Default is all.{p_end}
 {pstd}
 {opt variables} Indicates the variables that should be saved in the opendf-file. Default is all.{p_end}
 {pstd}
-{opt verbose} Indicates whether any existing file with this name should be overwritten.{p_end}
+{opt replace} Indicates whether any existing file with this name should be overwritten.{p_end}
+{pstd}
 {opt verbose} If activated, more warnings are displayed.{p_end}
 
 
@@ -59,13 +61,13 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
+{phang}Saves the dataset that is currently loaded in Stata as zip-folder out.zip in the current working directory. {p_end}
 {phang}{cmd:. opendf write "out.zip"}{p_end}
 
-{phang}Saves the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory. The {p_end}
+{phang}Saves the dataset that is currently loaded in Stata with the labels and descriptions in english as zip-folder out.zip in the current working directory. The {p_end}
 {phang}{cmd:. opendf write "out", languages("en")}{p_end}
 
-{phang}Saves the variables pid, cid, hid, syear, name, bap9001 from the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
+{phang}Saves the variables pid, cid, hid, syear, name, bap9001 from the dataset that is currently loaded in Stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
 {phang}{cmd:. opendf write "out", languages("en") variables(pid cid hid syear name bap9001)}{p_end}
 
 
