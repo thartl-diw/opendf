@@ -21,14 +21,14 @@ opendf_dta2csv
 {title:Syntax}
 {p 8 17 2}
 {cmd:opendf_dta2csv}
-{cmd:}[, {languages()} {input()} {output_dir()}]
+{cmd:}, {output_dir()} [{languages()} {input()}]
 
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
 {synoptline}
+{synopt :{opth output_dir(string)}}Specifies a directory where to save the csvs. {p_end}
 {synopt :{opt languages(string)}}Specifies which label and description languages should be written to the csvs. (Default: "all") {p_end}
 {synopt :{opt input(string)}}Specifies a .dta file that should be loaded and written to csvs. {p_end}
-{synopt :{opth output_dir(string)}}Specifies a directory where to save the csvs. {p_end}
 {synoptline}
 
 
@@ -36,10 +36,10 @@ opendf_dta2csv
 {title:Description}
 
 {pstd}
-{cmd:opendf_dta2csv} Transforms survey data from dta-format including metadata saved in labels and characteristics to four csvs files (data.csv, dataset.csv, variables.csv and categories.csv) in the temp-folder. {p_end}
+{cmd:opendf_dta2csv} Transforms survey data from dta-format including metadata saved in labels and characteristics to four csvs files (data.csv, dataset.csv, variables.csv and categories.csv) in a specified directory. {p_end}
+{pstd}{opt output_dir} Indicates the folder where the csv files are saved. {p_end}
 {pstd}{opt languages} Indicates which languages to keep. Default is "all". {p_end}
 {pstd}{opt input} Indicates a .dta file that should be loaded and written to csv. Default is the dataset currently loaded in stata. {p_end}
-{pstd}{opt output_dir} Indicates whether the csv files should additionally be saved in a specified folder. {p_end}
 {pstd}data.csv containings the data. {p_end}
 {pstd}dataset.csv contains the metadata of the dataset  {p_end}
 {pstd}variables.csv contains the metadata of the variables.  {p_end}
