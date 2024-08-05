@@ -54,13 +54,10 @@ opendf_csv2dta
 {pstd}{opt rowrange([start][:end])}} specifies a range of rows within the data to load (excluding the header). {it: start} and {it: end} are integer row numbers.{p_end}
 {pstd}{opt colrange([start][:end])}} specifies a range of variables within the data to load.  {it: start} and {it: end} are integer column numbers.{p_end}
 {pstd}{opt clear} specifies that it is okay to replace the data in memory, even though the current data have not been saved to disk.{p_end}
-{pstd}{opt replace} overwrite existing file.{break}
-If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
-{pstd}{opt save} stores data to a desired filepath and filename.{break}
-If option {opt replace} is specified, a former saved file will be overwritten.{p_end}
-{pstd}{opt save} stores data to a desired filepath and filename.{break}
-If option {opt replace} is specified, a former saved file will be overwritten.
-{p_end}
+{pstd}{opt replace} overwrite existing file.{p_end}
+{pstd}{opt replace} indicates that any existing file should be overwritten.{p_end}
+{pstd}{opt save} stores data to a desired filepath and filename.{p_end}
+{pstd}{opt verbose} display more warnings.{p_end}
 
 
 {marker remarks}
