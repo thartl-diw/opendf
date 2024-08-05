@@ -1,29 +1,29 @@
 {smcl}
-{* *! version 1.2 (30 July 2024)}{...}
+{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
 {vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
 {vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
-{viewerjumpto "Syntax" "xml2csv##syntax"}{...}
-{viewerjumpto "Description" "xml2csv##description"}{...}
-{viewerjumpto "Options" "xml2csv##options"}{...}
-{viewerjumpto "Examples" "xml2csv##examples"}{...}
-help for {cmd:opendf csv2zip (xml2csv)}{right:version 1.2 (30 July 2024)}
+{viewerjumpto "Syntax" "opendf_zip2csv##syntax"}{...}
+{viewerjumpto "Description" "opendf_zip2csv##description"}{...}
+{viewerjumpto "Options" "opendf_zip2csv##options"}{...}
+{viewerjumpto "Examples" "opendf_zip2csv##examples"}{...}
+help for {cmd:opendf csv2zip (opendf_zip2csv)}{right:version 2.0 (05 August 2024)}
 
 {hline}
 
-xml2csv
+opendf_zip2csv
 {title:Title}
 
 {phang}
-{bf:xml2csv} {hline 2} generates vour csvs from an opendf-format zip-file containing data meta data for survey data. {p_end}
+{bf:opendf_zip2csv} {hline 2} generates vour csvs from an opendf-format zip-file containing data meta data for survey data. {p_end}
 
 
 {marker syntax}
 {title:Syntax}
 {p 8 17 2}
-{cmd:xml2csv}, 
+{cmd:opendf_zip2csv}, 
 {opt input_zip()} {opt output_dir()} {opt languages()} [{opt verbose}]
 
 {synoptset 20 tabbed}{...}
@@ -40,7 +40,7 @@ xml2csv
 {title:Description}
 
 {pstd}
-{cmd:xml2csv} Transforms survey data from an odf zip-file to four csvs several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
+{cmd:opendf_zip2csv} Transforms survey data from an odf zip-file to four csvs several csv files into dta-format including metadata saved in labels and characteristics. {p_end}
 
 {pstd}{opt input_zip} is the (path and) name of the ODF zip-folder.{p_end}
 {pstd}{opt output_dir} is the path to the folder where 4 csvs will be written to. {p_end}
@@ -59,7 +59,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Builds and saves four csv-files in the C:\Documents\csv_files-folder from the datafile testdata.zip {p_end}
-{phang}{cmd:.  xml2csv, input_zip("C:\documents\testdata.zip"), output_dir("C:\Documents\csv_files") languages("all")}{p_end}
+{phang}{cmd:.  opendf_zip2csv, input_zip("C:\documents\testdata.zip"), output_dir("C:\Documents\csv_files") languages("all")}{p_end}
 
 
 
