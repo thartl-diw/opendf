@@ -31,16 +31,16 @@ opendf docu
 {title:Description}
 
 {pstd}
-{cmd:opendf docu} Displays information about the dataset or a variable, if a variable is specified. {p_end}
+{cmd:opendf docu} displays information about the dataset or a variable, if a variable is specified. {p_end}
 {pstd}
-{opt languages} The languages that should be displayed. Default is the active label language. To see all languages, set languages("all") {p_end}
+{opt languages} indicates the languages that should be displayed. Default is the active label language. To see all languages, set languages("all") {p_end}
 {marker remarks}
 
 
 {title:Remarks}
 
 {pstd}
-This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
+This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
 
 
 {marker examples}

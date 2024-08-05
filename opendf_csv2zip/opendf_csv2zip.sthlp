@@ -58,7 +58,7 @@ opendf_csv2zip
 {title:Remarks}
 
 {pstd}
-This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
+This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
 
 
 {marker examples}
