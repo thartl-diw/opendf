@@ -29,10 +29,10 @@ opendf_zip2csv
 {synoptset 20 tabbed}{...}
 {marker comopt}{synopthdr:options}
 {synoptline}
-{synopt :{opt input_zip(string)}}(Path and) Name to the odf-zip-file. {p_end}
-{synopt :{opt output_dir(string)}}Indicates the output directory for the csvs. {p_end}
-{synopt :{opt languages(string)}}Chooses, which languages to keep. Default is all. Default is "all" {p_end}
-{synopt :{opt verbose}}More warnings are displayed. {p_end}
+{synopt :{opt input_zip(string)}} (Path and) Name to the ODF-zip-file. {p_end}
+{synopt :{opt output_dir(string)}} Indicates the output directory for the csvs. {p_end}
+{synopt :{opt languages(string)}} Chooses, which languages to keep. Default is all. Default is "all" {p_end}
+{synopt :{opt verbose}} More warnings are displayed. {p_end}
 {synoptline}
 
 
@@ -44,8 +44,8 @@ opendf_zip2csv
 
 {pstd}{opt input_zip} is the (path and) name of the ODF zip-folder.{p_end}
 {pstd}{opt output_dir} is the path to the folder where 4 csvs will be written to. {p_end}
-{pstd}{opt languages(string)}} Indicates for which languages the metadata should be written to the csv files. By default all metadata in all available languages is written.(languages("all"))
-{{pstd}The option {opt verbose}}indicates whether more warnings should be displayed. {p_end}
+{pstd}{opt languages(string)} Indicates for which languages the metadata should be written to the csv files. By default all metadata in all available languages is written (languages("all")). {p_end}
+{pstd}The option {opt verbose} indicates whether more warnings should be displayed. {p_end}
 
 
 {marker remarks}
@@ -62,17 +62,15 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {phang}{cmd:.  opendf_zip2csv, input_zip("C:\documents\testdata.zip"), output_dir("C:\Documents\csv_files") languages("all")}{p_end}
 
 
-
-
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help opendf_csv2dta}, {help opendf_csv2zip}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help opendf_csv2dta}, {help opendf_csv2zip}, {help opendf_dta2csv}{p_end}

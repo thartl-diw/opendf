@@ -15,7 +15,7 @@ opendf_dta2csv
 {title:Title}
 
 {phang}
-{bf:opendf_dta2csv} {hline 2} builds csv files containing meta data for survey data from a stata dataset (.dta). {p_end}
+{bf:opendf_dta2csv} {hline 2} builds csv files containing meta data for survey data from a Stata dataset (.dta). {p_end}
 
 {marker syntax}
 {title:Syntax}
@@ -39,12 +39,13 @@ opendf_dta2csv
 {cmd:opendf_dta2csv} Transforms survey data from dta-format including metadata saved in labels and characteristics to four csvs files (data.csv, dataset.csv, variables.csv and categories.csv) in a specified directory. {p_end}
 {pstd}{opt output_dir} Indicates the folder where the csv files are saved. {p_end}
 {pstd}{opt languages} Indicates which languages to keep. Default is "all". {p_end}
-{pstd}{opt input} Indicates a .dta file that should be loaded and written to csv. Default is the dataset currently loaded in stata. {p_end}
+{pstd}{opt input} Indicates a .dta file that should be loaded and written to csv. Default is the dataset currently loaded in Stata. {p_end}
 {pstd}data.csv containings the data. {p_end}
 {pstd}dataset.csv contains the metadata of the dataset  {p_end}
 {pstd}variables.csv contains the metadata of the variables.  {p_end}
 {pstd}categories.csv contains the metadata of the values. {p_end}
-{pstd} Metadata is taken from the labels and characteristics. {p_end}
+{pstd}Metadata is taken from the labels and characteristics. {p_end}
+
 
 {marker remarks}
 {title:Remarks}
@@ -56,21 +57,19 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Saves the dataset that is currently loaded in 4 csvs in the current working directory (and in the temp-folder). {p_end}
-{phang}{cmd:. opendf_dta2csv, output_dir(c(pwd))}{p_end}
-
-
+{phang}Saves the dataset that is currently loaded in 4 csvs in the current working directory. {p_end}
+{phang}{cmd:. opendf_dta2csv, output_dir("`c(pwd)'")}{p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":hartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}{p_end}
+{space 2}Help: {help opendf_read}, {help opendf_write}, {help opendf_docu}, {help opendf_csv2dta}, {help opendf_csv2zip}, {help opendf_zip2csv}{p_end}

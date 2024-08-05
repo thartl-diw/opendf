@@ -12,11 +12,12 @@ opendf read
 {title:Title}
 
 {phang}
-{bf:opendf read} {hline 2} builds a stata dataset (.dta) from open data format dataset (.zip) {p_end}
+{bf:opendf read} {hline 2} builds a Stata dataset (.dta) from open data format dataset (.zip) {p_end}
 
 
 {marker syntax}
 {title:Syntax}
+
 {p 8 17 2}
 {cmd:opendf read} {it: input} [,{opt rowrange}([start][:end]) {opt colrange}([start][:end]) {opt clear} {opt save()} {opt replace} {opt verbose}]
 
@@ -36,7 +37,7 @@ opendf read
 {title:Description}
 
 {pstd}
-{cmd:csv2dta} Loads data froam opendf format (zip-folder) into stata including metadata saved in labels and characteristics. {p_end}
+{cmd:csv2dta} Loads data froam opendf format (zip-folder) into Stata including metadata saved in labels and characteristics. {p_end}
 
 {pstd}
 The dataset is stored in the format of the original dataset. Metadata is saved as labels or in the characteristics. {p_end}
@@ -63,6 +64,7 @@ If option {opt replace} is specified, a former saved file will be overwritten.
 If option {opt replace} is specified, a former saved file will be overwritten.
 {p_end}
 
+
 {marker remarks}
 {title:Remarks}
 
@@ -73,14 +75,14 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {marker examples}
 {title:Examples}
 
-{phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
+{phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into Stata. The clear ensures, that the old dataset is removed from Stata cache.{p_end}
 {phang}With the save()-option the dataset is saved as testdata.dta in the working directory. If it already exists, it testdata.dta is replaced, verbose option is set on.{p_end}
 {phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear save("testdata") replace verbose}{p_end}
 
-{phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. The clear ensures, that the old dataset is removed from stata cache.{p_end}
+{phang}Read the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into Stata. {opt clear} ensures, that the old dataset is removed from Stata cache.{p_end}
 {phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear}{p_end}
 
-{phang}Read the first 10 lines of the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. Since the first line is also the header, the range has to be set to 11. {p_end}
+{phang}Read the first 10 lines of the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into Stata. Since the first line is also the header, the range has to be set to 11. {p_end}
 {phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", rowrange(:11)}{p_end}
 
 {marker author}

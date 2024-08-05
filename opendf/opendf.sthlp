@@ -37,7 +37,7 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {p 8 16 2}{cmd:opendf} {cmd:removepython} [, {opt version()} {opt location()}]
 
     
-    Build a stata dataset (.dta) with metadata from the opendf specification from csv files containing meta data for survey data.
+    Build a Stata dataset (.dta) with metadata from the opendf specification from csv files containing meta data for survey data.
 
 {p 8 16 2}{cmd:opendf} {cmd:csv2dta} , {opt csv_loc()} [{opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
@@ -47,7 +47,7 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {p 8 16 2}{cmd:opendf} {cmd:csv2zip}, {opt output()} [{opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
 
 
-    Write four CSV-files with data and meta data from stata ODF dataset.
+    Write four CSV-files with data and meta data from Stata ODF dataset.
 
 {p 8 16 2}{cmd:opendf} {cmd:dta2csv}, {opt output_dir()} [{opt languages()} {opt input()}]
 
@@ -61,7 +61,7 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {title:Description}
 
 {pstd}
-{cmd:opendf read} {hline 2} builds a stata dataset (.dta) from open data format dataset (.zip) {p_end}
+{cmd:opendf read} {hline 2} builds a Stata dataset (.dta) from open data format dataset (.zip) {p_end}
 {pstd}
 {cmd:opendf write} {hline 2} Saves data in the opendf-format as opendf-zip folder containing a csv(data) and a xml(metadate) file.{p_end}
 {pstd}
@@ -71,11 +71,11 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {pstd}
 {cmd:opendf removepython} {hline 2} Removes python that was installed with opendf installpython. {p_end}
 {pstd}
-{cmd:opendf csv2dta} {hline 2} Build a stata dataset (.dta) with metadata from the opendf specification from four csv files containing meta data for survey data. {p_end}
+{cmd:opendf csv2dta} {hline 2} Build a Stata dataset (.dta) with metadata from the opendf specification from four csv files containing meta data for survey data. {p_end}
 {pstd}
 {cmd:opendf csv2zip} {hline 2}  Write data in open data format (.zip) from four csv files containing meta data for survey data. {p_end}
 {pstd}
-{cmd:opendf dta2csv} {hline 2} Write four CSV-files containing meta data for survey data from stata ODF dataset. {p_end}
+{cmd:opendf dta2csv} {hline 2} Write four CSV-files containing meta data for survey data from Stata ODF dataset. {p_end}
 {pstd}
 {cmd:opendf zip2csv} {hline 2}  Write four CSV-files containing meta data for survey data from ODF zip-file. {p_end}
 

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_installpython.ado: for windows users: Remove python folders from a specific location or by default from the ado/plus stata folder, where opendf installpython deploys the python by default
+  opendf_installpython.ado: for windows users: Remove python folders from a specific location or by default from the ado/plus Stata folder, where opendf installpython deploys the python by default
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! opendf_installpython.ado: for windows users: Remove python folders from a specific location or by default from the ado/plus stata folder, where opendf installpython deploys the python by default
+*! opendf_installpython.ado: for windows users: Remove python folders from a specific location or by default from the ado/plus Stata folder, where opendf installpython deploys the python by default
 *! version 2.0.0 August, 05 2024 - SSC Release
 
 program opendf_removepython 

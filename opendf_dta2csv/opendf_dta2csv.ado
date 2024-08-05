@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  opendf_dta2csv: builds csv files containing data and meta data from stata dataset (.dta)
+  opendf_dta2csv: builds csv files containing data and meta data from Stata dataset (.dta)
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! opendf_dta2csv.ado: loads data from csvs including meta data to build a stata dataset
+*! opendf_dta2csv.ado: loads data from csvs including meta data to build a Stata dataset
 *! version 2.0.0 August, 05 2024 - SSC Release
 
 
