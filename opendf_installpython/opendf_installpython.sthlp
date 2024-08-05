@@ -56,13 +56,13 @@ To activate any python installation on your computer in Stata, run: {cmd: set py
 {title:Examples}
 
 {phang}Install python v3.12 (default) to the folder python3.12 in the ado\plus folder. {p_end}
-{phang}{cmd: opendf installpython}{p_end}
+{phang}{cmd:. opendf installpython}{p_end}
 
 {phang}Install python v3.10  to the folder python3.10 in the ado\plus folder. {p_end}
-{phang}{cmd: opendf installpython, version("3.10")}{p_end}
+{phang}{cmd:. opendf installpython, version("3.10")}{p_end}
 
 {phang}Install python v3.10  to the folder "C:\Program Files\python". {p_end}
-{phang}{cmd: opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
+{phang}{cmd:. opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
 
 
 {marker author}
