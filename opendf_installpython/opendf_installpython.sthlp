@@ -48,7 +48,7 @@ opendf installpython
 {pstd}
 This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
 {pstd}
-The deployed python version will not be found automatcally by Stata. However, it will be found by the functions in the opendf package, if it is installed to the default location.{p_end}
+The deployed python version will not be found automatically by Stata. However, it will be found by the functions of the opendf package, if it is installed to the default location (ado/plus-folder of Stata).{p_end}
 {pstd}
 To activate any python installation on your computer in Stata, run: {cmd: set python_exec "C:/...path to python.exe"}.{p_end}
 
