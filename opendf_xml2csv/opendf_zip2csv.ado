@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------
-  xml2csv.ado: builds csv files containing data and meta data from a zip-folder containing a data-csv and a meta data xml using python scripts
+  opendf_zip2csv.ado: builds csv files containing data and meta data from a zip-folder containing a data-csv and a meta data xml using python scripts
     Copyright (C) 2024  Tom Hartl (thartl@diw.de)
 
     This program is free software: you can redistribute it and/or modify
@@ -15,10 +15,10 @@
     For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------*/
-*! xml2csv.ado: loads data from csvs including meta data to build a stata dataset
+*! opendf_zip2csv.ado: loads data from csvs including meta data to build a stata dataset
 *! version 2.0.0 August, 05 2024 - SSC Release
 
-program define xml2csv 
+program define opendf_zip2csv 
     version 16
     syntax, input_zip(string) output_dir(string) languages(string) [VERBOSE]
     local verboseit 0
