@@ -37,7 +37,7 @@ opendf write
 {pstd}
 {cmd:opendf write} Saves a dataset in the opendf-format (zip-folder). The Output is a zip-folder that contains a csv-file with the data and a xml-file with the meta data. {p_end}
 {pstd}
-{opt output} Name of the output-zip-folder. Can also include a path where to save the output. {p_end}
+{opt output} Name of the output-zip-folder. Can also include a path where to save the output. The extension ".zip" can be omited. {p_end}
 {pstd}
 {opt input} A stata dataset (.dta) that should be saved in the opendf-format.{p_end}
 {pstd}
@@ -60,9 +60,9 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Examples}
 
 {phang}Saves the dataset that is currently loaded in stata as zip-folder out.zip in the current working directory. {p_end}
-{phang}{cmd:. opendf write "out"}{p_end}
+{phang}{cmd:. opendf write "out.zip"}{p_end}
 
-{phang}Saves the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
+{phang}Saves the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory. The {p_end}
 {phang}{cmd:. opendf write "out", languages("en")}{p_end}
 
 {phang}Saves the variables pid, cid, hid, syear, name, bap9001 from the dataset that is currently loaded in stata with the labels and descriptions in english as zip-folder out.zip in the current working directory.{p_end}
