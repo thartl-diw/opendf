@@ -39,7 +39,7 @@ opendf installpython
 {pstd}
 {opt version} Specifies the version of python. It should be 2.7 or higher to function with stata. Default is 3.12. Python 3 is strongly recommended. {p_end}
 {pstd}
-{opt location} Specifies the location where the python folder will be copied to. If this option is set, the user has to manually indicate where python is located using set python_exec "path to exe.exe" at every start of Stata {p_end}
+{opt location} Specifies the location where the python folder will be copied to. If this option is set, the user has to manually indicate where python is located using {cmd: set python_exec "path to exe.exe"} at every start of Stata. {p_end}
 
 
 {marker remarks}
