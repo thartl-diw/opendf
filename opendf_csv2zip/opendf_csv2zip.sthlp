@@ -49,7 +49,7 @@ opendf_csv2zip
 {pstd}{opt output} Name of the output-zip-folder. Can also include a path where to save the output. {p_end}
 {pstd}{opt input} is a path to a folder where 4 csvs have to be included that contain data and metadata. {p_end}
 {pstd}If you are exporting the entire dataset, you can choose whether or not to export all available metadata (labels and descriptions of the dataset and the variables). {p_end}
-{pstd}By default ({opt variables_arg("yes")}) all metadata is exported: information describing the dataset itself, as well as information describing all variables in the dataset (\code{variables = "yes"}). {p_end}
+{pstd}By default all metadata is exported ({opt variables_arg("yes")}): information describing the dataset itself, as well as information describing all variables in the dataset. {p_end}
 {pstd}If you set {opt variables_arg("no")}, only the information describing the dataset is exported. {p_end}
 {pstd}Option {opt export_data} indicates whether the data.csv should be exported to the opendf-zip file. Default is {opt export_data("yes")}. To save a dataset in opendf-format "yes" is necessary. Otherwise only the xml with the metadata is created. {p_end}
 
