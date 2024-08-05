@@ -1,5 +1,5 @@
 *! TOC File
-v 2.0
+v 2.0.0
 d Author: Tom Hartl
 d DIW Berlin
 d thartl@diw.de

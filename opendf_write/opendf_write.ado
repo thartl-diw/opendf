@@ -53,7 +53,7 @@ program define opendf_write
       local output_folder= "`wd'/`output_folder'"
     }
     
-    dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
+    opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
     opendf csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     capture confirm file `"`output'"'
     if _rc == 0 {
