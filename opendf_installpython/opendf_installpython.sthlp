@@ -39,7 +39,7 @@ opendf installpython
 {pstd}
 {opt version} Specifies the version of python. It should be 2.7 or higher to function with stata. Default is 3.12. Python 3 is strongly recommended. {p_end}
 {pstd}
-{opt location} Specifies the location where the python folder will be copied to. If this option is set, the user has to manually indicate where python is located using set python_exec "path to exe.exe" at every start of Stata {p_end}
+{opt location} Specifies the location where the python folder will be copied to. If this option is set, the user has to manually indicate where python is located using {cmd: set python_exec "path to python.exe"} at every start of Stata. {p_end}
 
 
 {marker remarks}
@@ -47,18 +47,21 @@ opendf installpython
 
 {pstd}
 This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
-
+{pstd}
+The deployed python version will not be found automatically by Stata. However, it will be found by the functions of the opendf package, if it is installed to the default location (ado/plus-folder of Stata).{p_end}
+{pstd}
+To activate any python installation on your computer in Stata, run: {cmd: set python_exec "C:/...path to python.exe"}.{p_end}
 
 {marker examples}
 {title:Examples}
 
-{phang}Instally python v3.12 (default) to the folder python3.12 in the do\plus folder{p_end}
+{phang}Install python v3.12 (default) to the folder python3.12 in the ado\plus folder. {p_end}
 {phang}{cmd:. opendf installpython}{p_end}
 
-{phang}Instally python v3.10  to the folder python3.12 in the do\plus folder{p_end}
+{phang}Install python v3.10  to the folder python3.10 in the ado\plus folder. {p_end}
 {phang}{cmd:. opendf installpython, version("3.10")}{p_end}
 
-{phang}rInstally python v3.10  to the folder C:\Program Files\python {p_end}
+{phang}Install python v3.10  to the folder "C:\Program Files\python". {p_end}
 {phang}{cmd:. opendf installpython, version("3.10") location("C:\Program Files\python")} {p_end}
 
 
@@ -66,7 +69,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}

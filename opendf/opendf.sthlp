@@ -39,12 +39,22 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
     
     Build a stata dataset (.dta) with metadata from the opendf specification from csv files containing meta data for survey data.
 
-{p 8 16 2}{cmd:opendf} {cmd:csv2dta} [, {opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
+{p 8 16 2}{cmd:opendf} {cmd:csv2dta} , {opt csv_loc()} [{opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 
     Write data in open data format (.zip) from csv files containing meta data for survey data.
 
-{p 8 16 2}{cmd:opendf} {cmd:csv2zip} [, {opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
+{p 8 16 2}{cmd:opendf} {cmd:csv2zip}, {opt output()} [{opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
+
+
+    Write four CSV-files with data and meta data from stata ODF dataset.
+
+{p 8 16 2}{cmd:opendf} {cmd:dta2csv}, {opt output_dir()} [{opt languages()} {opt input()}]
+
+
+    Write four CSV-files with data and meta data from ODF zip-file.
+
+{p 8 16 2}{cmd:opendf} {cmd:zip2csv}, {opt input_zip()} {opt output_dir()} {opt languages()} [{opt verbose}]
 
 
 {marker description}{...}
@@ -64,17 +74,21 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {cmd:opendf csv2dta} {hline 2} Build a stata dataset (.dta) with metadata from the opendf specification from four csv files containing meta data for survey data. {p_end}
 {pstd}
 {cmd:opendf csv2zip} {hline 2}  Write data in open data format (.zip) from four csv files containing meta data for survey data. {p_end}
+{pstd}
+{cmd:opendf dta2csv} {hline 2} Write four CSV-files containing meta data for survey data from stata ODF dataset. {p_end}
+{pstd}
+{cmd:opendf zip2csv} {hline 2}  Write four CSV-files containing meta data for survey data from ODF zip-file. {p_end}
 
 
 {marker author}
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
 {title:Also see}
 
 {psee}
-{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}, {help opendf removepython}{p_end}
+{space 2}Help: {help opendf read}, {help opendf write}, {help opendf docu}, {help opendf installpython}, {help opendf removepython} {help opendf csv2dta}, {help opendf csv2zip}, {help opendf dta2csv}, {help opendf zip2csv} {p_end}

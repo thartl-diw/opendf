@@ -20,7 +20,7 @@
 
 program define opendf, rclass 
 	version 16
-	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) ROWRange(string) COLRange(string) csv_loc(string) variables_arg(string) export_data(string) REPLACE CLEAR VERBOSE]
+	syntax [anything], [INPUT(string) OUTPUT(string) SAVE(string) LANGUAGES(string) VARIABLES(string) VERSION(string) LOCATION(string) ROWRange(string) COLRange(string) csv_loc(string) variables_arg(string) export_data(string) input_zip(string) output_dir(string) REPLACE CLEAR VERBOSE]
 	local _fun = `"`anything'"'
 	tokenize `"`_fun'"'
 
@@ -48,5 +48,13 @@ program define opendf, rclass
 	}
 	if ("`1'"=="csv2zip"){
 		opendf_csv2zip, output(`output') input(`input') variables_arg(`variables_arg') export_data(`export_data')
+	}
+
+	if ("`1'"=="dta2csv"){
+		opendf_dta2csv, output_dir(`output_dir') languages("`languages'") input(`input')
+	}
+
+	if ("`1'"=="zip2csv"){
+		opendf_zip2csv, input_zip(`input_zip') output_dir(`output_dir') languages(`languages') `verbose'
 	}
 end
