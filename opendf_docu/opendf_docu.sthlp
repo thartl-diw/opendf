@@ -49,7 +49,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {phang}Displays information about the variable bap9001.{p_end}
 {phang}{cmd:. opendf docu bap9001}{p_end}
 
-phang}Displays information about the variable bap9001 in all languages available.{p_end}
+{phang}Displays information about the variable bap9001 in all languages available.{p_end}
 {phang}{cmd:. opendf docu bap9001, languages("all")}{p_end}
 
 
