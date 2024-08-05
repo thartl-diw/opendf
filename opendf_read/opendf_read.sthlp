@@ -81,7 +81,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", clear}{p_end}
 
 {phang}Read the first 10 lines of the opendf-file testdata.zip from "https://thartl-diw.github.io/opendf/testdata.zip" into stata. Since the first line is also the header, the range has to be set to 11. {p_end}
-{phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", rowrange(:11}{p_end}
+{phang}{cmd:. opendf read "https://thartl-diw.github.io/opendf/testdata.zip", rowrange(:11)}{p_end}
 
 {marker author}
 {title:Author}
