@@ -43,7 +43,7 @@ program define opendf_read
     	}
     	local input_zip=`"`input'"'
     	local csv_temp = "`c(tmpdir)'"
-    	xml2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+    	opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
     	opendf csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
 end
 
