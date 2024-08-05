@@ -26,10 +26,10 @@ opendf read
 {synoptline}
 {synopt :{opt rowrange}([start][:end])}Indicates the range of rows to read. {p_end}
 {synopt :{opt colrange}([start][:end])}Indicates the range of columns to read. {p_end}
-{synopt :{opt clear}}allows you to clear dataset in memory {p_end}
-{synopt :{opth save(string)}}save data to desired filepath and filename {p_end}
-{synopt :{opt replace}}overwriting former saved file {p_end}
-{synopt :{opt verbose}}More warnings are displayed. {p_end}
+{synopt :{opt clear}} Clears any existing datsaet in the memory. {p_end}
+{synopt :{opt save(string)}} Save data to desired filepath and filename. {p_end}
+{synopt :{opt replace}} Overwrite any existing file. {p_end}
+{synopt :{opt verbose}} More warnings are displayed. {p_end}
 {synoptline}
 
 
@@ -37,13 +37,13 @@ opendf read
 {title:Description}
 
 {pstd}
-{cmd:csv2dta} Loads data froam opendf format (zip-folder) into Stata including metadata saved in labels and characteristics. {p_end}
+{cmd:opendf read} Loads data from ODF file (zip-folder) into Stata including metadata saved in labels and characteristics. {p_end}
 
 {pstd}
 The dataset is stored in the format of the original dataset. Metadata is saved as labels or in the characteristics. {p_end}
 
 {pstd}
-{opt input} path to zip file or name of zip file in working directory.
+{it: input} path to zip file or name of zip file in working directory.
 
 {pstd}
 {opt "rowrange([start][:end])"} specifies a range of rows within the data to load (excluding the header). {it: start} and {it: end} are integer row numbers.
@@ -69,7 +69,7 @@ If option {opt replace} is specified, a former saved file will be overwritten.
 {title:Remarks}
 
 {pstd}
-This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
+This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
 
 
 {marker examples}

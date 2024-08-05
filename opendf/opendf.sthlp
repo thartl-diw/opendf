@@ -84,7 +84,7 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {title:Remarks}
 
 {pstd}
-The opendf commands from the Data Open Format Project bundle are written to assist with survey data files in the open data format (ODF/.zip).{p_end}
+The opendf commands in the opendf package from the Open Data Format Project bundle are written to assist with survey data files in the open data format (ODF/.zip).{p_end}
 
 
 {marker author}

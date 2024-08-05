@@ -34,19 +34,16 @@ opendf installpython
 {marker description}
 {title:Description}
 
-{pstd}
-{cmd:opendf removepython} Removes python folders from some directory on your computer. The command only works for Windows and does not require administrator privileges. But the user needs writing permission for the folder where python is saved. {p_end}
-{pstd}
-{opt version} Specifies the version of python to be removed. {p_end}
-{pstd}
-{opt location} Specifies the location where the python folder should be deleted. Default is the Stata ado/plus folder, where opendf installpython deploys python by default. {p_end}
+{pstd}{cmd:opendf removepython} Removes python folders from some directory on your computer. The command only works for Windows and does not require administrator privileges. But the user needs writing permission for the folder where python is saved. {p_end}
+{pstd}{opt version} Specifies the version of python to be removed. {p_end}
+{pstd}{opt location} Specifies the location where the python folder should be deleted. Default is the Stata ado/plus folder, where opendf installpython deploys python by default. {p_end}
 
 
 {marker remarks}
 {title:Remarks}
 
 {pstd}
-This command is part of the Data Open Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
+This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
 
 
 {marker examples}
