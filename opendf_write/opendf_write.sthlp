@@ -73,7 +73,7 @@ This command is part of the Data Open Format Project bundle, written to assist w
 {title:Author}
 
 {pstd}
-Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Germany. 
+Tom Hartl ({browse "mailto:thartl@diw.de":thartl@diw.de}), Deutsches Institut für Wirtschaftsforschung Berlin. 
 
 
 {marker alsosee}
