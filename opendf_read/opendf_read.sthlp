@@ -4,6 +4,7 @@
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {viewerjumpto "Syntax" "opendf read##syntax"}{...}
 {viewerjumpto "Description" "opendf read##description"}{...}
+{viewerjumpto "Remarks" "opendf read##description"}{...}
 {viewerjumpto "Examples" "opendf read##examples"}{...}
 help for  {cmd:opendf read (opendf_read)}{right: version 2.0.0 (05 August 2024)}
 {hline}
@@ -68,9 +69,11 @@ If option {opt replace} is specified, a former saved file will be overwritten.
 {marker remarks}
 {title:Remarks}
 
-{pstd}
-This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
-
+{pstd}This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
+{pstd} Due to cross-plattform compability of the Open Data Format some Stata-specific features are not supported by the ODF.{p_end}
+{pstd}There are no value label names in the ODF. Therefore value label names are lost when a datset is written to ODF. Value label reveice a generic names when a ODF file is read in Stata.{p_end}
+{pstd}For cross-plattform compability it is highly disrecommended write extended missings for numeric variables (.a, .b, ..., .z). They will be preserved in the metadata xml in ODF.{p_end}
+{pstd}A variable with extended missings will be treated as a character variable when the ODF file is read from other plattforms.{p_end}
 
 {marker examples}
 {title:Examples}
