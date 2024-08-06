@@ -52,7 +52,20 @@ program define opendf_write
     if (strpos("`output_folder'", "\")==0 & strpos("`output_folder'", "/")==0){
       local output_folder= "`wd'/`output_folder'"
     }
-    
+    * check numeric variables for extended missings
+    foreach var of varlist * {
+	capture confirm numeric variable `var'
+	if (_rc == 0) {
+		if `var' > . {
+			local extensive_missings="TRUE"
+		}
+	}
+    }
+    if ("`extensive_missings'"=="TRUE"){
+	di as red "Warning: extensive missings (.a, .b, ..., .z) are not compatible to ODF. Variable might be handled as character variable from ODF."
+	di as red "Replacing extended missings is highly recommended for cross-plattform compability."
+    }
+
     opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
     capture opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     if (_rc != 0) {
