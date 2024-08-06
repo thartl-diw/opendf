@@ -64,8 +64,9 @@ program define opendf_write
 	    }
     }
     if ("`extensive_missings'"=="TRUE"){
-	    di as red "Warning: extensive missings in numeric variables (.a, .b, ..., .z) are not compatible to ODF. Extensive missings were replaced by ordinary missing (.)"
-	    di as red "Value labels of extended missings are not written to ODF-file."
+	    di as red "Warning: extensive missings in numeric variables (.a, .b, ..., .z) are not compatible to ODF specification."
+	    di as red "Extensive missings were replaced by ordinary missing (.). Value labels of extended missings are not written to ODF-file."
+	    di as red "To keep value labels of extended missings, replace extended missings with integers and transfer value labels to ne value."
     }
 
 
