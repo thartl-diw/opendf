@@ -52,19 +52,23 @@ program define opendf_write
     if (strpos("`output_folder'", "\")==0 & strpos("`output_folder'", "/")==0){
       local output_folder= "`wd'/`output_folder'"
     }
-    * check numeric variables for extended missings
+    
+    * check numeric variables for extended missings and replace extended missings with normal missings
     foreach var of varlist * {
-	capture confirm numeric variable `var'
-	if (_rc == 0) {
-		if `var' > . {
-			local extensive_missings="TRUE"
-		}
-	}
+	    capture confirm numeric variable `var'
+	    if (_rc == 0) {
+		    if `var' > . {
+			    local extensive_missings="TRUE"
+          replace `var'=. if `var'>.
+		    }
+	    }
     }
     if ("`extensive_missings'"=="TRUE"){
-	di as red "Warning: extensive missings (.a, .b, ..., .z) are not compatible to ODF. Variable might be handled as character variable from ODF."
-	di as red "Replacing extended missings is highly recommended for cross-plattform compability."
+	    di as red "Warning: extensive missings in numeric variables (.a, .b, ..., .z) are not compatible to ODF specification."
+	    di as red "Extensive missings were replaced by ordinary missing (.). Value labels of extended missings are not written to ODF-file."
+	    di as red "To keep value labels of extended missings, replace extended missings with integers and transfer value labels to ne value."
     }
+
 
     opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
     capture opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'

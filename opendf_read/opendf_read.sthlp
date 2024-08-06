@@ -70,11 +70,10 @@ If option {opt replace} is specified, a former saved file will be overwritten.
 {title:Remarks}
 
 {pstd}This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
-{pstd} Due to cross-plattform compability of the Open Data Format some Stata-specific features are not supported by the ODF.{p_end}
-{pstd}There are no value label names in the ODF. Therefore value label names are lost when a datset is written to ODF. Value labels reveice generic names when an ODF file is read in Stata.{p_end}
-{pstd}For cross-plattform compability it is highly disrecommended to use and write extended missings for numeric variables (.a, .b, ..., .z) to an ODF file.{p_end}
-{pstd}Extended missings are preserved in the datafile in ODF and will pose problems for other software platforms.{p_end}
-{pstd}A numeric variable with extended missings will normally be treated as a character variable when the ODF file is read in other plattforms.{p_end}
+{pstd}Due to cross-plattform compability of the Open Data Format some Stata-specific features are not supported by the ODF.{p_end}
+{pstd}There are no value label names in the ODF. Therefore, value label names are lost when a datset is written to ODF. Value labels reveice generic names when an ODF file is read in Stata.{p_end}
+{pstd}Extended missings for numeric variables (.a, .b, ..., .z) are not available in ODF specification. Therefore, extended missings are converted to ordinary missings (.) {p_end}
+{pstd}Value Labels of extended missings er not written to ODF file.{p_end}
 
 
 {marker examples}
