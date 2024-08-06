@@ -236,7 +236,7 @@ program define opendf_csv2dta
 	
 
 	*Import Data
-	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(ISO-8859-9) asdouble clear	
+	quietly: import delimited "`csv_loc'/data.csv", varnames(1) rowrange(`rowrange') colrange(`colrange') case(preserve) encoding(UTF-8) asdouble clear	
 	*Indicates whether a default language exists (if there are descriptions or labels without language tag)
 	local default_exists=0
 	local language_counter=0
