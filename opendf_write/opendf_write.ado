@@ -54,7 +54,14 @@ program define opendf_write
     }
     
     opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
-    opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    capture opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    if (_rc != 0) {
+	  di as error "Error in writing `output'. There might be problems with the writing permissions in the output folder or with some metadata."
+	  if (`"`verbose'"' != "") {
+		opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+    	  }
+	  exit _rc
+    }
     capture confirm file `"`output'"'
     if _rc == 0 {
       di "{text: Dataset successfully saved in opendf-format to {it:`output'}.}"
