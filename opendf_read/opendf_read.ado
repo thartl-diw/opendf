@@ -23,7 +23,7 @@
 program define opendf_read 
 	version 16
 	syntax anything [,LANGUAGES(string) ROWRange(string) COLRange(string) SAVE(string) REPLACE CLEAR VERBOSE]
-	local input=`"`anything'"'
+	local input=`anything'
   	*If the data.zip is a web path, the data is downloaded to the temp-folder
 	if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
 		local _tempdir "`c(tmpdir)'"
@@ -33,8 +33,9 @@ program define opendf_read
 	}
 	*Add default extension if .zip is missing
 	if strpos(`"`input'"', ".zip")==0{
-		local input="`input'.zip"
+		local input=`"`input'.zip"'
 	}
+	confirm file `"`input'"'
 	if (`"`languages'"' != "") {
 	  	local languages `languages'
 	}
@@ -43,7 +44,14 @@ program define opendf_read
     	}
     	local input_zip=`"`input'"'
     	local csv_temp = "`c(tmpdir)'"
-    	opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
-    	opendf_csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
+    	capture opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+    	if (_rc != 0) {
+		di as error "Error in reading `input'. There might be a problem in the ODF-File or with writing permissions in the Temp-Folder."
+		if (`"`verbose'"' != "") {
+			opendf_zip2csv , input_zip(`input_zip') output_dir("`csv_temp'") languages(`languages') `verbose'
+		}
+		exit _rc
+	}
+	opendf_csv2dta, csv_loc("`csv_temp'") rowrange(`rowrange') colrange(`colrange') save(`save') `replace' `clear' `verbose'
 end
 
