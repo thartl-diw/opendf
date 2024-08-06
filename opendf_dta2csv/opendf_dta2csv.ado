@@ -66,7 +66,6 @@ program define opendf_dta2csv
 	local default_exists=0
 	foreach l in `_languages'{
 		if ("`l'"=="default"){
-			di "{red: Warning: Label language default is not compatible to opendf-format. Labels and description without language tag might get lost when converting data to opendf-format.}
 			quietly: local description_`l' : char _dta[description]
 			quietly: label language `l'
 			quietly: local label_`l' : data label
