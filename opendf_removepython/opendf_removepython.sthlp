@@ -5,13 +5,11 @@
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {vieweralsosee "opendf installpython" "help opendf installpython"}{...}
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
+{viewerjumpto "Options" "opendf installpython##options"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
-help for {cmd:opendf removepython (opendf_removepython)}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf removepython (opendf_removepython)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf installpython
-{title:Title}
 
 {phang}
 {bf:opendf removepython} {hline 2} Removes python folder(s) from the ado/plus folder or a specified folder. {p_end}
@@ -24,7 +22,7 @@ opendf installpython
 [, {opt version()} {opt location()}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt version(string)}} specifies a python version. eg. "3.12" {p_end}
 {synopt :{opth location(string)}} specifies a path where to delete python {p_end}

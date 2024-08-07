@@ -1,16 +1,13 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {viewerjumpto "Syntax" "opendf write##syntax"}{...}
+{viewerjumpto "Options" "opendf write##options"}{...}
 {viewerjumpto "Description" "opendf write##description"}{...}
 {viewerjumpto "Remarks" "opendf write##remarks"}{...}
 {viewerjumpto "Examples" "opendf write##examples"}{...}
-help for {cmd:opendf write (opendf_write)}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf write (opendf_write)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf write
-{title:Title}
 
 {phang}
 {bf:opendf write} {hline 2} Saves data in the opendf-format as opendf-zip folder containing a csv(data) and a xml(metadate) file.{p_end}
@@ -22,7 +19,7 @@ opendf write
 {cmd:opendf write} {it: output} [,{opt input()} {opt languages()} {opt variables()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt output(string)}}(Path and) Name of the output-zip-folder. {p_end}
 {synopt :{opt input(string)}}A path to a Stata dataset which should be saved in opendf-format. {p_end}

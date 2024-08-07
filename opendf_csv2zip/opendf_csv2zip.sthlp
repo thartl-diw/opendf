@@ -1,5 +1,4 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
@@ -8,12 +7,8 @@
 {viewerjumpto "Description" "opendf_csv2zip##description"}{...}
 {viewerjumpto "Options" "opendf_csv2zip##options"}{...}
 {viewerjumpto "Examples" "opendf_csv2zip##examples"}{...}
-help for {cmd:opendf csv2zip (opendf_csv2zip)}{right: version 2.0.0 (05 August 2024)}
-
+help for {cmd:opendf csv2zip (opendf_csv2zip)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf_csv2zip
-{title:Title}
 
 {phang}
 {bf:opendf_csv2zip} {hline 2} generates an opendf-format zip-file from csv files containing data meta data for survey data. {p_end}
@@ -26,7 +21,7 @@ opendf_csv2zip
 {opt output()} [{opt input()} {opt variables_arg()} {opt export_data()} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt output(string)}}(Path and) Name of the output-zip-folder. {p_end}
 {synopt :{opt input(string)}}Indicates location of csvs. {p_end}
