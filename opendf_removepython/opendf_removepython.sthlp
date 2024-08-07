@@ -1,5 +1,4 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
@@ -43,7 +42,8 @@ help for {cmd:opendf removepython (opendf_removepython)}{right: version 2.0.0 (0
 
 {pstd}
 This command from the opendf package is part of the Open Data Format Project bundle, written to assist with survey data files in the open data format(.zip).{p_end}
-
+{pstd}
+If this command is not working, restarting Stata and executing the command before running any other functions from the opendf package can fix the issue.{p_end}
 
 {marker examples}
 {title:Examples}
