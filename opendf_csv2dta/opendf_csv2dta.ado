@@ -371,6 +371,7 @@ program define opendf_csv2dta
 					forvalues l = 1/`language_counter'{
 						char `_varname`i''[value_labels_`_language`l''] `_labels_`l''
 					}
+					
 				}
 				if strpos("`_variable_type'", "str") != 1 {
 					forvalues l = 1/`language_counter'{
