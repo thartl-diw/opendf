@@ -1,17 +1,14 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {vieweralsosee "opendf removepython" "help opendf removepython"}{...}
 {viewerjumpto "Syntax" "opendf installpython##syntax"}{...}
+{viewerjumpto "Options" "opendf installpython##options"}{...}
 {viewerjumpto "Description" "opendf installpython##description"}{...}
 {viewerjumpto "Examples" "opendf installpython##examples"}{...}
-help for {cmd:opendf installpython (opendf_installpython)}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf installpython (opendf_installpython)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf installpython
-{title:Title}
 
 {phang}
 {bf:opendf installpython} {hline 2} Copies python to some directory on your computer. {p_end}
@@ -24,7 +21,7 @@ opendf installpython
 [, {opt version()} {opt location()}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt version(string)}} specifies a python version. eg. "3.12" {p_end}
 {synopt :{opth location(string)}} specifies a path where to copy python to {p_end}

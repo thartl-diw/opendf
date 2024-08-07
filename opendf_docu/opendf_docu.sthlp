@@ -1,15 +1,12 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {viewerjumpto "Syntax" "opendf docu##syntax"}{...}
+{viewerjumpto "Options" "opendf docu##options"}{...}
 {viewerjumpto "Description" "opendf docu##description"}{...}
 {viewerjumpto "Examples" "opendf docu##examples"}{...}
-help for {cmd:opendf docu (opendf_docu)}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf docu (opendf_docu)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf docu
-{title:Title}
 
 {phang}
 {bf:opendf docu} {hline 2} Display information about the dataset or a variable. {p_end}
@@ -22,7 +19,7 @@ opendf docu
 [{it:{help varname}}, {opt languages()}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synopt :{opt languages(string)}} Chooses, which languages to display. Default is the active label language. To see all languages, set languages("all") {p_end}
 {synoptline}
 

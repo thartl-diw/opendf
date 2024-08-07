@@ -1,17 +1,19 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf read" "help opendf read"}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
-{viewerjumpto "Syntax" "opendf##syntax"}{...}
+{viewerjumpto "Syntax" "opendf##functions"}{...}
 {viewerjumpto "Description" "opendf##description"}{...}
 {viewerjumpto "Remarks" "opendf##remarks"}{...}
-help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf}{right: version 2.0.0 (07 August 2024)}
 {hline}
 
+{phang}
+{bf:opendf} {hline 2} Stata package to work with Open Data Format files (ODF/.zip). Provides import end export filters for ODF files and a function to display metadata.{p_end}
 
-{marker syntax}{...}
-{title:Syntax}
+{marker functions}{...}
+{title:Functions and Syntax}
+{p} {bf:Main Functions}{p_end}
 
     Read data
 
@@ -28,7 +30,9 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 {p 8 16 2}{cmd:opendf} {cmd:docu} [{it: varname}, {opt languages()}]
 
 
-    Download a python version to work with Stata.
+{p} {bf:Functions to Install/Remove Python for Opendf Package}{p_end}
+
+    Download a python version for a working Python integration in Stata for the opendf package.
 
 {p 8 16 2}{cmd:opendf} {cmd:installpython} [, {opt version()} {opt location()}]
 
@@ -37,7 +41,9 @@ help for {cmd:opendf}{right: version 2.0.0 (05 August 2024)}
 
 {p 8 16 2}{cmd:opendf} {cmd:removepython} [, {opt version()} {opt location()}]
 
-    
+
+{p}{bf:Functions for Data Providers}{p_end}
+
     Build a Stata dataset (.dta) with metadata from the opendf specification from csv files containing meta data for survey data.
 
 {p 8 16 2}{cmd:opendf} {cmd:csv2dta} , {opt csv_loc()} [{opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]

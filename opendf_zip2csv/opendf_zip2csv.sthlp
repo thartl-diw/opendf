@@ -6,15 +6,12 @@
 {vieweralsosee "opendf_csv2dta" "help opendf_csv2dta"}{...}
 {vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
 {viewerjumpto "Syntax" "opendf_zip2csv##syntax"}{...}
+{viewerjumpto "Options" "opendf_zip2csv##options"}{...}
 {viewerjumpto "Description" "opendf_zip2csv##description"}{...}
 {viewerjumpto "Options" "opendf_zip2csv##options"}{...}
 {viewerjumpto "Examples" "opendf_zip2csv##examples"}{...}
-help for {cmd:opendf csv2zip (opendf_zip2csv)}{right: version 2.0.0 (05 August 2024)}
-
+help for {cmd:opendf csv2zip (opendf_zip2csv)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf_zip2csv
-{title:Title}
 
 {phang}
 {bf:opendf_zip2csv} {hline 2} generates vour csvs from an opendf-format zip-file containing data meta data for survey data. {p_end}
@@ -27,7 +24,7 @@ opendf_zip2csv
 {opt input_zip()} {opt output_dir()} {opt languages()} [{opt verbose}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt input_zip(string)}} (Path and) Name to the ODF-zip-file. {p_end}
 {synopt :{opt output_dir(string)}} Indicates the output directory for the csvs. {p_end}

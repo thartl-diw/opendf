@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
+{* *! version 2.0.0 (07 August 2024)}{...}
 {vieweralsosee "opendf_read" "help opendf_read"}{...}
 {vieweralsosee "opendf_write" "help opendf_write"}{...}
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
@@ -8,11 +8,8 @@
 {viewerjumpto "Description" "opendf_dta2csv##description"}{...}
 {viewerjumpto "Options" "opendf_dta2csv##options"}{...}
 {viewerjumpto "Examples" "opendf_dta2csv##examples"}{...}
-help for {cmd:opendf_dta2csv}{right: version 2.0.0 (05 August 2024)}
+help for {cmd:opendf_dta2csv}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf_dta2csv
-{title:Title}
 
 {phang}
 {bf:opendf_dta2csv} {hline 2} builds csv files containing meta data for survey data from a Stata dataset (.dta). {p_end}
@@ -24,7 +21,7 @@ opendf_dta2csv
 {cmd:}, {output_dir()} [{languages()} {input()}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opth output_dir(string)}}Specifies a directory where to save the csvs. {p_end}
 {synopt :{opt languages(string)}}Specifies which label and description languages should be written to the csvs. (Default: "all") {p_end}

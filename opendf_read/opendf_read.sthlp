@@ -1,16 +1,13 @@
 {smcl}
-{* *! version 2.0.0 (05 August 2024)}{...}
 {vieweralsosee "opendf write" "help opendf write"}{...}
 {vieweralsosee "opendf docu" "help opendf docu"}{...}
 {viewerjumpto "Syntax" "opendf read##syntax"}{...}
+{viewerjumpto "Options" "opendf read##options"}{...}
 {viewerjumpto "Description" "opendf read##description"}{...}
 {viewerjumpto "Remarks" "opendf read##remarks"}{...}
 {viewerjumpto "Examples" "opendf read##examples"}{...}
-help for  {cmd:opendf read (opendf_read)}{right: version 2.0.0 (05 August 2024)}
+help for  {cmd:opendf read (opendf_read)}{right: version 2.0.0 (07 August 2024)}
 {hline}
-
-opendf read
-{title:Title}
 
 {phang}
 {bf:opendf read} {hline 2} builds a Stata dataset (.dta) from open data format dataset (.zip) {p_end}
@@ -23,7 +20,7 @@ opendf read
 {cmd:opendf read} {it: input} [,{opt rowrange}([start][:end]) {opt colrange}([start][:end]) {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt rowrange}([start][:end])}Indicates the range of rows to read. {p_end}
 {synopt :{opt colrange}([start][:end])}Indicates the range of columns to read. {p_end}
