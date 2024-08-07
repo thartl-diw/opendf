@@ -4,8 +4,8 @@
 {vieweralsosee "opendf_docu" "help opendf_docu"}{...}
 {vieweralsosee "opendf_csv2zip" "help opendf_csv2zip"}{...}
 {viewerjumpto "Syntax" "opendf_csv2dta##syntax"}{...}
-{viewerjumpto "Description" "opendf_csv2dta##description"}{...}
 {viewerjumpto "Options" "opendf_csv2dta##options"}{...}
+{viewerjumpto "Description" "opendf_csv2dta##description"}{...}
 {viewerjumpto "Examples" "opendf_csv2dta##examples"}{...}
 help for {cmd:opendf csv2dta (opendf_csv2dta)}{right: version 2.0.0 (07 August 2024)}
 {hline}
@@ -22,7 +22,7 @@ help for {cmd:opendf csv2dta (opendf_csv2dta)}{right: version 2.0.0 (07 August 2
 [{cmd:} {opt rowrange}([start][:end]) {opt colrange}([start][:end])} {opt clear} {opt save()} {opt replace} {opt verbose}]
 
 {synoptset 20 tabbed}{...}
-{marker comopt}{synopthdr:options}
+{marker options}{synopthdr:options}
 {synoptline}
 {synopt :{opt csv_loc(string)}}Indicates location of csvs. {p_end}
 {synopt :{opt rowrange}([start][:end])}Indicates the range of rows to read. {p_end}
