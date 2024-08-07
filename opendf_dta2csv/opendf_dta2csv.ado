@@ -278,59 +278,109 @@ program define opendf_dta2csv
 					local _has_label=1
 				}				
 			}
-			*find lowest and highest value that has a label
-			if (`_has_label'==1){
-				quietly label list `_lblname'
-				local _min_val=`r(min)'
-				local _max_val=`r(max)'
-				foreach l in `_languages'{
-					local _lblname ""
-					capture qui label language `l '
-					capture qui local _lblname: value label `var'
-					if ("`_lblname'"!= ""){
-						quietly label list `_lblname'
-						if (`_min_val'>`r(min)') local _min_val=`r(min)'
-						if (`_max_val'<`r(max)') local _max_val=`r(max)'
+			*check for label for string variable
+			local _values = ""
+			local _variable_type : type `var'
+			if strpos("`_variable_type'", "str") == 1 {
+				local _values : char `var'[labelled_values]
+				if ( "`_values'" != ""){
+					local _has_label=1
+					foreach l in `_languages'{
+						local _labels_`l' : char `var'[value_labels_`l']
 					}
 				}
-				*for each value between the lowest and the highest value, we check whether a value label exists for every language and assign it to _lbl_de1 (first value label in German)
-				forvalues _val=`_min_val'/`_max_val'{
-					local _value_has_any_label=0
+			}
+
+			if (strpos("`_variable_type'", "str") == 1 & `_has_label' == 1) {
+				use `categoriestempfile', clear
+				while "`_values'" != "" {
+					local _nvaluelabel = `_nvaluelabel' + 1
+					if (c(N) < `_nvaluelabel') {
+						set obs `_nvaluelabel'
+					}
+					replace variable = "`var'" in `_nvaluelabel'
+					if (strpos("`_values'", "<;>") >0) {
+						local _val = substr("`_values'", 1, strpos("`_values'", "<;>")-1)
+						di "`_val'"
+						replace value = `_val' in `_nvaluelabel'
+						local _values = substr("`_values'", strpos("`_values'", "<;>")+3, strlen("`_values'"))
+						foreach l in `_languages'{
+							local _lab = substr("`_labels_`l''", 1, strpos("`_labels_`l''", "<;>")-1)
+							di "`_lab'"
+							replace label_`l' = "`_lab'" in `_nvaluelabel'
+							local _labels_`l' = substr("`_labels_`l''", strpos("`_labels_`l''", "<;>")+3, strlen("`_labels_`l''"))
+						}
+					}
+					else {
+						local _val = "`_values'"
+						di "`_val'"
+						*replace value = `_val' in `_nvaluelabel'
+						local _values=""
+						foreach l in `_languages'{
+							local _lab = "`_labels_`l''"
+							di "`_lab'"
+							replace label_`l' = "`_lab'" in `_nvaluelabel'
+							local _labels_`l' = ""
+						} 
+					}
+				}
+				save `categoriestempfile', replace	
+				use `datatempfile', clear
+			}
+			else {
+				*find lowest and highest value that has a label
+				if (`_has_label'==1){
+					quietly label list `_lblname'
+					local _min_val=`r(min)'
+					local _max_val=`r(max)'
 					foreach l in `_languages'{
-						quietly label language `l'
 						local _lblname ""
+						capture qui label language `l '
 						capture qui local _lblname: value label `var'
 						if ("`_lblname'"!= ""){
-							local _lbl: label `_lblname' `_val'
-							if ("`_lbl'" != "`_val'") {
-								if (`_value_has_any_label'==0){
-									local _nvaluelabel = `_nvaluelabel' + 1
-									local _val`_nvaluelabel'=`_val'
-									local _value_has_any_label=1
+							quietly label list `_lblname'
+							if (`_min_val'>`r(min)') local _min_val=`r(min)'
+							if (`_max_val'<`r(max)') local _max_val=`r(max)'
+						}
+					}
+					*for each value between the lowest and the highest value, we check whether a value label exists for every language and assign it to _lbl_de1 (first value label in German)
+					forvalues _val=`_min_val'/`_max_val'{
+						local _value_has_any_label=0
+						foreach l in `_languages'{
+							quietly label language `l'
+							local _lblname ""
+							capture qui local _lblname: value label `var'
+							if ("`_lblname'"!= ""){
+								local _lbl: label `_lblname' `_val'
+								if ("`_lbl'" != "`_val'") {
+									if (`_value_has_any_label'==0){
+										local _nvaluelabel = `_nvaluelabel' + 1
+										local _val`_nvaluelabel'=`_val'
+										local _value_has_any_label=1
+									}
+									local _lbl_`l'`_nvaluelabel'=`"`_lbl'"'
 								}
-								local _lbl_`l'`_nvaluelabel'=`"`_lbl'"'
+							}
+							
+						}
+					}
+					use `categoriestempfile', clear
+					forvalues i=1/`_nvaluelabel'{
+						local _row_categories_out = `_row_categories_out' + 1
+						replace variable in `_row_categories_out'="`var'"
+						replace value in `_row_categories_out'=`_val`i''
+						foreach l in `_languages'{
+							if ("`l'"=="default"){
+								replace label in `_row_categories_out'=`"`_lbl_`l'`i''"'
+							}
+							else {
+								replace label_`l' in `_row_categories_out'=`"`_lbl_`l'`i''"'
 							}
 						}
-						
 					}
+					save `categoriestempfile', replace
+					use `datatempfile', clear
 				}
-				use `categoriestempfile', clear
-				forvalues i=1/`_nvaluelabel'{
-					local _row_categories_out = `_row_categories_out' + 1
-					replace variable in `_row_categories_out'="`var'"
-					replace value in `_row_categories_out'=`_val`i''
-					foreach l in `_languages'{
-						if ("`l'"=="default"){
-							replace label in `_row_categories_out'=`"`_lbl_`l'`i''"'
-						}
-						else {
-							replace label_`l' in `_row_categories_out'=`"`_lbl_`l'`i''"'
-						}
-					}
-				}
-				save `categoriestempfile', replace
-				use `datatempfile', clear
-
 			}
 			
 		}	
