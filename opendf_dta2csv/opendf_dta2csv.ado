@@ -307,7 +307,12 @@ program define opendf_dta2csv
 						foreach l in `_languages'{
 							local _lab = substr("`_labels_`l''", 1, strpos("`_labels_`l''", "<;>")-1)
 							di "`_lab'"
-							replace label_`l' = "`_lab'" in `_nvaluelabel'
+							if ("`l'" != "default"){
+								replace label_`l' = "`_lab'" in `_nvaluelabel'
+							}
+							else {
+								replace label = "`_lab'" in `_nvaluelabel'
+							}
 							local _labels_`l' = substr("`_labels_`l''", strpos("`_labels_`l''", "<;>")+3, strlen("`_labels_`l''"))
 						}
 					}
@@ -319,7 +324,12 @@ program define opendf_dta2csv
 						foreach l in `_languages'{
 							local _lab = "`_labels_`l''"
 							di "`_lab'"
-							replace label_`l' = "`_lab'" in `_nvaluelabel'
+							if ("`l'" != "default"){
+								replace label_`l' = "`_lab'" in `_nvaluelabel'
+							}
+							else {
+								replace label = "`_lab'" in `_nvaluelabel'
+							}
 							local _labels_`l' = ""
 						} 
 					}
