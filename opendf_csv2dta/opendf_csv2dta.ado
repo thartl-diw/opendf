@@ -395,11 +395,13 @@ program define opendf_csv2dta
 	}
 	
 	
-	if (`default_exists'==1  & `verboseit'==1){
-		di "{red: Your dataset contains labels and/or descriptions without a language tag. The labels have been assigned to the language default.}"
+	if (`default_exists'!=1){
+		capture label language default, delete
 	}
 	else {
-		capture label language default, delete
+		if (`verboseit'==1) {
+			di "{red: Your dataset contains labels and/or descriptions without a language tag. The labels have been assigned to the language default.}"
+		}
 	}
 	if `saveit'==1 {
 		quietly: save `"`save'"', `replace'
