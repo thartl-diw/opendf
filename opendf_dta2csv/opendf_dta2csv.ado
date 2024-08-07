@@ -314,7 +314,7 @@ program define opendf_dta2csv
 					else {
 						local _val = "`_values'"
 						di "`_val'"
-						*replace value = `_val' in `_nvaluelabel'
+						replace value = `_val' in `_nvaluelabel'
 						local _values=""
 						foreach l in `_languages'{
 							local _lab = "`_labels_`l''"
