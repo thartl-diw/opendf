@@ -345,14 +345,33 @@ program define opendf_csv2dta
 			}
 		}
 
-		*Assign value labels to non-String Variables
+		*Assign value labels to Variables
 		forvalues i=1/`n_variable_to_label'{
 			capture confirm variable `_varname`i'', exact
 			if (_rc == 0){
 				local _variable_type : type `_varname`i''
 				if strpos("`_variable_type'", "str") == 1 {
-					local _valuelabelforstringvariable=1
-					global warnings= `"$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"'
+					*local _valuelabelforstringvariable=1
+					*global warnings= `"$warnings {p}{red: Warning: Values for{it: `_varname`i''} not labelled:{it: `_varname`i''} is a string variable.}{p_end}"'
+					forvalues j=1/`_var`i'_nvals'{
+						if (`j'==1){
+							local _values = "`_var`i'_value`j''"
+							forvalues l = 1/`language_counter'{
+								local _labels_`l' = "`_var`i'_label`j'_lan`_language`l'''"
+							}
+						}
+						else {
+							local _values = "`_values'<;>`_var`i'_value`j''"
+							forvalues l = 1/`language_counter'{
+								local _labels_`l' = "`_labels_`l''<;>`_var`i'_label`j'_lan`_language`l'''"
+							}
+						}
+					}
+					char `_varname`i''[labelled_values] `_values'
+					forvalues l = 1/`language_counter'{
+						char `_varname`i''[value_labels_`_language`l''] `_labels_`l''
+					}
+					
 				}
 				if strpos("`_variable_type'", "str") != 1 {
 					forvalues l = 1/`language_counter'{

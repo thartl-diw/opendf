@@ -24,7 +24,6 @@ program define opendf_docu
 	syntax [anything], [LANGUAGES(string)]
 
     local varname `anything'
-    *args varname
     
     *get activated label language
     local _currentlanguage: char _dta[_lang_c]
@@ -45,6 +44,11 @@ program define opendf_docu
     if (`"`varname'"' != "") {
         local _output = "variable"
         local _name = "`varname'"
+		capture confirm variable `_name'
+		if _rc != 0 {
+			di as error "Variable `_name' not found"
+			exit 111
+		}
         foreach l in `_lang'{
 		    qui label language `l'
 			capture local _label_`l' : variable label `varname'
@@ -122,14 +126,40 @@ program define opendf_docu
     else di "URL: "
     if "`_output'"=="variable" display "{p}Variable Type: {text:`_type'}{p_end}"
     if "`_output'"=="variable"{
-		capture local _lblname: value label `varname'
-		if "`_lblname'"!= "" {
-			display "Value Labels:"
-			quietly label list `_lblname'
-			forvalues _val=`r(min)'/`r(max)'{
-				quietly local _lbl: label `_lblname' `_val'
-				if ("`_lbl'" != "`_val'") {
-					display `"{p}{text:`_val' :  `_lbl'}{p_end}"'
+		foreach l in `_lang'{
+			qui label language `l'
+			capture local _lblname: value label `varname'
+			if "`_lblname'"!= "" {
+				display "Value Labels `l':"
+				quietly label list `_lblname'
+				forvalues _val=`r(min)'/`r(max)'{
+					quietly local _lbl: label `_lblname' `_val'
+					if ("`_lbl'" != "`_val'") {
+						display `"{p}{text:`_val' :  `_lbl'}{p_end}"'
+					}
+				}
+			}
+			local _variable_type : type `varname'
+			if strpos("`_variable_type'", "str") == 1 {
+				local _values : char `varname'[labelled_values]
+				local _valuelabels : char `varname'[value_labels_`l']
+				if ( "`_values'" != ""){
+					display "Value Labels `l':"
+					while "`_values'" != "" {
+						if (strpos("`_values'", "<;>") >0) {
+							local _val = substr("`_values'", 1, strpos("`_values'", "<;>")-1)
+							local _values = substr("`_values'", strpos("`_values'", "<;>")+3, strlen("`_values'"))
+							local _lbl = substr("`_valuelabels'", 1, strpos("`_valuelabels'", "<;>")-1)
+							local _valuelabels = substr("`_valuelabels'", strpos("`_valuelabels'", "<;>")+3, strlen("`_valuelabels'"))
+						}
+						else {
+							local _val = "`_values'"
+							local _values=""
+							local _lbl = "`_valuelabels'"
+							local _labels_`l' = "" 
+						}
+						display `"{p}{text:`_val' :  `_lbl'}{p_end}"'
+					}
 				}
 			}
 		}
