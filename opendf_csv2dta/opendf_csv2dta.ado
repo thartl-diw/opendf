@@ -345,7 +345,7 @@ program define opendf_csv2dta
 			}
 		}
 
-		*Assign value labels to non-String Variables
+		*Assign value labels to Variables
 		forvalues i=1/`n_variable_to_label'{
 			capture confirm variable `_varname`i'', exact
 			if (_rc == 0){
@@ -361,9 +361,9 @@ program define opendf_csv2dta
 							}
 						}
 						else {
-							local _values = "`_values';`_var`i'_value`j''"
+							local _values = "`_values'<;>`_var`i'_value`j''"
 							forvalues l = 1/`language_counter'{
-								local _labels_`l' = "`_labels_`l'';`_var`i'_label`j'_lan`_language`l'''"
+								local _labels_`l' = "`_labels_`l''<;>`_var`i'_label`j'_lan`_language`l'''"
 							}
 						}
 					}
