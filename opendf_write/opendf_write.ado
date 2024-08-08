@@ -57,9 +57,14 @@ program define opendf_write
     foreach var of varlist * {
 	    capture confirm numeric variable `var'
 	    if (_rc == 0) {
-		    if `var' > . {
+		    capture assert `var' <= . , fast
+		    if (_rc  == 9) {
 			    local extensive_missings="TRUE"
-          replace `var'=. if `var'>.
+			    replace `var'=. if `var'>.
+		    }
+		    else if (_rc) {
+			    display as err  "unexpected error"
+			    exit _rc
 		    }
 	    }
     }
