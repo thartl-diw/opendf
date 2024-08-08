@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_write.ado: saves a Stata (.dta) dataset in the opendf format 
-*! version 2.0.0 August, 05 2024 - SSC Release
+*! version 2.0.0 - 08 August 2024 - SSC Release
 
 program define opendf_write 
     version 16
@@ -57,9 +57,14 @@ program define opendf_write
     foreach var of varlist * {
 	    capture confirm numeric variable `var'
 	    if (_rc == 0) {
-		    if `var' > . {
+		    capture assert `var' <= . , fast
+		    if (_rc  == 9) {
 			    local extensive_missings="TRUE"
-          replace `var'=. if `var'>.
+			    replace `var'=. if `var'>.
+		    }
+		    else if (_rc) {
+			    display as err  "unexpected error"
+			    exit _rc
 		    }
 	    }
     }

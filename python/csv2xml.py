@@ -1,4 +1,4 @@
-# version 2.0.0 (05 August 2024)
+# version 2.0.0 (08 August 2024)
 
 # Modules
 import csv
