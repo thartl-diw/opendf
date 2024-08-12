@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_docu.ado: displays metadata of variable or datasat
-*! version 2.0.0 - 08 August 2024 - SSC Release
+*! version 2.0.0 - 12 August 2024 - SSC Release
 
 
 program define opendf_docu 

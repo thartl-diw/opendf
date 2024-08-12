@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_write.ado: saves a Stata (.dta) dataset in the opendf format 
-*! version 2.0.0 - 08 August 2024 - SSC Release
+*! version 2.0.0 - 12 August 2024 - SSC Release
 
 program define opendf_write 
     version 16
@@ -45,12 +45,10 @@ program define opendf_write
     if (`"`variables'"' != "" & `"`variables'"'!= "all") {
 	  	    keep `variables'
 	  }
-    qui local output_folder= subinstr(`"`anything'"', ".zip", "", .)
-	  qui local output_folder: di `output_folder'
-    
+
     local wd: pwd
-    if (strpos("`output_folder'", "\")==0 & strpos("`output_folder'", "/")==0){
-      local output_folder= "`wd'/`output_folder'"
+    if (strpos("`output'", "\")==0 & strpos("`output'", "/")==0){
+      local output= "`wd'/`output'"
     }
     
     * check numeric variables for extended missings and replace extended missings with normal missings
@@ -76,7 +74,7 @@ program define opendf_write
 
 
     opendf_dta2csv, languages(`languages') input(`input') output_dir("`c(tmpdir)'")
-    capture opendf_csv2zip, output(`"`output_folder'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
+    capture opendf_csv2zip, output(`"`output'"') input("`c(tmpdir)'") variables_arg("yes") export_data("yes") `verbose'
     if (_rc != 0) {
 	  di as error "Error in writing `output'. There might be problems with the writing permissions in the output folder or with some metadata."
 	  if (`"`verbose'"' != "") {
