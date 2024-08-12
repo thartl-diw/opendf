@@ -15,7 +15,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_csv2zip.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
-*! version 2.0.0 - 08 August 2024 - SSC Release
+*! version 2.0.0 - 12 August 2024 - SSC Release
 
 program define opendf_csv2zip 
 	version 16
@@ -78,6 +78,8 @@ program define opendf_csv2zip
       di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
     }
     
+    
+    qui local output= subinstr(`"`output'"', ".zip", "", .)
     local output_dir = subinstr("`output'", "\", "/", .)
     local input_dir = subinstr("`input'", "\", "/", .)
     local _path_to_py_ado "`c(sysdir_plus)'py"
