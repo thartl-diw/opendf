@@ -67,7 +67,8 @@ program define opendf_zip2csv
     }
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     local output_dir = subinstr("`output_dir'", "\", "/", .)
-        if c(os) == "Windows" {
+    local _path_to_py_ado "`c(sysdir_plus)'py"
+    if c(os) == "Windows" {
         local _path_to_py_ado = subinstr("`_path_to_py_ado'", "\", "/", .)
     }
     else {
