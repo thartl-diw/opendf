@@ -27,6 +27,9 @@ program define opendf_read
   	*If the data.zip is a web path, the data is downloaded to the temp-folder
 	if strpos(`"`input'"', "http")>0 | strpos(`"`input'"', "www.")>0{
 		local _tempdir "`c(tmpdir)'"
+		if (substr("`_tempdir'", strlen("`_tempdir'"), strlen("`_tempdir'")) != "/" & substr("`_tempdir'", strlen("`_tempdir'"), strlen("`_tempdir'")) != "\"){
+			local _tempdir = "`_tempdir'/"
+    		}
 	  	local _path_to_data `"`_tempdir'data.zip"'
 		quietly: copy `input' `_path_to_data', replace
 		local input `_path_to_data'
