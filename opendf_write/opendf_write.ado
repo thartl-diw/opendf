@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_write.ado: saves a Stata (.dta) dataset in the opendf format 
-*! version 2.0.0 - 12 August 2024 - SSC Release
+*! version 2.0.0 - 13 August 2024 - SSC Release
 
 program define opendf_write 
     version 16

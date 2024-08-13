@@ -15,7 +15,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_csv2zip.ado: builds opendf_zip-file containing data.csv and metadata.xml from 4 csvs
-*! version 2.0.0 - 12 August 2024 - SSC Release
+*! version 2.0.0 - 13 August 2024 - SSC Release
 
 program define opendf_csv2zip 
 	version 16
@@ -28,7 +28,7 @@ program define opendf_csv2zip
       local input = "`c(tmpdir)'"
     }
 
-    if ("`input'" != "`c(tmpdir)'" | "`c(os)'"=="Unix"){
+    if (substr("`input'", strlen("`input'"), strlen("`input'")) != "/" & substr("`input'", strlen("`input'"), strlen("`input'")) != "\"){
       local input = "`input'/"
     }
 
@@ -79,8 +79,8 @@ program define opendf_csv2zip
     }
     
     
-    qui local output= subinstr(`"`output'"', ".zip", "", .)
-    local output_dir = subinstr("`output'", "\", "/", .)
+    qui local output_dir= subinstr(`"`output'"', ".zip", "", .)
+    local output_dir = subinstr("`output_dir'", "\", "/", .)
     local input_dir = subinstr("`input'", "\", "/", .)
     local _path_to_py_ado "`c(sysdir_plus)'py"
     if c(os) == "Windows" {
@@ -99,5 +99,9 @@ program define opendf_csv2zip
     python: csv2xml.export_data=Macro.getLocal('export_data')
     python: csv2xml.variables_arg=Macro.getLocal('variables_arg')
     python: csv2xml.csv2xml(input_dir=input_dir, output_dir=output_dir)
+    capture confirm file `"`output'"'
+    if _rc == 0 {
+      di "{text: Dataset successfully saved in opendf-format to {it:`output'}.}"
+    }
 end
 
