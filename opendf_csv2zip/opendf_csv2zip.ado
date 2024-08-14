@@ -82,12 +82,28 @@ program define opendf_csv2zip
     qui local output_dir= subinstr(`"`output'"', ".zip", "", .)
     local output_dir = subinstr("`output_dir'", "\", "/", .)
     local input_dir = subinstr("`input'", "\", "/", .)
+   
     local _path_to_py_ado "`c(sysdir_plus)'py"
     if c(os) == "Windows" {
         local _path_to_py_ado = subinstr("`_path_to_py_ado'", "\", "/", .)
     }
     else {
         local _path_to_py_ado = "`_path_to_py_ado'"
+    }
+    if (fileexists("`_path_to_py_ado'/csv2xml.py")!=1) {
+	if ("`c(os)'"=="Unix" ){
+		local _site "`c(sysdir_site)'"
+	        local _username "`c(username)'"
+	        local _path_to_py_ado "`_site'plus/py"
+	        local _path_to_py_ado subinstr("`_path_to_py_ado'", "/usr", "/home/`_username'", .)
+	        local _path_to_py_ado: di `_path_to_py_ado'
+	        local _path_to_py_ado subinstr("`_path_to_py_ado'", "\", "/", .)
+	        local _path_to_py_ado: di `_path_to_py_ado'
+    	}
+	if (fileexists("`_path_to_py_ado'/csv2xml.py")!=1){
+		di as error("Error in finding the python script")
+		exit
+	}
     }
 
     python: import sys
