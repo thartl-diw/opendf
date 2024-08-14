@@ -73,7 +73,7 @@ program define opendf_zip2csv
     else {
         local _path_to_py_ado = "`_path_to_py_ado'"
     }
-    if (fileexists("`_path_to_py_ado'xml2csv.py")!=1) {
+    if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1) {
 	if ("`c(os)'"=="Unix" ){
 		local _site "`c(sysdir_site)'"
 	        local _username "`c(username)'"
@@ -83,7 +83,7 @@ program define opendf_zip2csv
 	        local _path_to_py_ado subinstr("`_path_to_py_ado'", "\", "/", .)
 	        local _path_to_py_ado: di `_path_to_py_ado'
     	}
-	if (fileexists("`_path_to_py_ado'xml2csv.py")!=1){
+	if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1){
 		di as error("Error in finding the python script")
 		exit
 	}
