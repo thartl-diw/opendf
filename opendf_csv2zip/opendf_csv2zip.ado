@@ -91,12 +91,10 @@ program define opendf_csv2zip
     if c(os) == "Windows" {
         local _path_to_py_ado = subinstr("`_path_to_py_ado'", "\", "/", .)
     }
-    else {
-	if (fileexists("`_path_to_py_ado'/csv2xml.py")!=1) {
-	    if ("`c(os)'"=="Unix" ){
-		local _username "`c(username)'"
-		local _path_to_py_ado = subinstr("`_path_to_py_ado'", "~", "/home/`_username'", .)
-	    }
+    if (fileexists("`_path_to_py_ado'/csv2xml.py")!=1) {
+	if ("`c(os)'"=="Unix" ){
+	    local _username "`c(username)'"
+	    local _path_to_py_ado = subinstr("`_path_to_py_ado'", "~", "/home/`_username'", .)
 	}
     }
     if (fileexists("`_path_to_py_ado'/csv2xml.py")!=1){

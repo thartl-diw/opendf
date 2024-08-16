@@ -74,12 +74,10 @@ program define opendf_zip2csv
     if c(os) == "Windows" {
         local _path_to_py_ado = subinstr("`_path_to_py_ado'", "\", "/", .)
     }
-    else {
-	if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1) {
-	    if ("`c(os)'"=="Unix" ){
-		local _username "`c(username)'"
-		local _path_to_py_ado = subinstr("`_path_to_py_ado'", "~", "/home/`_username'", .)
-	    }
+    if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1) {
+	if ("`c(os)'"=="Unix" ){
+	    local _username "`c(username)'"
+	    local _path_to_py_ado = subinstr("`_path_to_py_ado'", "~", "/home/`_username'", .)
 	}
     }
     if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1){
