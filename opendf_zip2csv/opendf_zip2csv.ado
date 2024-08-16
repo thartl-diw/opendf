@@ -52,17 +52,18 @@ program define opendf_zip2csv
         if (`verboseit'==1) di "Working Python Version available."
     }
     else {
-      di "{red: Warning: Could not find a python installation >= 2.7 on the current machine.}"
+      di "{red: Error: Python integration in Stata not available.}"
       di "{red: 1. To install python visit:}"
       di `"{p 10 10}{Stata "view browse https://www.python.org/downloads/":https://www.python.org/downloads/}{p_end}"'
       di "{red: 2. If you have a working python version on your PC but Stata doesn't find it automatically, you can activate it manually by indicating which python.exe to use with following command:}"
       di "{p 10 10}{red: {it:set python_exec  C:\...\python.exe}}{p_end}"
       di "{p 10 10}{red: and retry to run the opendf-function.}{p_end}"
       di "{red: 3. If you are using Windows, the opendf package also provides a function that installs a working python version to a specified path or to the directory of Stata packages (ado\plus folder).}"
-      di "{p 10 10}{red: If you want to install python through the build-in opendf-function, run: {it:opendf installpython}}{p_end}"
+      di "{p 10 10}{red: If you are running on Windows you can install python through the build-in opendf-function: {it:opendf installpython}}{p_end}"
       di `"{p 10 10}{red: You can specifiy a version with the argument {it:opendf installpython, version("3.8")}}{p_end}"'
       di `"{p 10 10}{red: You can specifiy a location to install python with the argument {it:opendf installpython, location("C:\Program Files\Python\Python3.8")}}{p_end}"'
       di `"{p 10 10}{red: If you specify the location manually, you have to tell Stata where the python.exe is located (see 2.)")}{p_end}"'
+      exit
     }
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     local output_dir = subinstr("`output_dir'", "\", "/", .)
