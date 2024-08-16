@@ -66,27 +66,25 @@ program define opendf_zip2csv
     }
     local input_zip = subinstr("`input_zip'", "\", "/", .)
     local output_dir = subinstr("`output_dir'", "\", "/", .)
-    local _path_to_py_ado "`c(sysdir_plus)'py"
+    local _ado_path  "`c(sysdir_plus)'"
+    if (substr("`_ado_path'", strlen("`_ado_path'"), strlen("`_ado_path'")) != "/" & substr("`_ado_path'", strlen("`_ado_path'"), strlen("`_ado_path'")) != "\"){
+	local _ado_path = "`_ado_path'/"
+    }
+    local _path_to_py_ado "`_ado_path'py"
     if c(os) == "Windows" {
         local _path_to_py_ado = subinstr("`_path_to_py_ado'", "\", "/", .)
     }
     else {
-        local _path_to_py_ado = "`_path_to_py_ado'"
-    }
-    if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1) {
-	if ("`c(os)'"=="Unix" ){
-		local _site "`c(sysdir_site)'"
-	        local _username "`c(username)'"
-	        local _path_to_py_ado "`_site'plus/py"
-	        local _path_to_py_ado subinstr("`_path_to_py_ado'", "/usr", "/home/`_username'", .)
-	        local _path_to_py_ado: di `_path_to_py_ado'
-	        local _path_to_py_ado subinstr("`_path_to_py_ado'", "\", "/", .)
-	        local _path_to_py_ado: di `_path_to_py_ado'
-    	}
-	if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1){
-		di as error("Error in finding the python script")
-		exit
+	if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1) {
+	    if ("`c(os)'"=="Unix" ){
+		local _username "`c(username)'"
+		local _path_to_py_ado = subinstr("`_path_to_py_ado'", "~", "/home/`_username'", .)
+	    }
 	}
+    }
+    if (fileexists("`_path_to_py_ado'/xml2csv.py")!=1){
+	di as error("Error in finding the python script")
+	exit
     }
     
     python: from sfi import Macro
