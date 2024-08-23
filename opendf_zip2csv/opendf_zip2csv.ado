@@ -16,7 +16,7 @@
 
 -----------------------------------------------------------------------------------*/
 *! opendf_zip2csv.ado: loads data from csvs including meta data to build a Stata dataset
-*! version 2.0.0 - 13 August 2024 - SSC Release
+*! version 2.0.0 - 23 August 2024 - SSC Release
 
 program define opendf_zip2csv 
     version 16
@@ -88,6 +88,7 @@ program define opendf_zip2csv
     
     python: from sfi import Macro
     python: import sys
+    python: import os
     python: input_zip=Macro.getLocal('input_zip')
     python: languages=Macro.getLocal('languages')
     python: output_dir=Macro.getLocal('output_dir')
