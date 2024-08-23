@@ -104,6 +104,7 @@ program define opendf_csv2zip
     }
 
     python: import sys
+    python: import os
     python: from sfi import Macro
     python: input_dir=Macro.getLocal('input_dir')
     python: output_dir=Macro.getLocal('output_dir')
