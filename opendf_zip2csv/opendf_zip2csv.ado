@@ -88,6 +88,7 @@ program define opendf_zip2csv
     
     python: from sfi import Macro
     python: import sys
+    python: import os
     python: input_zip=Macro.getLocal('input_zip')
     python: languages=Macro.getLocal('languages')
     python: output_dir=Macro.getLocal('output_dir')
