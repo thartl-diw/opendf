@@ -4,7 +4,7 @@
 
 
 $${\color{red}This \space version \space of \space the \space Stata \space package \space is \space opendf \space is \space depreciated.}$$ 
-You can find the current version of the stata Package [here](https://github.com/opendataformat/stata-package-opendf).}$$
+$${\color{red}You can find the current version of the stata Package [here](https://github.com/opendataformat/stata-package-opendf).}$$
 ```
 
 ## Overview
