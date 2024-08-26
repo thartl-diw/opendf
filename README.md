@@ -1,6 +1,6 @@
 # opendataformat 
 
-## <span style="color:red"> Warning - Depreciated Version</span>
+## $${\color{red} Warning - Depreciated\ Version}$$ 
 
 
 $${\color{red}This \space version \space of \space the \space Stata \space package \space is \space opendf \space is \space depreciated.}$$ 
