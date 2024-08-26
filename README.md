@@ -1,5 +1,11 @@
 # opendataformat 
 
+## $${\color{red} Warning - Depreciated \space Version}$$ 
+
+
+$${\color{red}This \space version \space of \space the \space Stata \space package \space is \space opendf \space is \space depreciated. \space You \space can \space find \space the \space current \space version \space of \space the \space stata \space Package}$$  [*here*](https://github.com/opendataformat/stata-package-opendf)
+
+
 ## Overview
 
 The `opendataformat` package is specifically designed to facilitate the seamless utilization of the Open Data Format. 
