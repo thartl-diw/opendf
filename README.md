@@ -4,7 +4,7 @@
 
 ```diff
 - This version of the Stata package is opendf is depreciated.
-You can find the current version of the stata Package [here](https://github.com/opendataformat/stata-package-opendf).
+- You can find the current version of the stata Package [here](https://github.com/opendataformat/stata-package-opendf).
 ```
 
 ## Overview
